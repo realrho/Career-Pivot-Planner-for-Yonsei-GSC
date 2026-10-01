@@ -1,88 +1,81 @@
-# 프로젝트 설계서 · 고객·범위·계약·아키텍처
+# Enterprise AI Knowledge & Risk Copilot · 2주 MVP 설계
 
-> **프로젝트:** Enterprise AI Knowledge & Risk Copilot. 두 가상 SaaS 사업부의 합성 정책·사례로 ‘근거 검색→분석→불확실/고위험 검토’ 업무를 구현한다. 이 고객 시나리오는 기존 프로젝트를 구체화한 학습 가정이다.
+## 해결할 고객 문제와 범위
 
-## 고객·문제·가치
+정책을 읽는 담당자가 같은 질문에 일관된 근거를 찾고, 근거 없는 답은 보류하며, 고위험 사례는 권한 있는 검토자가 결정하도록 돕는다. 대상은 **합성 텍스트 정책 12–24개, tenant 2개, 한 활성 정책 버전**이다. 개인/회사 비공개 자료는 사용하지 않는다.
 
-지원 담당자는 여러 버전의 정책에서 조건을 찾기 어렵고, 위험한 예외는 검토자에게 넘겨야 한다. 고객 목표는 출처를 확인할 수 있는 분석 초안과 검토 이유를 제공하는 것이다. 실제 고객 시간 절감/채용 성과는 측정하지 않았다. 합성 corpus의 제품 행동과 기술 품질부터 검증한다.
+W1–W8은 학습과 모듈 준비, W9–W10은 **준비된 모듈의 통합·검증·시연 44시간**이다. 기존처럼 GPU학습·Milvus·Redis·LangGraph·여러 모델·AWS/K8s 운영을 한 번에 완성하는 범위는 2주 필수에서 제외했다.
 
-**사용자:** support analyst, reviewer, system operator. **입력:** 합성 사례 텍스트·신뢰된 tenant/user 컨텍스트. **출력:** status·decision·rationale·evidence IDs/sections·policy version·review reason·trace ID.
+## 필수 결과와 선택 확장
 
-## 3개 최종 데모
-
-1. 정상: 정책 근거가 있는 사례→최신 허용 문서→근거 포함 구조화된 답변.
-2. 근거 부족: corpus 밖 질문→INSUFFICIENT_EVIDENCE→추측 결론 없음.
-3. 고위험: 충분한 근거가 있어도 HUMAN_REVIEW→권한 있는 승인/수정→재개→audit. 재시작·중복 승인을 검증한다.
-
-## 범위와 성공 기준
-
-필수는 API·문서 ingestion·Milvus 검색·citation RAG·bounded graph·HITL·guardrail·평가·모델/비용 비교·로컬 배포·데모다. 선택 심화는 reranker·query rewrite·실제 cloud·local K8s·GPU/vLLM/LoRA다. 선택 과정으로 핵심 gate를 대신하지 않는다.
-
-| 요구사항 | 설계/검증 |
+| 필수 MVP | 선택 확장 |
 |---|---|
-| 문서·사례 수집 | 24개 합성 정책·manifest·안정 ID·version·중복 방지 |
-| 근거 검색 | trusted tenant/활성 version 필터를 모든 검색 경로에 강제 |
-| 답변·보류 | 허용 context citation·schema·조건 검증 / 근거 부족 종료 |
-| 에이전트 | read-only tool 3개·최대 호출/retry/deadline·trace |
-| 사람 검토 | durable pause/resume·reviewer 권한·중복 승인·audit |
-| 평가 | W3 50개/W5 200개 synthetic·family split·원본 결과 |
-| 성능 목표 | 자동응답 경로 P95 5초 목표. 실제 환경·concurrency·표본과 분리 |
-| 보안 gate | 시험 범위에서 cross-tenant leak/무권한 변경/위조 citation 0 |
-| 재현 | 고정 버전·clean setup·full stack·restart/restore |
-| 비용 | 실usage·단가 출처/날짜·per 1K attempts/success·budget cap |
+| FastAPI 입력/결과/조회와 명확한 오류 | 풍부한 웹 UI |
+| 실제 모델 1경로 + 검색 backend 1개 | 여러 공급자/모델 비교 |
+| 근거 인용·보류·고위험 검토의 3경로 | 멀티모달·다중 에이전트 |
+| 서버 신원/tenant/role 검증·검토 권한 | 공개 서비스용 OIDC 통합 심화 |
+| PostgreSQL 사례/검토/감사와 원자적 갱신 | 별도 worker/큐/outbox 운영 |
+| 실제 검색의 tenant/활성version 조건 | 두 번째 벡터 DB·임베딩 미세 조정 |
+| Compose 기동·지속성·별도 백업 복원 | 실제 AWS 배포·Kubernetes HA |
+| dev20 + 동결 holdout30 질문, raw결과/조건 | 200+질문·독립 전문가 평가 |
+| 최소 구조화 로그·CI·ADR·5분 데모 | Redis/전체 OTel/자동 비용 라우팅 |
 
+책의 Pinecone를 선택하면 외부 의존성/비용/데이터 경계를 명시한다. Milvus를 선택하면 지원 환경과 운영 시간을 확인한다. W8까지 검증한 하나를 쓰고, 실제 모델 접근이 없으면 fixture 프로토타입까지만 완료했다고 표시한다.
 
+## 논리 아키텍처
 
-품질 수치는 기준선과 개선을 비교하고 subset·표본을 공개한다. 목표를 못 맞췄으면 root cause·trade-off·다음 실험을 쓰며 달성한 것처럼 표시하지 않는다.
+```mermaid
+flowchart LR
+ U["담당자 / 검토자"] --> A["API: 신원·tenant·role"]
+ A --> W["제한된 분석 workflow"]
+ W --> R["활성 버전 근거 검색"]
+ R --> V["벡터 backend 한 개"]
+ W --> L["모델 한 경로"]
+ W --> G["형식·인용·위험 검증"]
+ G --> D["PostgreSQL: 사례·검토·감사"]
+ G --> O["응답 / 보류 / 검토 대기"]
+ A --> D
+```
 
-## 목표 아키텍처: 현재 구현과 구분
+배포 설계는 공개 API 입구와 비공개 DB를 분리한다. 로컬 demo는 서버가 보관한 테스트 신원 매핑을 사용하고 실제 인터넷용 인증과 구분한다. 공개 배포를 선택하면 검증된 issuer/audience/서명/만료와 비밀 관리가 추가 조건이다.
 
-~~~mermaid
-flowchart TD
-    U["사용자 / Demo"] --> API["FastAPI: schema + trusted scope"]
-    API --> S["Case service / bounded workflow"]
-    S --> R["Retriever: tenant + active version"]
-    R --> V["Milvus + synthetic policies"]
-    S --> G["LLM adapter / read-only tools"]
-    G --> O["Output + citation + risk gate"]
-    O --> A["Answer / insufficient evidence"]
-    O --> H["HITL review + durable resume"]
-    S --> P["PostgreSQL cases / reviews / audit / checkpoint"]
-    R --> C["Redis scoped/versioned cache"]
-    S --> T["Trace / metrics / eval reports"]
-~~~
+## API·상태 계약
 
-**현재 원격 코드 확인:** app/main.py는 GET /health·POST /cases/analyze·GET /cases/{case_id} 뼈대이고, in-memory ID/status만 저장한다. 기존 테스트 4개다. 실제 AI 분석·영속성·Milvus·LangGraph·HITL·Redis·배포는 앞으로 구현/검증할 범위다. 위 그림은 목표 구조다.
-
-## 단계별 계약
-
-**cases:** case_id, request_id, trusted tenant, text/redaction strategy, status, proposed decision, created_at, revision. **reviews:** review_id, case_id, assigned scope, reason, decision, reviewer, timestamp, revision. **evidence:** chunk_id, policy_id/version, section_id, tenant_id, source/provenance, effective_at, hash, embedding/index version.
-
-목표 endpoint는 /search, /cases/analyze, /cases/{case_id}, /reviews/{review_id}/decision, /health/live, /health/ready다. 현재 endpoint와 신규 endpoint를 docs/contracts.md에 나눠 쓴다. W1 상태/API 계약→W2 검색 계약→W3 생성 schema→W4 graph/tool 계약→W5 승인 계약 순서로 고정한다.
-
-## 선택과 대가
-
-| 선택 | 이유 | 대가·재검토 |
+| 동작 | 목표 결과 | 실패/경계 |
 |---|---|---|
-| FastAPI | 타입 계약·API 통합·테스트 | CPU/장기 작업은 worker 경로 재검토 |
-| RAG | 정책 갱신·근거 추적 | 검색 누락·권한/버전 관리 필요 |
-| Milvus | 기존 계획의 vector DB 실습 | Windows/리소스 제약. small-scale 대안 비교 |
-| LangGraph 제한 흐름 | 복잡한 업무·HITL 상태 추적 | durable state·retry 부작용 관리 |
-| PostgreSQL | 사례/승인 일관성·공유 상태 | migration/transaction/backup 필요 |
-| Redis | 반복 검색/답변 지연 감소 | tenant/version key·invalidations·PII 검토 |
-| API 모델 2개 | GPU 없이 실품질/비용 비교 | rate limit·data transfer·usage 요금 의존 |
-| 로컬 Compose | 재현/장애 연습 | HA/cloud 운영 성과와 구분 |
+| POST /cases/analyze | 유효 입력 접수·ID 반환, 분석 경로 진행 | 잘못된 입력422; 202는 접수 의미 |
+| GET /cases/{id} | 같은 tenant 사례의 저장된 상태·결과 | 없거나 허용되지 않은 사례404 |
+| POST /cases/{id}/reviews | reviewer가 대기 사례 승인/거절 | 인증/인가 실패401/403; 상태/version충돌409 |
+| GET /health | 프로세스 응답200 | 의존성 준비까지 보장하지 않음 |
+| GET /readiness | 핵심 의존성 준비200 | 준비 실패503 |
 
+RECEIVED → ANALYZED → ANSWERED / ABSTAINED / REVIEW_PENDING.
+REVIEW_PENDING → APPROVED / REJECTED는 검토자만 실행한다. 기술 처리 실패는 FAILED이며 답변 보류와 구분한다. API가 비동기 접수202를 유지하면 지속 작업 기록/재개 경로가 필요하다. 인메모리 BackgroundTasks만으로 내구성 있는 처리라고 보고하지 않는다. 짧은 동기 분석으로 바꾸는 경우 HTTP/응답 계약 변경을 ADR에 남긴다.
 
+```json
+{
+  "case_id": "case-001",
+  "status": "REVIEW_PENDING",
+  "answer": null,
+  "evidence_ids": ["tenant-a:refund:v2:chunk-1"],
+  "review_reason": "HIGH_RISK",
+  "case_version": 2,
+  "run_id": "run-001"
+}
+```
 
-## 상태·운영·데이터 경계
+예시 JSON은 목표 계약이다. tenant/actor는 서버가 검증한 신원 컨텍스트에서 얻고 본문의 값을 권한으로 신뢰하지 않는다. 근거는 source/version/chunk와 연결하고 모델이 만든 임의 ID는 거부한다.
 
-RECEIVED → PROCESSING → COMPLETED / INSUFFICIENT_EVIDENCE / HUMAN_REVIEW / FAILED. HTTP 202는 접수이며 업무 완료가 아니다. HUMAN_REVIEW는 검토자 승인까지 대기하고 재시작/중복에서 같은 상태를 유지해야 한다.
+## 반드시 확인할 실패 조건
 
-공개 또는 직접 작성한 synthetic data만 사용한다. 회사 정책·스크린샷·실사용자 개인정보·내부 지표를 corpus에 넣지 않는다. 공개 자료는 링크/라이선스/사용 범위를 확인하고 필요한 발췌만 사용한다. 모델로 보낼 데이터와 logs/cache/audit 보존 항목을 따로 정의한다.
+다른 tenant/비활성 정책의 검색 근거, 없는 인용 ID, 근거와 다른 답, 근거 부족, 모델timeout/형식오류, viewer승인, 최종상태 중복검토, 동시검토, 감사저장실패, DB재시작/복원. 보류와 검토는 실제 결과 종류이며 통신 오류를 성공한 보류로 숨기지 않는다.
 
-## 증거·출시 한계
+## 평가·완료 판단
 
-교육용 단가·fixture·설계 문서는 실제 고객 성능/비용/운영 결과가 아니다. 실클라우드·GPU는 별도 접근/예산/실행 검증이 필요하다. 이 포트폴리오를 production-ready라고 단정하지 않고 검증 환경과 남은 gaps를 전달한다.
+dev20은 설정 선택에 사용한다. 최종30 holdout은 질문·gold근거·답변가능여부를 동결하고 설정 선택에서 분리한다. 50은 두 세트 합계로 보고한다. 검색 Recall/MRR, 근거 의미 일치, 보류 적절성, 형식 성공, 권한/전이, P50/P95, 성공 요청당 비용, 검토 비율을 분리한다. 목표 수치는 W8에 데이터/모델/환경/동시성 조건과 동결하며 실제 미달값도 남긴다.
 
-공식 근거: [AWS GenAI lens](https://docs.aws.amazon.com/wellarchitected/latest/generative-ai-lens/generative-ai-lens.html), [Milvus Windows/환경](https://milvus.io/docs/prerequisite-docker.md), [LangGraph workflow](https://docs.langchain.com/oss/python/langgraph/workflows-agents), [interrupt](https://docs.langchain.com/oss/python/langgraph/interrupts), [OWASP 위험 분류](https://owasp.org/projects/top-10-for-large-language-model-applications).
+권한·필터·전이 필수 회귀가 실패하면 안전 gate를 완료하지 않는다. 작은 합성 평가의 통과는 실제 기업 운영/모든 공격에 대한 보장이 아니다. 자체 수용 기준 통과와 품질 목표 달성도 구분해 보고한다.
+
+W8 6가지 준비 자산이 미완료면 W9 시작을 옮기거나 범위를 줄인다. 제작2주는 조건부 추정이다. GPU미세조정·실제클라우드·멀티모달 미실행은 포트폴리오의 '다음 단계'에 적는다.
+
+[W9 통합 레시피](curriculum/week-09.md) · [W10 최종 검증](curriculum/week-10.md) · [준비 학습표](curriculum/README.md)

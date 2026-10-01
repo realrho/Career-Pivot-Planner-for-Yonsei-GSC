@@ -1,0 +1,374 @@
+{
+  "version": "book-first-10-week-v2",
+  "prepared_on": "2026-10-02",
+  "repository": "realrho/Enterprise-AI-Knowledge-Risk-Copilot",
+  "base_commit": "29f5060a6ccecd0524632dfcc10caa32470f0669",
+  "planning_hours_per_week": 22,
+  "notion_root": "3ebc6f4a-2c7e-81dc-a9d6-f2cf630b9602",
+  "notion_archive": "3ecc6f4a-2c7e-8170-b4be-e80fc7705236",
+  "resource_pages": [
+    {
+      "id": "3ecc6f4a-2c7e-815c-876f-c4ade47c16cb",
+      "url": "https://app.notion.com/p/3ecc6f4a2c7e815c876fc4ade47c16cb?pvs=204",
+      "properties": {
+        "title": "책 원문 목차 · 16장 주차 배정"
+      }
+    },
+    {
+      "id": "3ecc6f4a-2c7e-8104-8381-fefb26e895fb",
+      "url": "https://app.notion.com/p/3ecc6f4a2c7e81048381fefb26e895fb?pvs=204",
+      "properties": {
+        "title": "영어·한글 기술 용어 사전 · 107항목"
+      }
+    },
+    {
+      "id": "3ecc6f4a-2c7e-8172-b78d-f1b0b2b31cd8",
+      "url": "https://app.notion.com/p/3ecc6f4a2c7e8172b78df1b0b2b31cd8?pvs=204",
+      "properties": {
+        "title": "책 내용과 SA 보충 범위 · 학습 선택 기준"
+      }
+    }
+  ],
+  "weeks": [
+    {
+      "week": 1,
+      "start": "2026-10-02",
+      "due": "2026-10-08",
+      "notion_id": "3ebc6f4a-2c7e-817e-9b59-e2ed884085ed",
+      "jira": "SCRUM-6",
+      "github_issue": 1,
+      "subtasks": [
+        {
+          "key": "SCRUM-14",
+          "title": "책 1·2·3장 읽기·개념 노트",
+          "hours": 6,
+          "dependsOn": null
+        },
+        {
+          "key": "SCRUM-15",
+          "title": "책 필수 실습·환경/결과 기록",
+          "hours": 6,
+          "dependsOn": "SCRUM-14"
+        },
+        {
+          "key": "SCRUM-16",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
+          "hours": 8,
+          "dependsOn": "SCRUM-15"
+        },
+        {
+          "key": "SCRUM-17",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
+          "hours": 2,
+          "dependsOn": "SCRUM-16"
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "start": "2026-10-09",
+      "due": "2026-10-15",
+      "notion_id": "3ebc6f4a-2c7e-819f-ae0c-d5cb69a99181",
+      "jira": "SCRUM-7",
+      "github_issue": 2,
+      "subtasks": [
+        {
+          "key": "SCRUM-18",
+          "title": "책 4·5·6장 읽기·개념 노트",
+          "hours": 6,
+          "dependsOn": "SCRUM-6"
+        },
+        {
+          "key": "SCRUM-19",
+          "title": "책 필수 실습·환경/결과 기록",
+          "hours": 6,
+          "dependsOn": "SCRUM-18"
+        },
+        {
+          "key": "SCRUM-20",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
+          "hours": 8,
+          "dependsOn": "SCRUM-19"
+        },
+        {
+          "key": "SCRUM-21",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
+          "hours": 2,
+          "dependsOn": "SCRUM-20"
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "start": "2026-10-16",
+      "due": "2026-10-22",
+      "notion_id": "3ebc6f4a-2c7e-8116-b6d0-e972f595de78",
+      "jira": "SCRUM-8",
+      "github_issue": 3,
+      "subtasks": [
+        {
+          "key": "SCRUM-22",
+          "title": "책 7·8장 읽기·개념 노트",
+          "hours": 6,
+          "dependsOn": "SCRUM-7"
+        },
+        {
+          "key": "SCRUM-23",
+          "title": "책 필수 실습·환경/결과 기록",
+          "hours": 6,
+          "dependsOn": "SCRUM-22"
+        },
+        {
+          "key": "SCRUM-24",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
+          "hours": 8,
+          "dependsOn": "SCRUM-23"
+        },
+        {
+          "key": "SCRUM-25",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
+          "hours": 2,
+          "dependsOn": "SCRUM-24"
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "start": "2026-10-23",
+      "due": "2026-10-29",
+      "notion_id": "3ebc6f4a-2c7e-81b7-98f7-e962553f93f9",
+      "jira": "SCRUM-9",
+      "github_issue": 4,
+      "subtasks": [
+        {
+          "key": "SCRUM-26",
+          "title": "책 9·10장 읽기·개념 노트",
+          "hours": 6,
+          "dependsOn": "SCRUM-8"
+        },
+        {
+          "key": "SCRUM-27",
+          "title": "책 필수 실습·환경/결과 기록",
+          "hours": 6,
+          "dependsOn": "SCRUM-26"
+        },
+        {
+          "key": "SCRUM-28",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
+          "hours": 8,
+          "dependsOn": "SCRUM-27"
+        },
+        {
+          "key": "SCRUM-29",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
+          "hours": 2,
+          "dependsOn": "SCRUM-28"
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "start": "2026-10-30",
+      "due": "2026-11-05",
+      "notion_id": "3ebc6f4a-2c7e-817e-9825-cec827df9013",
+      "jira": "SCRUM-10",
+      "github_issue": 5,
+      "subtasks": [
+        {
+          "key": "SCRUM-30",
+          "title": "책 11·12장 읽기·개념 노트",
+          "hours": 6,
+          "dependsOn": "SCRUM-9"
+        },
+        {
+          "key": "SCRUM-31",
+          "title": "책 필수 실습·환경/결과 기록",
+          "hours": 6,
+          "dependsOn": "SCRUM-30"
+        },
+        {
+          "key": "SCRUM-32",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
+          "hours": 8,
+          "dependsOn": "SCRUM-31"
+        },
+        {
+          "key": "SCRUM-33",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
+          "hours": 2,
+          "dependsOn": "SCRUM-32"
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "start": "2026-11-06",
+      "due": "2026-11-12",
+      "notion_id": "3ebc6f4a-2c7e-8156-b65d-dfe5240f458e",
+      "jira": "SCRUM-11",
+      "github_issue": 6,
+      "subtasks": [
+        {
+          "key": "SCRUM-34",
+          "title": "책 13장 읽기·개념 노트",
+          "hours": 6,
+          "dependsOn": "SCRUM-10"
+        },
+        {
+          "key": "SCRUM-35",
+          "title": "책 필수 실습·환경/결과 기록",
+          "hours": 6,
+          "dependsOn": "SCRUM-34"
+        },
+        {
+          "key": "SCRUM-36",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
+          "hours": 8,
+          "dependsOn": "SCRUM-35"
+        },
+        {
+          "key": "SCRUM-37",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
+          "hours": 2,
+          "dependsOn": "SCRUM-36"
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "start": "2026-11-13",
+      "due": "2026-11-19",
+      "notion_id": "3ebc6f4a-2c7e-8190-9714-e0d4739b893f",
+      "jira": "SCRUM-12",
+      "github_issue": 7,
+      "subtasks": [
+        {
+          "key": "SCRUM-38",
+          "title": "책 14·15장 읽기·개념 노트",
+          "hours": 6,
+          "dependsOn": "SCRUM-11"
+        },
+        {
+          "key": "SCRUM-39",
+          "title": "책 필수 실습·환경/결과 기록",
+          "hours": 6,
+          "dependsOn": "SCRUM-38"
+        },
+        {
+          "key": "SCRUM-40",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
+          "hours": 8,
+          "dependsOn": "SCRUM-39"
+        },
+        {
+          "key": "SCRUM-41",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
+          "hours": 2,
+          "dependsOn": "SCRUM-40"
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "start": "2026-11-20",
+      "due": "2026-11-26",
+      "notion_id": "3ebc6f4a-2c7e-81aa-88be-ca3d312c0854",
+      "jira": "SCRUM-13",
+      "github_issue": 8,
+      "subtasks": [
+        {
+          "key": "SCRUM-42",
+          "title": "책 16장 읽기·개념 노트",
+          "hours": 6,
+          "dependsOn": "SCRUM-12"
+        },
+        {
+          "key": "SCRUM-43",
+          "title": "책 필수 실습·환경/결과 기록",
+          "hours": 6,
+          "dependsOn": "SCRUM-42"
+        },
+        {
+          "key": "SCRUM-44",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
+          "hours": 8,
+          "dependsOn": "SCRUM-43"
+        },
+        {
+          "key": "SCRUM-45",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
+          "hours": 2,
+          "dependsOn": "SCRUM-44"
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "start": "2026-11-27",
+      "due": "2026-12-03",
+      "notion_id": "3ecc6f4a-2c7e-8121-89a5-fad40b9b3f33",
+      "jira": "SCRUM-47",
+      "github_issue": 9,
+      "subtasks": [
+        {
+          "key": "SCRUM-49",
+          "title": "범위·계약·환경 동결과 통합 입력 준비",
+          "hours": 5,
+          "dependsOn": "SCRUM-13"
+        },
+        {
+          "key": "SCRUM-50",
+          "title": "tenant·버전 검색과 실제 모델 근거 응답 통합",
+          "hours": 6,
+          "dependsOn": "SCRUM-49"
+        },
+        {
+          "key": "SCRUM-51",
+          "title": "영속 상태·검토 권한·감사 원자성 통합",
+          "hours": 6,
+          "dependsOn": "SCRUM-50"
+        },
+        {
+          "key": "SCRUM-52",
+          "title": "정상·보류·검토 통합 회귀와 장애 처리",
+          "hours": 5,
+          "dependsOn": "SCRUM-51"
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "start": "2026-12-04",
+      "due": "2026-12-10",
+      "notion_id": "3ecc6f4a-2c7e-819b-9b43-f0b0f71f1323",
+      "jira": "SCRUM-48",
+      "github_issue": 10,
+      "subtasks": [
+        {
+          "key": "SCRUM-53",
+          "title": "50질문 평가·실패 분석·지연/비용 측정",
+          "hours": 5,
+          "dependsOn": "SCRUM-47"
+        },
+        {
+          "key": "SCRUM-54",
+          "title": "깨끗한 기동·재시작·백업 복원·CI 검증",
+          "hours": 6,
+          "dependsOn": "SCRUM-53"
+        },
+        {
+          "key": "SCRUM-55",
+          "title": "README·ADR·아키텍처·평가 보고서 정리",
+          "hours": 6,
+          "dependsOn": "SCRUM-54"
+        },
+        {
+          "key": "SCRUM-56",
+          "title": "5분 데모·영어 설명·최종 수용 기준 확인",
+          "hours": 5,
+          "dependsOn": "SCRUM-55"
+        }
+      ]
+    }
+  ]
+}

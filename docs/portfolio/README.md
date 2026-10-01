@@ -1,25 +1,12 @@
-# Portfolio packaging checklist (W8 planned delivery)
+# 포트폴리오 완료 체크
 
-This file is a checklist, not a completed slide deck or recorded demo.
+학습8주+제작2주 MVP는 합성 텍스트정책의 근거응답·보류·권한있는검토를 시연한다. GPU학습·클라우드·멀티모달 미실행은 다음 단계로 남긴다.
 
-- [ ] Runnable bounded copilot: normal, insufficient-evidence and authorized-review paths.
-- [ ] Customer requirements and API/state contracts.
-- [ ] Architecture with ADRs and revisit conditions.
-- [ ] Synthetic dev/holdout evaluation and failure analysis.
-- [ ] Real model latency/quality/usage/cost comparison.
-- [ ] Guardrail, threat model and operations runbook.
-- [ ] Measured five-minute English demo and interview answers.
+- 고객문제와 FR/NFR·책 학습에서 적용한 기술·SA 보충의 이유
+- 논리/네트워크 아키텍처, 모델/backend/workflow ADR와 교체 조건
+- 새환경 재현명령, API/DB/검색/권한/상태/복구 증거
+- dev20/holdout30의 raw평가·실패유형·측정 조건·지연/실제비용
+- 정상근거/보류/검토의 5분 데모와 영어90초 설명
+- commit/run_id/version과 연결된 결과, 목표/실측·fixture/실제실행·구현/예정의 구분
 
-## Demo timing
-
-0:00–0:40 customer problem; 0:40–1:20 architecture; 1:20–2:20 normal answer and evidence; 2:20–3:00 abstention; 3:00–4:00 review and authorized resume; 4:00–4:40 measured quality/latency/cost; 4:40–5:00 limits and next step.
-
-## Ten-slide narrative
-
-Problem → FR/NFR → architecture → retrieval/version/access → bounded tools → HITL/guardrails → eval/failures → latency/cost → deployment/runbook → recommendation/limits.
-
-## Interview prompts
-
-Why RAG? Why bounded agent? Where are tenant permissions enforced? What makes a citation valid? How is confidence calibrated? What if Redis/model/DB fails? How does review survive a restart? Why this model? What changes at 10x traffic? What is still unverified?
-
-Answer using requirement, alternatives, decision, actual evidence, limitations and revisit conditions.
+[W10 최종 작업](../curriculum/week-10.md) · [MVP설계](../project-blueprint.md)

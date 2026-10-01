@@ -1,251 +1,160 @@
-# W4. 업무 흐름을 제한된 에이전트로 연결하기
+# W4 학습 · RAG·하이브리드 검색과 근거·평가 계약
 
-> 검색·사례 조회·정책 버전 도구를 제한된 업무 흐름으로 묶고, 실행 경로와 실패를 추적한다.
+**기간:** 2026-10-23–2026-10-29 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e81b798f7e962553f93f9) · [Jira SCRUM-9](https://realrho-1790798942092.atlassian.net/browse/SCRUM-9) · [GitHub #4](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/4)
 
-2026-10-22 → 2026-10-28 · 총 22h (주당 계획 가정)
+**이번 주 통과 조건:** 근거 ID·문서 버전·tenant가 모든 chunk에 있고 응답 인용 ID가 검색 결과에 속한다. 검색 품질과 답변 품질을 따로 보고한다.
 
-[Jira SCRUM-9](https://realrho-1790798942092.atlassian.net/browse/SCRUM-9) · [GitHub #4](https://github.com/realrho/test/issues/4) · [W3 선행 과정](https://app.notion.com/p/3ebc6f4a2c7e8116b6d0e972f595de78)
+[전체 학습표](README.md) · [책 목차 원문](../book-toc.md) · [용어 사전](../glossary-ko-en.md) · [책/보충 범위](../book-gap-map.md)
 
-## 학습 목표와 시작 조건
+## 1. 책 읽기와 필수 실습
 
-**기술:** LangGraph · State/Node/Edge · Tool contracts · Retry · Checkpoint · PostgreSQL
+**배정:** 9장 LLM 애플리케이션 개발하기 · 10장 임베딩·의미/하이브리드 검색
 
-**시작 조건:** W3 RAG·출력 schema·검색 평가. 검색 계약과 상태를 고정한 후 graph를 얹는다.
+9.1–9.4는 RAG 저장/검색/프롬프트 통합·응답 캐시·데이터 검증·로깅을 직접 따라간다. 10.1–10.5는 단어 표현→문장 임베딩→바이 인코더→의미 검색→BM25/RRF 하이브리드 순서로 읽는다. 책에 이미 있는 내용을 '없는 기술'로 다시 분류하지 않는다.
 
-이 페이지는 학습 교재와 앞으로 구현할 작업이다. 문서가 작성된 것을 서비스 구현/평가 완료로 표시하지 않는다. 학습은 아래 4개 강의→손 실습→코드 실습→빌드→퀴즈→증거 제출 순서로 진행한다.
+**필수 실습:** 공식 9장 기본 RAG와 10장 의미/하이브리드 검색을 작은 텍스트 corpus로 실행한다. 공급자 접근이 없으면 검색까지 실행하고 생성은 fixture로 분리한다. 질문 10개에 대해 keyword/dense/hybrid 검색 결과와 gold 근거 포함 여부를 표로 비교한다.
 
-## 이번 주 시간표
+책 본문은 소유한 책에서 읽는다. [공식 코드](https://github.com/onlybooks/llm)·[정오표](https://www.onlybook.co.kr/entry/llm-errata)를 확인하고 환경/모델/패키지 버전을 기록한다. 선택 GPU/멀티모달 실습의 미실행은 필수 완료와 분리한다.
 
-- D1 3h: workflow/agent·state·graph 설계
-- D2 3h: read-only tool 3개 계약/권한
-- D3 3h: graph·routing·trace
-- D4 3h: PostgreSQL schema·migration·repository
-- D5 4h: retry/deadline/최대 호출·failure 처리
-- D6 4h: 20경로·restart 검증·MVP 데모
-- D7 2h: 회고·현직자 피드백 준비·버퍼
+## 2. 실행 순서·시간·수용 기준
 
-## 개념 강의
+| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+|---|---|---|---|---|
+| 1 | 책 9·10장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-26](https://realrho-1790798942092.atlassian.net/browse/SCRUM-26) |
+| 2 | 책 필수 실습·환경/결과 기록 | 6h | 공식 9장 기본 RAG와 10장 의미/하이브리드 검색을 작은 텍스트 corpus로 실행한다. 공급자 접근이 없으면 검색까지 실행하고 생성은 fixture로 분리한다. 질문 10개에 대해 keyword/dense/hybrid 검색 결과와 gold 근거 포함 여부를 표로 비교한다. | [SCRUM-27](https://realrho-1790798942092.atlassian.net/browse/SCRUM-27) |
+| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 근거 ID·문서 버전·tenant가 모든 chunk에 있고 응답 인용 ID가 검색 결과에 속한다. 검색 품질과 답변 품질을 따로 보고한다. | [SCRUM-28](https://realrho-1790798942092.atlassian.net/browse/SCRUM-28) |
+| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 합성 문서12–24개, chunk manifest, 검색 결과 계약, 개발 질문20개를 버전/실행 상태와 함께 저장한다. | [SCRUM-29](https://realrho-1790798942092.atlassian.net/browse/SCRUM-29) |
 
-### 1. Workflow와 Agent: 어디까지 모델에 결정권을 줄까
+## 3. SA 보충 강의 · 개념→이유→예제→실습
 
-Workflow는 미리 정한 순서와 분기로 실행된다. Agent는 모델이 다음 도구나 행동을 선택할 수 있다. 질문 하나에 문서 검색 한 번이면 deterministic RAG로 충분하다. 버전 확인·유사 사례 조회·정보 부족 재검색처럼 다음 단계가 달라질 때 모델 판단의 가치와 위험을 비교한다.
+### 3.1 문서→청크→근거의 계약
 
-포트폴리오는 무제한 ReAct loop 대신 서버가 정한 graph 안에 작은 tool-selection node를 둔다. 3개 read-only 도구만 허용하고, 자동 정책 변경·외부 메시지·사용자 제재는 넣지 않는다. ‘agent를 사용했다’보다 ‘왜 이 node에만 판단을 맡겼고 어떻게 중단하는가’를 설명할 수 있어야 한다.
+RAG, Retrieval-Augmented Generation(검색 증강 생성)은 외부 검색 결과를 모델 입력에 넣어 답변을 만드는 방법이다. chunk(청크)는 검색할 문서 조각이고 metadata(메타데이터)는 그 조각의 출처·버전·권한 정보를 담는다. chunk_id·source_id·tenant_id·document_version·text·content_hash를 저장하면 '어떤 문서의 어느 버전으로 답했는가'를 추적할 수 있다. 긴 청크는 문맥을 보존하지만 검색이 둔해지고, 짧은 청크는 정확한 문장을 찾기 쉽지만 조건이 잘릴 수 있다. overlap(겹침)은 경계 손실을 줄이지만 중복과 비용을 늘린다.
 
-simple은 정책 FAQ, complex는 조건/유사 사례 비교, unsupported는 범위 밖 요청이다. 위험도 분류와 복잡도 분류는 별개다. 단순한 질문도 민감할 수 있다. routing은 서버 규칙+검증된 모델 출력으로 제한하고 unknown은 unsupported 또는 review로 보낸다.
+**작동 예시/실패 경계:** 합성 tenant A/B 정책에서 같은 환불 질문의 답을 각각 7일/14일로 정한다. tenant A 요청의 검색 결과에 B 정책이 들어오면 생성 모델에 보내기 전부터 실패다. 문서에 적힌 tenant_id를 그대로 권한으로 신뢰하지 않는다.
 
-### 2. State·Node·Edge: 업무를 명확한 상태 변화로 쓴다
+**직접 해 보기:** 문서12개를 수작업으로 검사하고 200/400 토큰 또는 문단 단위 청크 두 구성을 비교한다. ID 생성 규칙과 중복 입력 시 갱신 규칙을 적는다. 실제 토큰 수는 선택 토크나이저로 잰다.
 
-State는 실행 과정에서 공유하는 데이터다. case_id, trusted_tenant_id, question, route, evidence, proposed_decision, tool_calls, error, status를 타입으로 정의한다. node는 상태를 읽고 변화분을 반환하는 한 단계, edge는 다음 단계 선택 규칙이다. node 안에 모든 로직을 넣으면 테스트와 오류 원인 추적이 어렵다.
+### 3.2 검색 지표와 실험 설계
 
-목표 graph는 validate→route→retrieve→evidence_gate→analyze→output_gate→complete이며 근거 부족·지원 밖·실패 경로는 별도로 끝난다. 복잡한 사례는 get_policy_version·retrieve_similar_case를 추가 호출한다. 누적 trace list는 reducer가 필요하고, 같은 키를 여러 병렬 node가 동시에 덮어쓰지 않게 한다. W4에서는 순차 graph부터 검증한다.
+Recall@k(상위 k 검색 재현율)는 정답 근거 중 상위 k에 찾은 비율이다. MRR, Mean Reciprocal Rank(평균 역순위)는 첫 정답의 순위 역수 평균으로 정답이 빨리 나오는 정도를 본다. 관련성 정답이 여러 개면 Recall의 분모에 해당 질문의 모든 gold 근거를 넣는다. score(검색 점수)는 확률이 아니므로 0.8을 바로 80% 신뢰도라고 부를 수 없다. 비교에서는 같은 질문·같은 corpus·같은 권한 조건을 유지하고 청크 크기/k/모델 중 하나를 바꿔 원인을 분리한다.
 
-graph가 있으면 자동으로 영속 실행되는 것이 아니다. checkpoint backend와 thread_id가 필요하고 state와 애플리케이션 cases 저장은 역할이 다르다. PostgreSQL은 사례·감사·승인 상태의 공유 저장소, checkpoint는 graph를 재개하는 실행 상태다. W4에 스키마·migration·transaction을 만들고 W5에 재개를 검증한다.
+**작동 예시/실패 경계:** gold={a,b}, 검색=[x,a,y], k=3이면 Recall@3=1/2, reciprocal rank=1/2다. 10개 dev 질문의 k를 조정한 뒤 holdout은 고정 설정으로 한 번 평가한다. 20개 작은 표본이면 지표의 한계도 함께 적는다.
 
-### 3. Tool calling은 함수 실행 요청이며 권한 부여가 아니다
+**직접 해 보기:** 개발20질문을 정답 가능·정답 없음·tenant 혼동·버전 혼동 유형으로 나눈다. raw 검색 순위와 버전 config를 JSONL로 남긴다. 전체 평균만 보고하지 말고 유형별 실패를 읽는다.
 
-모델은 도구 이름과 JSON 인자를 제안한다. 서버가 allowlist·schema·사용자 권한·정책 버전·호출 수를 검증한 뒤 실행한다. 사용자가 ‘tenant=B로 검색해’라고 말해도 실제 tenant는 인증 컨텍스트에서 강제한다. JSON schema는 모양을 제한하지만 업무 권한을 자동 해결하지 않는다.
+### 3.3 인용·구조화 출력·답변 보류
 
-search_policy(query, allowed_scope), retrieve_similar_case(case_id, allowed_scope), get_policy_version(policy_id, allowed_scope) 세 계약을 정한다. 외부 노출 인자에는 tenant 권한 변경을 넣지 않는다. 결과는 evidence IDs·version·status·truncated flag로 제한하고 원문 과다 반환을 막는다.
+citation(인용)은 주장의 근거 출처를 가리킨다. grounding(근거 연결)은 답의 내용이 실제 근거로 뒷받침되는 성질이다. 근거 ID가 존재하는 것은 필요 조건이지만 의미가 맞는다는 충분 조건은 아니다. structured output(구조화 출력)은 JSON 필드/열거값처럼 형태를 제한한다. abstention(답변 보류)은 근거가 부족하거나 범위 밖일 때 답을 만들지 않는 결정이다. 근거 없음·권한 없음·버전 충돌·형식 오류·고위험 조건을 모델 밖의 명시적 규칙과 사람이 확인하는 평가로 연결한다.
 
-Tool stub은 성공 경로 형식을 시험하지만 실제 저장소 검색을 대체하지 않는다. provider adapter는 모델명·timeout·사용량 반환을 숨기지 않는 얇은 연결부로 둔다. 도구를 바꿔도 graph state와 응답 schema가 유지되는지를 계약 테스트로 확인한다.
+**작동 예시/실패 경계:** 모델 결과에 answer, evidence_ids, decision=ANSWER/ABSTAIN/REVIEW를 사용한다. evidence_ids가 검색 결과 밖이면 거부한다. 승인되지 않은 인용을 모델이 '확실하다'고 말해도 통과시키지 않는다. 근거가 질문과 다른 내용을 말하면 ID 검사 이후 의미 평가에서 실패한다.
 
-### 4. Retry·timeout·idempotency: 실패는 설계의 일부다
+**직접 해 보기:** 정답 가능/불가능 질문 쌍을 만든다. 검색 근거 ID와 반환 ID의 부분집합 검사를 구현한다. 근거 문장과 답변의 실질적 일치 여부는 사람 평가표에 별도 열로 둔다.
 
-timeout은 한 호출을 얼마나 기다릴지, deadline은 전체 요청 시간 예산이다. 각 도구에 최대 2회 retry, 전체 tool call 4회 같은 한도를 프로젝트 설정으로 정한다. 입력 오류·권한 거부는 retry하지 않고 429/일시 네트워크 장애에만 제한 재시도를 한다. retry가 비용과 전체 시간을 늘리는 것도 기록한다.
+### 3.4 BM25·RRF와 캐시를 운영으로 연결
 
-fallback은 실패를 숨기는 일반 답변이 아니라 명시된 결과다. 모델 장애면 검색 근거만 반환하거나 FAILED/의존 서비스 불가 상태를 사용한다. fixture 결과를 실제 모델 답변처럼 바꾸지 않는다. trace에는 route·node·tool 이름·duration·error category·request ID를 기록하되 원문 개인정보는 남기지 않는다.
+BM25, Best Matching 25(베스트 매칭25)는 키워드 일치·문서 길이·빈도를 이용하는 검색 점수 방식이다. RRF, Reciprocal Rank Fusion(역순위 융합)은 서로 다른 검색기의 점수 스케일 대신 순위를 합친다. 예를 들어 검색기별 1/(c+rank)를 더하며 c는 실험 설정 상수다. dense retrieval(밀집 벡터 검색)은 의미 유사성에 유리하고 lexical retrieval(어휘 검색)은 정책 코드·고유명사 일치에 유리하다. 어느 하나가 항상 우수하지 않다. 9장의 응답 캐시는 tenant·권한 범위·문서/index·모델·프롬프트·정규화 입력을 구분해야 한다.
 
-idempotency는 재실행해도 중복 부작용을 만들지 않는 성질이다. 읽기 도구도 rate limit·비용이 있으므로 호출 수를 제한하고, 사례 생성과 감사 쓰기는 request ID와 UNIQUE 제약을 사용한다. LangGraph 재개·retry 때 node가 다시 실행될 수 있으니 W5 승인 전후 쓰기 위치를 검토한다.
+**작동 예시/실패 경계:** A/v1에서 얻은 '7일' 응답을 B/v2에 재사용하면 높은 적중률도 실패다. TTL, Time To Live(유효 수명)는 오래된 캐시를 줄이는 시간 장치이고 정책 버전 변경의 즉시 무효화를 보장하지 않는다.
 
+**직접 해 보기:** 세 검색 방식의 Recall/MRR/지연을 비교한다. 캐시 키 명세를 만들고 tenant 또는 버전 하나만 바꾸어 miss가 나는지 확인한다. 실습은 실제 Redis가 없어도 키 계산부터 할 수 있지만 Redis 운영 검증으로 쓰지 않는다.
 
+## 4. 실행 가능한 기초 계약 실습
 
-## 따라 하는 실습과 예상 결과
+아래는 핵심 규칙을 작게 분리해 CPU에서 확인하는 접근이다. 라이브러리 설치나 실제 모델 호출 없이 개념을 검증한다. 프로젝트 통합 구현과 증거 수준을 구분한다.
 
-simple/complex/unsupported 각 5개와 unknown tool·잘못된 인자·timeout·429·연속 실패를 포함한 최소 20개 경로 시험을 만든다. 각 요청에 기대 route·tool 호출 수·종료 상태를 라벨링한다. 정상은 tool trace와 evidence IDs가 남고, 최대 호출 수를 넘는 모델은 stop 상태로 끝나야 한다.
-
-PostgreSQL migration으로 cases, audit_events를 만든다. 같은 idempotency key의 중복 접수, 다른 payload 충돌, 프로세스 재시작 뒤 조회를 재현한다. 기존 API의 202 계약을 유지할 경우 작업을 실제 실행하는 경로와 polling 상태를 연결한다. worker 큐가 없으면 개발용 동기 실행 범위를 분명히 설명하고 운영용 장기 큐를 구현했다고 쓰지 않는다.
-
-## 코드로 확인하는 핵심 원리
-
-먼저 모델 없이 routing 기준선을 만든다. 아래 규칙은 교육용이며 제품 수준 의미 분류기로 간주하지 않는다.
+실행: `python labs/week-04/contract_demo.py` (저장소 루트).
 
 ```python
-def choose_route(question: str, is_supported: bool) -> str:
-    """허용 범위 안의 질문을 제한된 실행 경로로 분류한다.
+"""W4: 다중 정답 검색의 Recall@k와 첫 정답 역순위를 계산한다."""
+def retrieval_metrics(ranked_ids: list[str], gold_ids: set[str], k: int) -> tuple[float, float]:
+    """하나의 질문에 대한 검색 지표를 계산한다.
 
     Args:
-        question: 정리된 사용자 질문.
-        is_supported: 서버가 판정한 지원 여부.
+        ranked_ids: 높은 순위부터 나열한 중복 없는 검색 ID.
+        gold_ids: 사람이 정한 정답 근거 ID 집합.
+        k: 평가할 상위 검색 개수.
     Returns:
-        unsupported, complex, simple 중 하나.
+        (Recall@k, 상위 k 안 첫 정답의 역순위). 정답 미검색이면 역순위 0.
     Raises:
-        ValueError: question이 공백일 때.
+        ValueError: k가 양수가 아니거나 gold가 없거나 검색 ID가 중복된 경우.
     """
-    if not question.strip():
-        raise ValueError('question must not be blank')
-    if not is_supported:
-        return 'unsupported'
-    # 학습용 규칙 기준선이다. 실제 복잡도는 라벨 데이터로 평가한다.
-    return 'complex' if 'compare' in question.lower() else 'simple'
+    if k < 1 or not gold_ids or len(set(ranked_ids)) != len(ranked_ids):
+        raise ValueError("invalid metric input")
+    top_ids = ranked_ids[:k]
+    recall = len(set(top_ids) & gold_ids) / len(gold_ids)
+    # 질문별 역순위의 평균을 내면 MRR@k가 된다.
+    reciprocal_rank = next((1 / rank for rank, item in enumerate(top_ids, 1)
+                            if item in gold_ids), 0.0)
+    return recall, reciprocal_rank
 
-assert choose_route('Compare policy versions', True) == 'complex'
-assert choose_route('Reset password', False) == 'unsupported'
+assert retrieval_metrics(["x", "a", "y"], {"a", "b"}, 3) == (0.5, 0.5)
+assert retrieval_metrics(["x"], {"a"}, 1) == (0.0, 0.0)
+print("W4 retrieval arithmetic: passed")
 ```
 
-**복잡도와 병목:** 예제 문자열 정리는 O(L), 공간 O(L). graph 비용은 실행 node·tool 횟수와 모델 token 수에 비례한다. bounded loop·외부 timeout이 전체 지연 상한을 관리한다.
+**복잡도/병목:** 검색 ID 수 n, gold 수 g, 시간/공간 O(n+g). 실제 검색 엔진 성능을 측정한 코드가 아니다.
 
-## 프로젝트에서 빌드할 부분
+## 5. 학습 중 만들 재사용 자산 · 상세 작업
 
-### W4.1 Workflow·state·3개 도구 계약 확정 · 5h
+아래 app/data/deployment 파일은 **앞으로 작성할 예정 경로**다. 현재 구현된 것으로 읽지 않는다. 작은 계약 실습을 실제 저장소/모델 경로로 확장하는 작업이다.
 
-**왜 필요한가:** 다음 구현을 판단할 계약·데이터·환경을 먼저 확정한다.
+### 5.1 합성 corpus와 청크 manifest
 
-**수정/작성 위치:** app/agents/state.py, app/tools/, docs/contracts.md
+예정 `data/synthetic/`에 tenant A/B 각 6–12개의 텍스트 정책을 만든다. source/version/chunk/hash를 정의하고 같은 질문의 답이 tenant·버전에 따라 달라지는 쌍을 넣는다. 개인·회사 원본은 사용하지 않는다.
 
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W3 완료 gate가 선행한다.
+### 5.2 책 RAG 경로를 작은 라이브러리로 추출
 
-**완료 조건:** route·risk를 구분하고 tool allowlist·schema·trusted tenant·출력 limit·호출 한도를 문서화한다.
+책의 LlamaIndex 예제로 저장→검색→근거 통합을 실행한다. 예정 `app/retrieval/`에 논리 입출력 계약을 남긴다. backend를 여러 개 새로 구현하지 말고 한 경로를 검증한다.
 
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
+### 5.3 검색 비교표 만들기
 
-### W4.2 LangGraph 실행·routing·tool trace 연결 · 6h
+keyword/dense/hybrid를 같은 dev 질문에서 비교한다. k·chunk·embedding 버전을 기록하고 gold 근거 포함 여부·순위·지연을 저장한다. 지표 계산 실습을 실제 검색 결과와 연결한다.
 
-**왜 필요한가:** 개념을 실제 핵심 경로에 연결해 다음 검증의 기준선을 만든다.
+### 5.4 구조화 응답의 소속 검사
 
-**수정/작성 위치:** app/agents/graph.py, app/tools/, tests/agents/
+예정 `app/validation/evidence.py`에서 반환 인용 ID가 권한 범위 내 검색 ID 집합에 속하는지 검사한다. 의미 일치·답변 가능 여부는 사람 평가로 별도 확인한다. 근거가 없으면 ABSTAIN으로 종료한다.
 
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W4.1의 산출물이 선행한다.
+### 5.5 개발 평가 질문 동결 초안
 
-**완료 조건:** simple/complex/unsupported를 실제 데이터 경로로 실행하고 node/tool/evidence/종료 상태 trace를 남긴다.
+dev 20질문에 answerable/goldIDs/tenant/version을 붙인다. 최종 holdout은 별도 구성하고 dev로 선택한 설정의 조정에 사용하지 않는다.
 
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
+**다음 통합에 넘길 것:** 합성 문서12–24개, chunk manifest, 검색 결과 계약, 개발 질문20개
 
-### W4.3 PostgreSQL 영속 사례·멱등성·실패 제어 구현 · 6h
+## 6. 이해 확인 · 해설을 보기 전에 설명하기
 
-**왜 필요한가:** 실패·권한·복구 경계를 구현해 정상 시연만으로 놓치는 문제를 찾는다.
-
-**수정/작성 위치:** app/repositories/, migrations/, tests/integration/
-
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W4.2의 산출물이 선행한다.
-
-**완료 조건:** 재시작 후 조회·중복 접수·충돌·timeout·429·최대 호출 경로를 검증하고 key/payload UNIQUE 처리를 기록한다.
-
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
-
-### W4.4 20경로 검증·Architecture v2·MVP 데모 · 5h
-
-**왜 필요한가:** 검증 결과를 설계 결정과 다른 사람이 확인할 증거로 바꾼다.
-
-**수정/작성 위치:** reports/w04/, docs/architecture.md, docs/evidence/w04.md
-
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W4.3의 산출물이 선행한다.
-
-**완료 조건:** 20개 기대/실제 경로·실패 원인·현재/목표 구조·2분 MVP 설명을 남긴다. 모형/실제 도구 호출을 구분한다.
-
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
-
-
-
-## 주차 완료 기준
-
-- [ ] 3개 read-only tool이 schema·권한·호출 제한을 가진 실제 경로로 연결됨
-- [ ] 20경로 시험과 전체 실행 trace가 존재함
-- [ ] 사례 영속성·중복 방지·서비스 장애 종료 경로가 재현됨
-- [ ] Architecture v2와 MVP 데모에 agent 선택 이유를 설명함
-
-## 이해 확인 퀴즈
-
-**Q1. Tool JSON이 유효하면 실행해도 되는가?**
+**Q1. 검색 점수0.8은 정답 확률80%인가?**
 
 <details>
-<summary>해설 확인</summary>
+<summary>해설</summary>
 
-schema 외에 권한·allowlist·scope·호출 한도 검증이 필요하다.
+점수 체계와 검증이 달라 확률로 바로 해석할 수 없다.
 
 </details>
 
-**Q2. graph를 쓰면 자동으로 프로세스 재시작을 복구하나?**
+**Q2. 인용 ID가 존재하면 답의 의미도 맞는가?**
 
 <details>
-<summary>해설 확인</summary>
+<summary>해설</summary>
 
-durable checkpoint와 thread ID·공유 저장·재실행 안전성이 따로 필요하다.
+형식/소속 검사와 의미 일치 평가는 별개다.
 
 </details>
 
-**Q3. 모든 오류를 retry하면 안전해지는가?**
+**Q3. gold2개 중1개가2위면 Recall@3과 reciprocal rank는?**
 
 <details>
-<summary>해설 확인</summary>
+<summary>해설</summary>
 
-입력/권한 오류는 개선되지 않고 비용만 늘어난다. transient failure만 시간 예산 안에서 재시도한다.
+각각0.5,0.5다. 질문별 계산 후 평균한다.
 
 </details>
 
+## 7. 공식 자료 · 읽을 범위
 
+- [LlamaIndex: RAG·retrieval](https://developers.llamaindex.ai/python/framework/) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
+- [Sentence Transformers](https://www.sbert.net/) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
 
-## 면접에서 설명할 한 문장
+## 증거와 완료 상태
 
-“이번 주에는 검색·사례 조회·정책 버전 도구를 제한된 업무 흐름으로 묶고, 실행 경로와 실패를 추적한다. 이를 확인한 증거는 ___이며, 아직 확인하지 못한 범위는 ___입니다.”
-
-기술 이름을 외우기보다 선택 이유·실패 경우·측정 조건·대안을 자기 말로 설명한다.
-
-## 공식 자료: 읽을 범위와 사용법
-
-- [LangGraph workflows/agents](https://docs.langchain.com/oss/python/langgraph/workflows-agents) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-- [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-- [PostgreSQL transaction](https://www.postgresql.org/docs/current/tutorial-transactions.html) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-
-문서 URL은 2026-10-01 확인. 설치/API 세부는 실습 시 사용 버전의 공식 문서를 다시 확인한다. 본 강의 설명·실습·프로젝트 판단 기준은 이 포트폴리오를 위해 작성한 교육 내용이다.
-
-## 선택 심화·환경이 막힐 때
-
-멀티에이전트·병렬 fan-out·장기 작업 큐는 선택 심화. 필수는 bounded graph와 재현 가능한 실패 처리다.
-
-핵심 gate가 안 되면 Jira에 실패 증상·환경·시도·다음 행동을 기록한다. fixture로 계약 학습을 이어 갈 수 있지만 real DB/model/cloud/GPU 완료로 바꾸지 않는다.
-
-
-## Jira 실행 작업 바로가기
-
-| 순서 | 작업·시간 | 선행 |
-|---|---|---|
-| 4.1 | [SCRUM-26](https://realrho-1790798942092.atlassian.net/browse/SCRUM-26) · Workflow·state·3개 도구 계약 확정 · 5h | SCRUM-8 |
-| 4.2 | [SCRUM-27](https://realrho-1790798942092.atlassian.net/browse/SCRUM-27) · LangGraph 실행·routing·tool trace 연결 · 6h | SCRUM-26 |
-| 4.3 | [SCRUM-28](https://realrho-1790798942092.atlassian.net/browse/SCRUM-28) · PostgreSQL 영속 사례·멱등성·실패 제어 구현 · 6h | SCRUM-27 |
-| 4.4 | [SCRUM-29](https://realrho-1790798942092.atlassian.net/browse/SCRUM-29) · 20경로 검증·Architecture v2·MVP 데모 · 5h | SCRUM-28 |
-
-## 구현 레시피 · 도구 계약과 영속 상태
-
-### 도구는 서버가 권한을 주입한다
-
-모델이 제안하는 인자 예시:
-
-~~~json
-{"tool_name":"search_policy","arguments":{"query":"환불 접수 기간","top_k":5}}
-~~~
-
-trusted tenant는 모델 인자가 아니라 executor가 인증 컨텍스트에서 강제한다. 반환 값은 evidence IDs/version/status로 제한한다. unknown tool·top_k 범위 밖·허용 밖 case ID는 실행 전에 거절한다.
-
-1. state.py에 case_id·trusted scope·route·evidence·tool trace·status 타입을 적는다.
-2. graph.py는 validate→route→retrieve→evidence gate→analyze→output gate 순서부터 만든다.
-3. 도구 3개는 repository/retriever를 호출하고 결과 제한·schema를 공유한다.
-4. executor에 retry 대상·max attempts·deadline·max tool calls를 설정한다.
-5. PostgreSQL migration에 cases·audit_events·idempotency-key UNIQUE와 상태 revision을 만든다.
-6. API/service/repository/checkpoint 역할을 구분한다. 202 뒤 실제 작업 실행/polling이 연결되지 않으면 intake-only로 표시한다.
-7. trace와 test를 같은 request_id/case_id로 연결한다.
-
-### 상태 전이의 검증
-
-~~~text
-simple      → retrieve → evidence gate → analyze → output gate → COMPLETED
-no evidence → retrieve → evidence gate → INSUFFICIENT_EVIDENCE
-unsupported → route → UNSUPPORTED
-tool outage → bounded retry → FAILED 또는 명시된 degraded 결과
-~~~
-
-5개씩 route 사례와 5개 실패/변조를 최소 20개 시험에 포함한다. process restart 뒤 저장 사례가 조회되고, 같은 idempotency-key+다른 payload가 409인지 확인한다.
-
-### 막힐 때 확인 순서
-
-node state 누락→schema/반환 키→edge 종료 조건→tool allowlist→scope→DB migration→deadline을 본다. 무한 loop를 recursion limit 숫자만 올려 해결하지 말고 종료 규칙과 호출 budget을 수정한다.
+학습 노트에는 읽은 절·자신의 설명·실습 명령·Python/패키지/장치·데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 문서/fixture/실제DB·모델/클라우드·GPU의 수준을 구분한다. 자료 작성만으로 본인의 학습 또는 서비스 제작을 완료 처리하지 않는다. 막히면 증상·시도·다음 행동과 일정 영향을 남긴다.

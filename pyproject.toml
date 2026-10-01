@@ -1,7 +1,7 @@
 [project]
 name = "enterprise-ai-copilot"
 version = "0.1.0"
-description = "8-week Solution Architect portfolio project"
+description = "Book-first 8-week SA study and 2-week portfolio MVP"
 requires-python = ">=3.11"
 dependencies = [
   "fastapi>=0.115",
@@ -17,3 +17,4 @@ dev = [
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+

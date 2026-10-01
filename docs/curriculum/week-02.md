@@ -1,247 +1,165 @@
-# W2. 문서를 검색 가능한 근거로 만들기
+# W2 학습 · 학습 원리·GPU 효율과 SQL·평가 데이터 설계
 
-> 버전과 접근 범위가 있는 합성 문서를 중복 없이 수집하고, 질문에 맞는 근거를 검색한다.
+**기간:** 2026-10-09–2026-10-15 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e819fae0cd5cb69a99181) · [Jira SCRUM-7](https://realrho-1790798942092.atlassian.net/browse/SCRUM-7) · [GitHub #2](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/2)
 
-2026-10-08 → 2026-10-14 · 총 22h (주당 계획 가정)
+**이번 주 통과 조건:** 학습 데이터와 평가 정답이 섞이지 않았음을 ID로 확인한다. SQL 문자열 일치와 실행 결과 일치의 차이, LoRA가 줄이는 비용과 남는 비용을 설명한다.
 
-[Jira SCRUM-7](https://realrho-1790798942092.atlassian.net/browse/SCRUM-7) · [GitHub #2](https://github.com/realrho/test/issues/2) · [W1 선행 과정](https://app.notion.com/p/3ebc6f4a2c7e817e9b59e2ed884085ed)
+[전체 학습표](README.md) · [책 목차 원문](../book-toc.md) · [용어 사전](../glossary-ko-en.md) · [책/보충 범위](../book-gap-map.md)
 
-## 학습 목표와 시작 조건
+## 1. 책 읽기와 필수 실습
 
-**기술:** RAG · Embedding · Chunking · Milvus · Metadata · Docker 기초
+**배정:** 4장 말 잘 듣는 모델 만들기 · 5장 GPU 효율적인 학습 · 6장 sLLM 학습하기
 
-**시작 조건:** W1 API 계약·입력 검증. Docker/WSL 확인은 D1. Windows native Milvus Lite 경로를 전제하지 않는다.
+4.1–4.3은 사전 학습·SFT·보상 모델·PPO/RLHF·기각 샘플링·DPO를 목적과 필요한 데이터로 비교한다. 5.1–5.5는 데이터 타입·양자화·메모리·누적·체크포인팅·ZeRO·LoRA·QLoRA를 '무엇을 저장/학습하는가'로 읽는다. 6.1–6.3은 Text2SQL 데이터 구축→기초 모델 평가→학습→동일 기준 비교 흐름을 따라간다.
 
-이 페이지는 학습 교재와 앞으로 구현할 작업이다. 문서가 작성된 것을 서비스 구현/평가 완료로 표시하지 않는다. 학습은 아래 4개 강의→손 실습→코드 실습→빌드→퀴즈→증거 제출 순서로 진행한다.
+**필수 실습:** 6장 학습/평가 코드의 입출력을 표로 만들고 작은 SQLite 연습 DB에서 정답 SQL과 틀린 SQL의 결과를 비교한다. GPU가 있으면 5장 LoRA와 6장 짧은 학습 한 경로만 실행하고 실행 시간을 제한한다. GPU가 없으면 설정·메모리 계산·데이터/평가 파이프라인까지 필수로 하며 학습 실행은 미실행으로 남긴다.
 
-## 이번 주 시간표
+책 본문은 소유한 책에서 읽는다. [공식 코드](https://github.com/onlybooks/llm)·[정오표](https://www.onlybook.co.kr/entry/llm-errata)를 확인하고 환경/모델/패키지 버전을 기록한다. 선택 GPU/멀티모달 실습의 미실행은 필수 완료와 분리한다.
 
-- D1 3h: RAG/벡터 개념·WSL/Docker 환경 확인
-- D2 3h: 합성 corpus 24개·manifest·버전 구조
-- D3 3h: chunk·임베딩·collection 구성
-- D4 3h: ingestion·stable ID·중복 방지
-- D5 4h: search API·tenant/version filter
-- D6 4h: 20질문·단일 변수 실험·실패 분석
-- D7 2h: 복습·설치 장애 버퍼·기술 우선순위 조정
+## 2. 실행 순서·시간·수용 기준
 
-## 개념 강의
+| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+|---|---|---|---|---|
+| 1 | 책 4·5·6장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-18](https://realrho-1790798942092.atlassian.net/browse/SCRUM-18) |
+| 2 | 책 필수 실습·환경/결과 기록 | 6h | 6장 학습/평가 코드의 입출력을 표로 만들고 작은 SQLite 연습 DB에서 정답 SQL과 틀린 SQL의 결과를 비교한다. GPU가 있으면 5장 LoRA와 6장 짧은 학습 한 경로만 실행하고 실행 시간을 제한한다. GPU가 없으면 설정·메모리 계산·데이터/평가 파이프라인까지 필수로 하며 학습 실행은 미실행으로 남긴다. | [SCRUM-19](https://realrho-1790798942092.atlassian.net/browse/SCRUM-19) |
+| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 학습 데이터와 평가 정답이 섞이지 않았음을 ID로 확인한다. SQL 문자열 일치와 실행 결과 일치의 차이, LoRA가 줄이는 비용과 남는 비용을 설명한다. | [SCRUM-20](https://realrho-1790798942092.atlassian.net/browse/SCRUM-20) |
+| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 train/dev/holdout 분리 manifest, 읽기 전용 SQL 실습, 모델 선택 비교표를 버전/실행 상태와 함께 저장한다. | [SCRUM-21](https://realrho-1790798942092.atlassian.net/browse/SCRUM-21) |
 
-### 1. RAG는 기억을 학습하는 것이 아니라 근거를 찾아 주는 과정이다
+## 3. SA 보충 강의 · 개념→이유→예제→실습
 
-RAG는 Retrieval Augmented Generation의 약자다. 질문과 관련된 문서를 먼저 검색하고 그 결과를 모델 입력에 넣는다. 학습된 모델 가중치를 바꾸는 fine-tuning과 다르다. 정책이 자주 바뀌거나 출처를 보여 줘야 하는 고객 문제에는 검색 문서를 갱신하는 방식부터 검증하는 편이 설명하기 쉽다.
+### 3.1 SQL·스키마·읽기 권한
 
-전체 과정은 offline ingestion과 online query 두 경로다. ingestion은 문서 읽기→정리→문단 분할→임베딩→저장. query는 사용자 인증/범위 결정→질문 임베딩→허용된 최신 문서 검색→근거 반환이다. 이번 주는 검색 품질을 먼저 관찰하고 생성 답변은 W3에서 붙인다. 모델이 말을 잘하는지보다 맞는 근거가 검색되는지 분리해야 원인을 찾을 수 있다.
+SQL, Structured Query Language(구조화 질의 언어)는 관계형 DB, Database(데이터베이스)의 데이터를 다루는 언어다. table(테이블)은 행과 열의 집합이고 schema(스키마)는 이름·타입·제약을 정한다. primary key(기본 키)는 행을 식별하며 foreign key(외래 키)는 다른 행과의 관계를 제한한다. SELECT로 읽고 WHERE로 조건을 좁힌다. 파라미터 바인딩은 값과 SQL 구문을 분리하므로 사용자 입력을 문자열 덧붙이기로 쿼리에 삽입하는 위험을 줄인다. 모델이 생성한 SQL은 임의 명령을 실행할 수 있으므로 별도의 읽기 전용 계정·허용 테이블·실행 시간 제한이 필요하다.
 
-### 2. Embedding·cosine·top-k: 숫자 점수의 의미와 한계
+**작동 예시/실패 경계:** SELECT count(*) FROM cases WHERE tenant_id = ?에 값을 바인딩한다. SQL에 SELECT라는 단어가 있다는 검사만으로 안전한 질의가 되지는 않는다. SQL 생성 프로젝트와 이번 정책 검색 MVP는 서로 다른 시나리오이므로 SQL 학습 결과를 모델 성능으로 혼동하지 않는다.
 
-Embedding은 텍스트를 숫자 벡터로 변환해 의미가 가까운 텍스트를 비교하게 한다. 동일 모델·차원·전처리로 문서와 질문을 변환해야 한다. 단위 길이로 정규화하면 cosine similarity는 내적과 같아진다. cosine이 0.82라고 정답 확률이 82%인 것은 아니다. 점수 분포는 모델과 데이터에 따라 달라진다.
+**직접 해 보기:** 작은 SQLite DB에 합성 사례 5개를 넣는다. 조회·필터·JOIN 하나를 직접 작성한다. 생성 SQL의 실제 실행은 격리된 연습 DB와 읽기 권한에서만 수행한다.
 
-예를 들어 ‘환불 접수 기간’과 ‘반품 신청 마감’은 단어가 다르지만 의미가 가까울 수 있다. 반대로 ‘P-017’ 같은 정확한 정책 ID는 의미 검색이 약할 수 있어 W3에서 lexical 검색과 비교한다. top-k=5는 높은 순서 5개 후보를 가져오는 규칙이며 ‘5개가 모두 맞다’는 뜻이 아니다.
+### 3.2 데이터 분리와 정답 기준
 
-작은 데이터에서 벡터 전체 비교는 n개 문서·d차원 기준 O(nd)다. 근사 인덱스는 더 큰 집합에서 속도·메모리·검색 누락을 교환한다. 포트폴리오 크기에서는 단순 FLAT 기준선으로 시작하고 HNSW 튜닝은 측정이 필요할 때 선택한다. 더 큰 DB를 쓰는 것과 더 좋은 근거를 얻는 것은 별개다.
+train(학습 세트)는 파라미터를 학습하는 자료, dev/validation(개발/검증 세트)는 선택을 조정하는 자료, holdout/test(최종 평가 세트)는 선택을 끝낸 후 사용하는 자료다. 같은 정책 문서에서 질문을 조금 바꿔 나눠도 정보가 새어 나가는 leakage(누수)가 생길 수 있다. source_id·document_version·question_id를 저장하고 문서/시나리오 단위로 분리하는 것이 더 엄격하다. gold label(사람이 정한 평가 정답)은 정답 근거와 허용 답변/거절 조건을 함께 담아야 한다. LLM judge(언어 모델 평가자)의 점수는 사람 정답을 완전히 대신하지 못한다.
 
-### 3. Chunking: 문서의 의미와 출처가 함께 남아야 한다
+**작동 예시/실패 경계:** train 60개, dev 20개, holdout 20개는 설명용 개수다. 이번 포트폴리오에서는 개발 질문 20개와 미리 동결한 최종 질문 30개로 50개 시작이 가능하다. 같은 질문을 반복 호출해도 서로 다른 50질문을 얻은 것은 아니다.
 
-Chunk는 모델과 검색에 넣는 작은 문서 조각이다. 너무 작으면 예외·조건·표제 정보를 잃고, 너무 크면 관련 없는 문장이 섞여 검색과 토큰 비용이 나빠진다. 300/600/1000은 tokenizer 기준 token 수로 정의하고 overlap도 token 수로 기록한다. 한국어에서는 글자 수와 token 수를 혼동하지 않는다.
+**직접 해 보기:** 각 질문에 split·source_id·answerable·gold_evidence_ids를 붙인다. ID 중복과 문서 그룹 겹침을 검사한다. holdout의 답을 보며 프롬프트를 조정했으면 새 holdout이 필요하다고 기록한다.
 
-먼저 제목·절·문단 경계로 나누고 제한 길이를 넘으면 추가 분할한다. 제목, policy_id, policy_version, section_id, source_url, tenant_id, effective_at, content_hash를 함께 보관한다. 예: ‘환불 가능’이라는 문장만 자르면 ‘배송 완료 7일 이내’ 조건을 놓친다. 질문이 조건을 요구하는지 검사하고 주변 문맥을 넣는다.
+### 3.3 프롬프트·RAG·미세 조정 선택
 
-임베딩 모델을 바꾸면 차원과 공간이 달라질 수 있으므로 별도 collection 또는 version을 사용해 재색인한다. chunk_id는 policy/version/section/hash를 바탕으로 안정적으로 만든다. 같은 문서를 재실행해도 벡터 수가 늘어나지 않게 upsert 또는 ingestion manifest로 관리한다.
+SFT, Supervised Fine-Tuning(지도 미세 조정)은 지시-응답 예시로 모델 가중치를 조정한다. PEFT, Parameter-Efficient Fine-Tuning(파라미터 효율적 미세 조정)은 학습할 파라미터를 줄이는 방법들의 범주다. LoRA, Low-Rank Adaptation(저랭크 적응)은 저랭크 행렬 업데이트를 학습한다. QLoRA, Quantized Low-Rank Adaptation(양자화 저랭크 적응)은 양자화된 기반 모델과 저랭크 학습을 결합한다. 갱신되는 고객 정책 지식은 RAG로 외부 근거를 공급하는 것이 관리에 유리하고, 답변 형식이나 반복되는 업무 행동은 프롬프트/SFT가 도움이 될 수 있다. 어떤 방법도 권한 확인과 데이터 갱신을 대신하지 않는다.
 
-### 4. Metadata와 배포: 권한·버전은 프롬프트로 대신할 수 없다
+**작동 예시/실패 경계:** 정책이 매주 바뀌면 매주 미세 조정하기 전에 검색 문서 버전을 바꾸는 경로를 검토한다. 형식 오류가 많으면 구조화 출력·검증·예시 프롬프트부터 비교한다. SFT 데이터가 부족하거나 평가 기준이 없으면 학습을 서두르지 않는다.
 
-tenant_id는 사용자 입력이나 LLM 출력으로 믿지 말고 서버가 검증한 사용자 컨텍스트에서 가져온다. tenant와 활성 버전 조건은 검색 시점에 적용한다. 결과를 받은 뒤 숨기기만 하면 unauthorized 문서가 이미 모델 context나 로그에 들어갔을 수 있다. SQL·벡터 filter 문자열은 입력을 직접 이어 붙이지 말고 허용값을 검증한다.
+**직접 해 보기:** 모델 선택표에 문제 유형·데이터량·갱신 주기·보안 경계·비용·검증 기준을 쓴다. API 모델 1개와 자체 서빙 대안 1개의 장단점을 비교하되 이번 MVP는 한 경로만 선택한다.
 
-Windows 학습 경로는 WSL2 Ubuntu의 Milvus Lite를 우선하며 Python과 데이터도 같은 WSL 환경에서 사용한다. Docker Desktop+WSL2의 Milvus Standalone은 리소스가 충분할 때 대안이다. 공식 Lite 문서는 Ubuntu/macOS를 지원 환경으로 적고, Standalone 문서는 RAM 8G 요구·16G 권장을 제시한다. 설치 안내는 공식 문서를 따른다.
+### 3.4 GPU 메모리를 예산으로 읽기
 
-환경이 막히면 같은 Retriever 계약에 순수 Python fixture 검색을 붙여 API·테스트를 진행한다. fixture는 연결 경로 검증일 뿐 real embedding/Milvus 검색 품질이 아니다. W2 종료 시 Milvus 검증이 안 됐다면 해당 항목은 Blocked로 남긴다. 설치 실패로 모든 학습을 멈추거나 가짜 결과를 쓰지 않는다.
+GPU, Graphics Processing Unit(그래픽 처리 장치)는 많은 수치 연산을 병렬로 처리하는 장치다. VRAM, Video Random Access Memory(그래픽 메모리)에는 가중치뿐 아니라 activation(중간 활성값), gradient(기울기), optimizer state(최적화기 상태), 캐시 등이 저장된다. 7B 모델의 16비트 가중치는 단순 계산으로 약 14GB(decimal)지만 학습 총 메모리는 더 크다. 4비트 가중치의 단순 크기 약 3.5GB도 메타데이터·활성값·연산 버퍼를 포함하지 않는다. gradient accumulation(기울기 누적)은 여러 작은 배치의 기울기를 모으며 gradient checkpointing(기울기 체크포인팅)은 중간값을 덜 저장하고 다시 계산한다. 처리 시간과 메모리의 교환이다.
 
+**작동 예시/실패 경계:** 마이크로 배치 2, 누적 8, 데이터 병렬 장치 1이면 실효 배치 16이다. 이를 실측 GPU 사용량이라고 쓰지 않는다. LoRA도 기반 모델의 forward/backward 경로와 활성값 메모리가 남는다.
 
+**직접 해 보기:** 파라미터 수×비트/8을 계산하고 단위를 GB/GiB로 구분한다. 선택 GPU의 메모리 예산표에 미측정 항목을 남긴다. GPU 실습은 장치·정밀도·배치·토큰 길이·시간·메모리 peak를 기록한다.
 
-## 따라 하는 실습과 예상 결과
+## 4. 실행 가능한 기초 계약 실습
 
-직접 작성한 합성 정책 24개를 두 가상 tenant로 나눈다. 환불·계정접근·보안·개인정보·에스컬레이션·정책버전 주제별 4개로 만들고 서로 충돌하는 v1/v2와 tenant 전용 문서를 포함한다. corpus manifest에 작성자·synthetic·버전·사용 범위를 적는다. 질문 20개와 정답 section ID를 사람이 먼저 정한다.
+아래는 핵심 규칙을 작게 분리해 CPU에서 확인하는 접근이다. 라이브러리 설치나 실제 모델 호출 없이 개념을 검증한다. 프로젝트 통합 구현과 증거 수준을 구분한다.
 
-600 token/overlap 80/top-k 5를 시작 설정으로 사용한다. chunk 크기와 k를 동시에 다 바꾸지 말고 chunk 3개 실험 뒤 k 3개 실험으로 나눈다. 질문별 상위 결과·score·section·version·latency를 CSV/JSONL에 저장한다. 동일 manifest를 두 번 ingest해 개수가 같고, 다른 tenant·폐기 버전은 검색되지 않는지 확인한다.
-
-## 코드로 확인하는 핵심 원리
-
-임베딩 연결 전에 두 벡터의 점수를 손으로 계산한다. 이 예시는 수학 실습이며 의미 검색의 성능 결과는 아니다.
+실행: `python labs/week-02/contract_demo.py` (저장소 루트).
 
 ```python
-from math import sqrt
-
-
-def cosine_similarity(left: list[float], right: list[float]) -> float:
-    """동일 차원 벡터의 cosine을 반환한다.
+"""W2: 평가 분리의 ID 계약을 검사한다. 모델 학습은 수행하지 않는다."""
+def validate_splits(splits: dict[str, set[str]]) -> int:
+    """세 데이터 분할에 중복 ID가 없는지 검사한다.
 
     Args:
-        left: 문서 벡터.
-        right: 질문 벡터.
+        splits: train/dev/holdout 이름과 각 분할의 ID 집합.
     Returns:
-        정규화된 유사도. 정답 확률이 아니다.
+        전체 고유 ID 개수.
     Raises:
-        ValueError: 벡터가 비었거나 차원이 다르거나 영벡터일 때.
+        ValueError: 필수 분할이 없거나 비어 있거나 ID가 중복된 경우.
     """
-    if not left or len(left) != len(right):
-        raise ValueError('non-empty matching dimensions required')
-    denominator = sqrt(sum(x*x for x in left) * sum(y*y for y in right))
-    if denominator == 0:
-        raise ValueError('zero vector has no cosine direction')
-    # 길이 영향을 없애 방향의 가까움을 비교한다.
-    return sum(x*y for x, y in zip(left, right)) / denominator
+    if set(splits) != {"train", "dev", "holdout"}:
+        raise ValueError("three splits required")
+    seen: set[str] = set()
+    for name, identifiers in splits.items():
+        if not identifiers or seen.intersection(identifiers):
+            raise ValueError(f"empty or overlapping split: {name}")
+        seen.update(identifiers)
+    return len(seen)
 
-assert round(cosine_similarity([1.0, 0.0], [1.0, 1.0]), 4) == 0.7071
+assert validate_splits({"train": {"a"}, "dev": {"b"}, "holdout": {"c"}}) == 3
+try:
+    validate_splits({"train": {"a"}, "dev": {"a"}, "holdout": {"c"}})
+except ValueError:
+    pass
+else:
+    raise AssertionError("leakage accepted")
+# ID 분리만으로 문서/시나리오 의미 중복까지 검증한 것은 아니다.
+print("W2 split-ID contract: passed")
 ```
 
-**복잡도와 병목:** cosine 한 번 O(d), 추가 공간 O(1). 전체 문서 선형 검색 O(nd); 임베딩 배치의 메모리와 외부 호출 속도가 ingestion 병목이다.
+**복잡도/병목:** 전체 ID 수 n에 시간/공간 O(n). 문서 내용/의미 누수는 별도 확인해야 한다.
 
-## 프로젝트에서 빌드할 부분
+## 5. 학습 중 만들 재사용 자산 · 상세 작업
 
-### W2.1 RAG 실습 환경·합성 corpus/manifest 준비 · 5h
+아래 app/data/deployment 파일은 **앞으로 작성할 예정 경로**다. 현재 구현된 것으로 읽지 않는다. 작은 계약 실습을 실제 저장소/모델 경로로 확장하는 작업이다.
 
-**왜 필요한가:** 다음 구현을 판단할 계약·데이터·환경을 먼저 확정한다.
+### 5.1 학습·평가 manifest 작성
 
-**수정/작성 위치:** data/synthetic/policies/, data/manifest.json, docs/data-card.md
+`docs/data-manifest.md` 또는 JSON에 question_id·source_id·split·expected_result를 넣는다. Text2SQL 연습 자료와 정책검색 포트폴리오 자료를 구분한다. ID와 문서 그룹의 겹침을 검사한다.
 
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W1 완료 gate가 선행한다.
+### 5.2 SQL 직접 실행해 정답 기준 이해
 
-**완료 조건:** 24개 합성 정책·2 tenant·v1/v2·20개 질문/정답 section을 준비하고 Lite/Standalone 환경 또는 blocker를 기록한다.
+`labs/week-02/`에 작은 SQLite DB 생성·조회 코드를 둔다. SELECT·WHERE·JOIN을 직접 작성하고 같은 결과를 내는 서로 다른 SQL을 비교한다. 모델이 생성한 SQL을 실제 업무 DB에 바로 실행하지 않는다.
 
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
+### 5.3 선택 GPU 학습을 별도 기록
 
-### W2.2 Chunk·embedding·멱등 ingestion 구현 · 6h
+GPU가 있으면 공식 5–6장의 한 경로를 작은 데이터로 실행한다. base model/revision·LoRA 설정·토큰 길이·배치·시간·peak 메모리·기초/학습 후 평가를 남긴다. 실행하지 않으면 GPU_NOT_RUN으로 기록한다.
 
-**왜 필요한가:** 개념을 실제 핵심 경로에 연결해 다음 검증의 기준선을 만든다.
+### 5.4 모델 선택 표 초안
 
-**수정/작성 위치:** app/retrieval/ingest.py, app/retrieval/chunking.py, app/adapters/
+프롬프트·RAG·SFT가 각각 해결하는 문제와 갱신·권한 한계를 비교한다. MVP 모델은 한 경로만 우선 선택하고 호출 계약의 입력·출력·오류를 적는다.
 
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W2.1의 산출물이 선행한다.
+### 5.5 다음 주로 넘길 자산
 
-**완료 조건:** stable chunk ID·version·hash·embedding model/dimension을 기록하고 재실행 후 중복이 없음을 확인한다.
+정답 manifest·SQL 결과·메모리 계산·모델 선택표를 저장한다. 학습 코드 읽기 완료와 실제 파라미터 학습 완료는 서로 다른 체크박스로 둔다.
 
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
+**다음 통합에 넘길 것:** train/dev/holdout 분리 manifest, 읽기 전용 SQL 실습, 모델 선택 비교표
 
-### W2.3 Milvus 검색 API와 tenant/version 필터 구현 · 6h
+## 6. 이해 확인 · 해설을 보기 전에 설명하기
 
-**왜 필요한가:** 실패·권한·복구 경계를 구현해 정상 시연만으로 놓치는 문제를 찾는다.
-
-**수정/작성 위치:** app/retrieval/search.py, app/api/search.py, tests/integration/
-
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W2.2의 산출물이 선행한다.
-
-**완료 조건:** 실제 embedding+Milvus의 검색 결과를 반환하고 다른 tenant/폐기 버전 누출이 0인 테스트 증거를 남긴다. fixture는 별도 표시한다.
-
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
-
-### W2.4 20질문 기준선·chunk/k 실험·ADR 기록 · 5h
-
-**왜 필요한가:** 검증 결과를 설계 결정과 다른 사람이 확인할 증거로 바꾼다.
-
-**수정/작성 위치:** eval/retrieval_dev.jsonl, reports/w02/, docs/adr/
-
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W2.3의 산출물이 선행한다.
-
-**완료 조건:** 단일 변수 비교표·query별 결과·latency·실패 원인 5개·선택 설정을 기록하고 실제/fixture 결과를 구분한다.
-
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
-
-
-
-## 주차 완료 기준
-
-- [ ] 24개 합성 문서의 provenance·version·tenant·hash가 존재함
-- [ ] 실제 ingest→Milvus 검색→API 흐름과 중복 방지 검증 완료
-- [ ] 권한/활성 버전 필터를 검색 전에 적용하고 누출 시험 통과
-- [ ] 20개 라벨 질문 기준선·실패 분석·설정 선택 근거를 기록함
-
-## 이해 확인 퀴즈
-
-**Q1. cosine 0.9는 정답 확률 90%인가?**
+**Q1. 학습 정확도가 올랐으면 고객 문제를 해결했는가?**
 
 <details>
-<summary>해설 확인</summary>
+<summary>해설</summary>
 
-아니다. retrieval similarity이며 라벨 데이터로 별도 평가해야 한다.
+분리된 평가 데이터와 실제 업무 조건에서 품질·안전·비용을 확인해야 한다.
 
 </details>
 
-**Q2. 정책 업데이트 때 모델을 다시 학습해야 하나?**
+**Q2. 4비트 모델이 3.5GB면 4GB GPU에서 학습 가능한가?**
 
 <details>
-<summary>해설 확인</summary>
+<summary>해설</summary>
 
-RAG는 corpus·index를 갱신한다. 모델 교체가 아니라 문서/검색 버전 관리가 우선이다.
+가중치 외 메모리가 있어 단순 계산으로 판단할 수 없다. 지원 연산·활성값·최적화기와 실제 환경을 확인한다.
 
 </details>
 
-**Q3. 권한 필터를 모델 프롬프트에 적으면 충분한가?**
+**Q3. LLM이 만든 SQL에 SELECT만 허용하면 충분한가?**
 
 <details>
-<summary>해설 확인</summary>
+<summary>해설</summary>
 
-서버가 신뢰하는 tenant 범위를 검색에 강제하고 이후 생성·로그에도 허용된 근거만 넘겨야 한다.
+읽기 전용 권한·허용 스키마·시간/행 제한·파라미터 처리 등 여러 경계가 필요하다.
 
 </details>
 
+## 7. 공식 자료 · 읽을 범위
 
+- [SQL 트랜잭션](https://www.postgresql.org/docs/current/tutorial-transactions.html) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
+- [LoRA 원 논문](https://arxiv.org/abs/2106.09685) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
+- [Hugging Face PEFT](https://huggingface.co/docs/peft/index) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
 
-## 면접에서 설명할 한 문장
+## 증거와 완료 상태
 
-“이번 주에는 버전과 접근 범위가 있는 합성 문서를 중복 없이 수집하고, 질문에 맞는 근거를 검색한다. 이를 확인한 증거는 ___이며, 아직 확인하지 못한 범위는 ___입니다.”
-
-기술 이름을 외우기보다 선택 이유·실패 경우·측정 조건·대안을 자기 말로 설명한다.
-
-## 공식 자료: 읽을 범위와 사용법
-
-- [Milvus Lite: 지원 환경/연결](https://milvus.io/docs/milvus_lite.md) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-- [Milvus Standalone: Windows/메모리 조건](https://milvus.io/docs/prerequisite-docker.md) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-- [SentenceTransformer encode](https://www.sbert.net/docs/package_reference/sentence_transformer/model.html) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-- [Docker port 개념](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-
-문서 URL은 2026-10-01 확인. 설치/API 세부는 실습 시 사용 버전의 공식 문서를 다시 확인한다. 본 강의 설명·실습·프로젝트 판단 기준은 이 포트폴리오를 위해 작성한 교육 내용이다.
-
-## 선택 심화·환경이 막힐 때
-
-GPU embedding·distributed Milvus·HNSW 상세 튜닝은 제외. 로컬 실임베딩 CPU 실행 또는 예산이 정해진 embedding API 중 한 경로만 선택한다.
-
-핵심 gate가 안 되면 Jira에 실패 증상·환경·시도·다음 행동을 기록한다. fixture로 계약 학습을 이어 갈 수 있지만 real DB/model/cloud/GPU 완료로 바꾸지 않는다.
-
-
-## Jira 실행 작업 바로가기
-
-| 순서 | 작업·시간 | 선행 |
-|---|---|---|
-| 2.1 | [SCRUM-18](https://realrho-1790798942092.atlassian.net/browse/SCRUM-18) · RAG 실습 환경·합성 corpus/manifest 준비 · 5h | SCRUM-6 |
-| 2.2 | [SCRUM-19](https://realrho-1790798942092.atlassian.net/browse/SCRUM-19) · Chunk·embedding·멱등 ingestion 구현 · 6h | SCRUM-18 |
-| 2.3 | [SCRUM-20](https://realrho-1790798942092.atlassian.net/browse/SCRUM-20) · Milvus 검색 API와 tenant/version 필터 구현 · 6h | SCRUM-19 |
-| 2.4 | [SCRUM-21](https://realrho-1790798942092.atlassian.net/browse/SCRUM-21) · 20질문 기준선·chunk/k 실험·ADR 기록 · 5h | SCRUM-20 |
-
-## 구현 레시피 · 검색 데이터와 실행 순서
-
-### 문서와 chunk의 최소 계약
-
-~~~json
-{"policy_id":"REFUND-001","version":"v2","tenant_id":"synthetic-a","section_id":"eligibility","effective_at":"2026-01-01","source_type":"synthetic","text":"환불 요청은 배송 완료 7일 이내 접수한다."}
-~~~
-
-chunk 레코드는 위 필드에 chunk_id·content_hash·embedding_model·dimension·index_version을 더한다. 정답 라벨은 corpus가 아니라 eval 파일에만 저장한다. vector와 질문은 같은 embedding 모델/version을 사용한다.
-
-1. data/synthetic/policies/ 문서를 작성하고 data-card/manifest에 provenance·허용 범위를 적는다.
-2. chunking.py는 문단/제목을 보존하고 tokenizer 기준 max/overlap을 받는다. min-length/빈 chunk도 처리한다.
-3. ingest.py는 manifest→hash 비교→변경된 문서 분할/임베딩→upsert→삭제/비활성 버전 관리 순서다.
-4. search.py는 서버에서 받은 trusted scope를 filter에 강제하고 top-k section/text/version/score를 반환한다.
-5. search API는 query·k를 검증하고 사용자가 scope를 바꾸는 인자를 허용하지 않는다.
-6. query 20개로 raw 결과를 남기고 같은 ingest를 재실행해 count와 IDs가 유지되는지 확인한다.
-
-### 예상 검색 응답 예시
-
-~~~json
-{"index_version":"idx-001","hits":[{"chunk_id":"c-001","policy_id":"REFUND-001","version":"v2","section_id":"eligibility","score":0.81}],"measurement_type":"example_only"}
-~~~
-
-이 score는 교육 예시이며 정답 확률/측정값이 아니다. API가 실제 검색을 한 경우 provider/embedding/index/version·실제 score를 별도 기록한다.
-
-### 막힐 때 확인 순서
-
-Lite import/실행 오류→지원 OS와 WSL Python 경로를 확인한다. connection refused→서버 상태·host/container 주소·port를 확인한다. dimension mismatch→model/dimension/collection version을 확인한다. 결과 없음→tenant·활성 버전·effective date·문서 count→query embedding을 순서대로 본다. 권한 filter를 끄고 정상 결과라고 보고하지 않는다.
+학습 노트에는 읽은 절·자신의 설명·실습 명령·Python/패키지/장치·데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 문서/fixture/실제DB·모델/클라우드·GPU의 수준을 구분한다. 자료 작성만으로 본인의 학습 또는 서비스 제작을 완료 처리하지 않는다. 막히면 증상·시도·다음 행동과 일정 영향을 남긴다.

@@ -1,23 +1,7 @@
-# Architecture
+# Architecture · current and target
 
-## Version 0 — Week 1
+Current: client→FastAPI→in-memory intake/lookup. No actual model/retrieval/review/persistent DB execution is implemented in this scaffold.
 
-```text
-Client
-  |
-FastAPI
-  |
-Application Service
-  |
-Future components:
-  +-- LangGraph Agent
-  +-- Milvus RAG
-  +-- PostgreSQL
-  +-- Redis Cache
-  +-- LLM API / Local Model
-```
+Target: trusted identity/tenant→bounded workflow→active-version retrieval→one model→output/evidence/risk gate→answer/abstain/review; PostgreSQL stores case/review/audit atomically. Choose one validated vector backend. Compose is the required deployment baseline. Redis/LangGraph/Milvus/AWS/K8s are chosen when justified; every named component is not simultaneously mandatory.
 
-## Architecture decisions
-- FastAPI is the API boundary for the prototype.
-- RAG, agent orchestration, evaluation, and infrastructure are intentionally added incrementally so each architectural decision can be measured.
-- Public or synthetic data only.
+[Full architecture, contracts and trade-offs](project-blueprint.md) · [10-week roadmap](curriculum/README.md)

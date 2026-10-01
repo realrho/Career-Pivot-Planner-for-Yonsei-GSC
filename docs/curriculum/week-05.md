@@ -1,248 +1,171 @@
-# W5. 사람 검토와 안전성의 실제 경계 만들기
+# W5 학습 · 검색 고도화·벡터 DB와 영속성·트랜잭션
 
-> 불확실하거나 고위험인 사례를 승인 대기 상태로 멈추고, 권한 있는 검토자가 재개하도록 만든다.
+**기간:** 2026-10-30–2026-11-05 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e817e9825cec827df9013) · [Jira SCRUM-10](https://realrho-1790798942092.atlassian.net/browse/SCRUM-10) · [GitHub #5](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/5)
 
-2026-10-29 → 2026-11-04 · 총 22h (주당 계획 가정)
+**이번 주 통과 조건:** 다른 tenant/비활성 버전 근거가 나오지 않으며 DB 쓰기 실패 시 상태와 감사 기록이 함께 롤백된다. 재시작 후 조회 경로를 확인한다.
 
-[Jira SCRUM-10](https://realrho-1790798942092.atlassian.net/browse/SCRUM-10) · [GitHub #5](https://github.com/realrho/test/issues/5) · [W4 선행 과정](https://app.notion.com/p/3ebc6f4a2c7e81b798f7e962553f93f9)
+[전체 학습표](README.md) · [책 목차 원문](../book-toc.md) · [용어 사전](../glossary-ko-en.md) · [책/보충 범위](../book-gap-map.md)
 
-## 학습 목표와 시작 조건
+## 1. 책 읽기와 필수 실습
 
-**기술:** HITL · Prompt injection · PII · Authorization · Confidence calibration · Evaluation
+**배정:** 11장 임베딩 학습·순위 재정렬 · 12장 벡터 DB·RAG 확장
 
-**시작 조건:** W4 bounded graph·PostgreSQL·trace·tool 권한 계약. W3 평가 프로토콜을 확장한다.
+11.1–11.5는 임베딩 학습·대조 학습·MNR loss·교차 인코더 순위 재정렬을 기본 검색 대비 개선 실험으로 읽는다. 12.1–12.4는 KNN/ANN·NSW/HNSW·m/ef 파라미터·Pinecone 연동을 실행한다. 12.5 멀티모달 예제는 흐름을 읽고 실행은 선택 심화로 둔다.
 
-이 페이지는 학습 교재와 앞으로 구현할 작업이다. 문서가 작성된 것을 서비스 구현/평가 완료로 표시하지 않는다. 학습은 아래 4개 강의→손 실습→코드 실습→빌드→퀴즈→증거 제출 순서로 진행한다.
+**필수 실습:** 기본 embedding+reranker 한 조합을 작은 corpus에 적용해 정확도/지연을 비교한다. Pinecone 공식 책 예제를 따라가거나 사용할 수 있는 로컬 벡터 backend 하나를 선택하고 차이를 ADR에 기록한다. 임베딩 미세 조정/GPU·다른 DB 추가·이미지 생성 전체 실행은 선택이다.
 
-## 이번 주 시간표
+책 본문은 소유한 책에서 읽는다. [공식 코드](https://github.com/onlybooks/llm)·[정오표](https://www.onlybook.co.kr/entry/llm-errata)를 확인하고 환경/모델/패키지 버전을 기록한다. 선택 GPU/멀티모달 실습의 미실행은 필수 완료와 분리한다.
 
-- D1 3h: 위협 모델·보호할 자산/신뢰 경계
-- D2 3h: 200개 eval·dev/holdout·공격 taxonomy
-- D3 3h: schema/citation/PII/tool 경계
-- D4 3h: review API·durable interrupt/resume
-- D5 4h: 권한·중복 승인·restart 시험
-- D6 4h: threshold/coverage 평가·안전성 보고서
-- D7 2h: 복습·guardrail 피드백 준비·버퍼
+## 2. 실행 순서·시간·수용 기준
 
-## 개념 강의
+| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+|---|---|---|---|---|
+| 1 | 책 11·12장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-30](https://realrho-1790798942092.atlassian.net/browse/SCRUM-30) |
+| 2 | 책 필수 실습·환경/결과 기록 | 6h | 기본 embedding+reranker 한 조합을 작은 corpus에 적용해 정확도/지연을 비교한다. Pinecone 공식 책 예제를 따라가거나 사용할 수 있는 로컬 벡터 backend 하나를 선택하고 차이를 ADR에 기록한다. 임베딩 미세 조정/GPU·다른 DB 추가·이미지 생성 전체 실행은 선택이다. | [SCRUM-31](https://realrho-1790798942092.atlassian.net/browse/SCRUM-31) |
+| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 다른 tenant/비활성 버전 근거가 나오지 않으며 DB 쓰기 실패 시 상태와 감사 기록이 함께 롤백된다. 재시작 후 조회 경로를 확인한다. | [SCRUM-32](https://realrho-1790798942092.atlassian.net/browse/SCRUM-32) |
+| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 선택 벡터backend의 실제 검색 경로, PostgreSQL 사례/검토/감사 schema, 원자적 갱신 연습를 버전/실행 상태와 함께 저장한다. | [SCRUM-33](https://realrho-1790798942092.atlassian.net/browse/SCRUM-33) |
 
-### 1. Guardrail은 한 문장 프롬프트가 아니라 여러 경계다
+## 3. SA 보충 강의 · 개념→이유→예제→실습
 
-입력 경계는 크기·타입·지원 범위, 검색 경계는 tenant·버전, 도구 경계는 allowlist·권한, 출력 경계는 schema·citation·업무 조건을 검증한다. 각각 다른 실패를 막기 때문에 ‘system prompt에 안전하게 답하라’만으로 대체할 수 없다.
+### 3.1 벡터 검색과 업무 저장소 분리
 
-Prompt injection은 사용자나 검색 문서 안의 텍스트가 시스템의 지시·권한을 바꾸려는 공격이다. ‘이전 규칙 무시’, ‘다른 tenant 검색’, ‘비밀을 출력’ 같은 문구를 trusted instruction으로 취급하지 않아야 한다. 문서가 공개 정책이라고 해서 신뢰할 수 있는 실행 지시가 되는 것은 아니다. 데이터와 명령 경계를 나누고 실제 tool enforcement를 둔다.
+KNN, k-Nearest Neighbors(k-최근접 이웃)은 거리상 가까운 k개를 찾는 방식이고 ANN, Approximate Nearest Neighbor(근사 최근접 이웃)는 정확도를 일부 교환해 검색을 빠르게 한다. HNSW, Hierarchical Navigable Small World(계층형 탐색 가능한 작은 세계)는 여러 층의 그래프를 탐색하는 인덱스다. m은 연결 수, ef_construction은 구축 탐색 폭, ef_search는 질의 탐색 폭에 관계한다. 높은 값은 메모리/구축/질의 비용을 늘릴 수 있으므로 Recall·지연·메모리를 같이 본다. 벡터 DB는 근거 유사 검색에, PostgreSQL은 사례 상태·검토·감사·제약에 사용하면 책임이 명확하다.
 
-PII는 개인을 식별하는 정보다. 합성 이메일·전화·이름으로 redaction 실습을 한다. 정규식 한 개는 모든 언어·형식·간접 식별자를 잡지 못한다. 무엇을 검출했는지와 놓친 사례를 같이 기록한다. 모델 payload·로그·cache·trace에 원문이 남는 경로를 점검하고 audit에는 사례 ID·결정·검토자·시각 중심으로 남긴다.
+**작동 예시/실패 경계:** '문서와 비슷한 질문'은 벡터 검색으로 찾고 'case_id=123이 검토 대기인가'는 기본 키 조회로 확인한다. 벡터 검색 score를 업무 상태로 저장하거나 DB 전체를 하나로 바꾸려 하기 전에 필요한 질의와 일관성을 구분한다.
 
-### 2. Confidence: 모델이 자신 있다고 말한 점수는 확률이 아니다
+**직접 해 보기:** RAGBackend.search(query, trusted_scope, active_version, k)의 반환 형식을 하나로 정의한다. Pinecone/Milvus는 제품 이름이다. 이번 MVP는 검증한 하나만 사용하며 두 backend 비교는 추가 과제다.
 
-LLM의 self-reported confidence, cosine similarity, classifier probability는 서로 다른 값이다. 0.8이라는 숫자를 하나로 묶어 자동판정하면 검증되지 않은 신뢰를 만든다. evidence presence·citation validity·정책 충돌·위험도처럼 관찰 가능한 조건을 먼저 hard gate로 쓴다.
+### 3.2 ACID 트랜잭션과 동시 검토
 
-고위험·정책 충돌·근거 없음은 점수와 무관하게 review/abstain로 간다. 그 다음 calibration dev set에서 quality score threshold 0.6/0.7/0.8/0.9를 비교할 수 있다. 점수가 실제 정확도와 대응하지 않으면 probability라고 부르지 않고 heuristic score로 표기한다. threshold 선택은 자동응답 coverage와 unsafe auto-decision rate, review volume을 함께 보고 정한다.
+ACID는 Atomicity(원자성), Consistency(일관성), Isolation(격리성), Durability(지속성)의 묶음이다. transaction(트랜잭션)은 관련 DB 변경을 함께 성공시키거나 롤백하는 단위다. 상태 변경과 감사 기록이 따로 성공하면 누가 무엇을 결정했는지 사라질 수 있으므로 함께 묶는다. 동시 검토자 두 명이 같은 case를 수정하면 마지막 쓰기가 앞 결정을 덮을 수 있다. optimistic concurrency(낙관적 동시성 제어)는 version 조건이 맞는 갱신만 허용하고 실패한 경쟁 요청을 거부한다.
 
-Precision은 자동확정/특정 분류 중 맞은 비율, recall은 실제 해당 사례 중 잡은 비율이다. ‘high-risk를 검토로 보낸다’를 positive로 정하면 TP·FP·FN의 의미도 명확해진다. 검토를 무조건 늘리면 위험 누락은 줄 수 있으나 업무량이 늘고 자동화 가치는 줄어든다. 고객이 감당할 검토량을 요구사항과 연결한다.
+**작동 예시/실패 경계:** UPDATE cases SET status='APPROVED', version=version+1 WHERE id=? AND version=? AND status='REVIEW_PENDING' 후 영향행이1인지 확인한다. 감사 INSERT도 같은 트랜잭션 안에서 수행한다. 0행이면409 충돌을 반환한다. DB 트랜잭션이 외부 이메일/모델 호출까지 자동 취소하지는 않는다.
 
-### 3. HITL: 멈춤·권한·재개·중복 방지가 한 흐름이다
+**직접 해 보기:** SQLite로 원자성 원리를 연습한 뒤 PostgreSQL 실제 경로에서 실패 주입·재시작·동시 갱신을 검증한다. SQL은 바인딩하고 사례 tenant 조건도 포함한다. 시스템이 검토 요청을 생성한 것과 사람이 승인한 것은 다른 상태다.
 
-Human-in-the-loop는 AI 판단을 사람이 확인하는 흐름이다. REVIEW_PENDING 상태를 durable checkpoint와 사례 DB에 기록하고 reviewer에게 proposed decision·근거·검토 이유를 보여 준다. /reviews/{review_id}/decision에 승인/수정/거절·comment·expected revision을 받도록 설계한다.
+### 3.3 멱등 ingestion과 버전 활성화
 
-검토자는 신뢰할 수 있는 인증 컨텍스트와 같은 tenant 권한으로 확인한다. 임의 case ID를 아는 사용자가 승인할 수 없어야 한다. 같은 리뷰를 두 번 처리하면 같은 결과로 반환하거나 409로 충돌을 알려야 한다. review status와 case state·audit event 변경은 transaction 또는 명시적인 복구 전략으로 묶는다.
+ingestion(데이터 수집·적재)은 원본을 읽어 정제/분할/임베딩/저장하는 과정이다. content hash(내용 해시)는 동일 내용 확인에, document version(문서 버전)은 정책 변화 추적에 쓰며 같은 개념이 아니다. tenant+source+version+chunk identity에 유일 제약을 두면 재실행 중복을 줄인다. 새 버전을 일부만 적재한 상태에서 검색을 열면 빠진 근거로 답할 수 있다. staging(준비 영역)에 새 인덱스를 만들고 검증 후 active version(활성 버전) 포인터를 바꾸는 절차가 안전하다.
 
-LangGraph interrupt는 checkpoint·thread_id와 함께 사용한다. 재개 시 interrupt가 있던 node가 처음부터 다시 실행될 수 있다. 따라서 승인 이전의 외부 쓰기를 피하거나 idempotency key로 보호한다. 승인 대기를 HTTP 요청 하나에서 계속 기다리지 말고 대기 상태 응답→별도 승인→같은 thread 재개로 설계한다. 프로세스 재시작 후 승인 가능한지 실제로 시험한다.
+**작동 예시/실패 경계:** v2를 준비하다 중간 실패하면 v1검색을 유지한다. v2검증 후 활성화하면서 v1캐시를 무효화한다. DB와 벡터 DB 사이에 단일 트랜잭션이 없으면 적재 manifest·상태·재시도 가능한 작업 기록으로 불일치를 복구한다.
 
-### 4. Evaluation과 threat model: 공격 통과율의 범위를 정확히 쓴다
+**직접 해 보기:** 12개 문서를 두 번 적재해 같은 논리 청크 수가 유지되는지 확인한다. 실패 후 재시작하여 누락만 채우는지 본다. schema/mapping 변경 시 임베딩 차원·거리 함수·모델 버전도 manifest에 적는다.
 
-Threat model은 자산·공격자·입력 경로·신뢰 경계·공격·방어·잔여 위험을 표로 만든다. 자산은 tenant 문서·검토 권한·audit·API key, 공격 경로는 사례 입력·검색 문서·tool args·review API다. 방어가 어디서 강제되는지와 로그에 무엇이 남는지 짝지어 쓴다.
+### 3.4 권한 필터와 인덱스 평가
 
-W5에 synthetic 200개로 확장한다: 정상 80, 조건/예외 40, 근거 없음/충돌 40, 공격 40. family 기준 calibration/dev 120개와 holdout 80개로 분리하고 분포를 저장한다. 공격 40개는 직접/간접 injection, tenant bypass, citation 위조, PII, oversized input 등을 포함한다. approved holdout의 구체 라벨을 튜닝 prompt로 사용하지 않는다.
+tenant(테넌트)는 서비스를 공유하는 고객/조직 경계다. 요청 본문에 적힌 tenant_id보다 검증된 사용자→tenant 매핑을 신뢰해야 한다. 검색 전에 범위를 제한하고 검색 결과를 반환하기 전 다시 확인하면 권한 밖 근거가 프롬프트/로그/캐시로 흐르는 위험을 줄일 수 있다. 제한 없는 전체 검색 후 단순히 상위 k에서 몇 개를 지우면 정답 근거가 사라질 수 있으므로 backend의 필터 지원과 검색 품질을 같이 확인한다. 불충분한 필터 구현이면 그 환경을 안전한 멀티테넌트 구현으로 보고하지 않는다.
 
-공격 성공은 예를 들어 ‘허용 밖 source가 출력·모델 context로 유출됨’, ‘권한 없는 승인이 상태를 바꿈’처럼 observable하게 정의한다. 시험 40개에서 0건이어도 모든 공격에 안전하다는 증거는 아니다. 사람 평가 subset·자동 judge 일치율·오탐·정상 사례 방해 비율을 보고한다. 최종 결과에는 남은 위험과 운영에서 필요한 추가 검토도 쓴다.
+**작동 예시/실패 경계:** tenant A의 정책코드 R-17 질문에 B의 더 가까운 벡터가 존재하도록 합성 데이터를 만든다. A조건 검색이 A근거를 반환하거나 명시적으로 보류해야 한다. 비활성 v1문서가 높은 점수여도 v2활성 조건에서 제외된다.
 
+**직접 해 보기:** 교차tenant·버전변경·문서삭제·reranker오류 4개를 회귀 사례로 만든다. 조회할 수 없는 case가 존재하는지도 드러내지 않는404 계약을 선택할 수 있으며 이 결정을 ADR에 적는다.
 
+## 4. 실행 가능한 기초 계약 실습
 
-## 따라 하는 실습과 예상 결과
+아래는 핵심 규칙을 작게 분리해 CPU에서 확인하는 접근이다. 라이브러리 설치나 실제 모델 호출 없이 개념을 검증한다. 프로젝트 통합 구현과 증거 수준을 구분한다.
 
-합성 입력 200개와 공격 taxonomy를 확정한다. 직접 injection과 정책 문서에 숨긴 간접 injection을 각각 넣는다. unauthorized citation, 다른 tenant case lookup, 임의 reviewer 승인, 이미 승인된 review 재전송을 시험한다. 기대 결과는 leak 0·무권한 상태변경 0·중복 audit 0이다.
-
-HITL 실습은 고위험 사례→REVIEW_PENDING→프로세스 종료/재시작→권한 없는 승인 거부→권한 있는 승인→같은 thread 재개→동일 승인 재전송 순서다. threshold는 dev에서만 정하고 고위험 hard gate는 어떤 threshold에서도 유지한다. 보고서에 coverage·review율·오탐·위험 누락·subset count를 함께 기록한다.
-
-## 코드로 확인하는 핵심 원리
-
-검토 gate를 모델 출력에서 분리한다. 아래 score는 확률이 아니며 근거 없음은 제품에서 보류 또는 검토로 구분한다.
+실행: `python labs/week-05/contract_demo.py` (저장소 루트).
 
 ```python
-def needs_human_review(high_risk: bool, citation_valid: bool,
-                       evidence_present: bool, quality_score: float,
-                       threshold: float) -> bool:
-    """강제 검토 조건과 검증용 quality threshold를 적용한다.
+"""W5: SQLite 실패 주입으로 상태/감사의 원자성만 검증한다."""
+import sqlite3
+
+def atomic_review(connection: sqlite3.Connection, fail_audit: bool = False) -> None:
+    """상태와 감사 행을 한 트랜잭션으로 저장한다.
 
     Args:
-        high_risk: 서버의 위험도 조건.
-        citation_valid: 허용 근거와 구조 검증 통과 여부.
-        evidence_present: 충분한 근거 존재 여부.
-        quality_score: dev에서 해석을 검증할 휴리스틱 점수.
-        threshold: dev에서 선택한 검토 기준.
+        connection: 실습용 SQLite 연결.
+        fail_audit: 감사 기록 전에 오류를 주입할지 여부.
     Returns:
-        검토/보류가 필요하면 True.
+        None. 성공하면 두 변경을 커밋한다.
     Raises:
-        ValueError: 점수 또는 threshold가 0~1 범위 밖일 때.
+        RuntimeError: 실패 주입 시 발생하며 상태 변경도 롤백된다.
+        sqlite3.Error: SQL 실행이 실패한 경우.
     """
-    if not (0 <= quality_score <= 1 and 0 <= threshold <= 1):
-        raise ValueError('score and threshold must be in [0, 1]')
-    # 고위험·근거 실패를 높은 점수로 우회할 수 없게 한다.
-    return high_risk or not citation_valid or not evidence_present or quality_score < threshold
+    with connection:  # context manager는 예외 시 DB 변경을 롤백한다.
+        connection.execute("UPDATE cases SET status = ? WHERE id = ?", ("APPROVED", 1))
+        if fail_audit:
+            raise RuntimeError("injected audit failure")
+        connection.execute("INSERT INTO audit(case_id) VALUES (?)", (1,))
 
-assert needs_human_review(True, True, True, 0.99, 0.7)
+connection = sqlite3.connect(":memory:")
+connection.executescript("CREATE TABLE cases(id INTEGER PRIMARY KEY, status TEXT);"
+                         "CREATE TABLE audit(case_id INTEGER);"
+                         "INSERT INTO cases VALUES(1, 'REVIEW_PENDING');")
+try:
+    atomic_review(connection, fail_audit=True)
+except RuntimeError:
+    pass
+assert connection.execute("SELECT status FROM cases").fetchone()[0] == "REVIEW_PENDING"
+assert connection.execute("SELECT count(*) FROM audit").fetchone()[0] == 0
+atomic_review(connection)
+assert connection.execute("SELECT count(*) FROM audit").fetchone()[0] == 1
+connection.close()
+print("W5 SQLite atomicity: passed; PostgreSQL/concurrency not validated")
 ```
 
-**복잡도와 병목:** gate는 O(1), 실제 검증은 근거 개수·문서 길이·PII 처리에 비례. 승인 transaction·checkpoint 일관성·검토 대기열 규모가 운영 병목이다.
+**복잡도/병목:** 상수 개수 DB 연산. 실제 DB 비용은 인덱스·락·I/O에 좌우된다. PostgreSQL·동시성·백업은 별도 검증한다.
 
-## 프로젝트에서 빌드할 부분
+## 5. 학습 중 만들 재사용 자산 · 상세 작업
 
-### W5.1 Threat model·200개 라벨 평가셋 확장 · 5h
+아래 app/data/deployment 파일은 **앞으로 작성할 예정 경로**다. 현재 구현된 것으로 읽지 않는다. 작은 계약 실습을 실제 저장소/모델 경로로 확장하는 작업이다.
 
-**왜 필요한가:** 다음 구현을 판단할 계약·데이터·환경을 먼저 확정한다.
+### 5.1 관계형 schema와 제약
 
-**수정/작성 위치:** docs/threat-model.md, eval/safety_dev.jsonl, eval/safety_holdout.jsonl
+예정 `app/repositories/postgres.py`와 DB migration에 cases(id,tenant_id,status,version), reviews(case_id,actor,decision), audit(case_id,actor,old/new_status,run_id)를 정의한다. 외래 키·유일 키·조회 인덱스와 tenant 조건을 명시한다.
 
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W4 완료 gate가 선행한다.
+### 5.2 원자적 검토 갱신
 
-**완료 조건:** 자산/공격/강제 경계·200개 분포·120/80 family split·공격 40개 기대 결과를 확정한다.
+상태·기존 version 조건을 가진 UPDATE와 audit INSERT를 한 트랜잭션으로 묶는다. 영향 행 0이면 충돌·잘못된 전이로 처리한다. 감사 실패를 주입해 case 상태도 원래대로 남는지 검증한다. SQLite 연습 뒤 PostgreSQL 실제 연결로 확인한다.
 
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
+### 5.3 벡터 backend 하나 확정
 
-### W5.2 입력·출력·PII·도구 guardrail 구현 · 6h
+책의 Pinecone 또는 호환 로컬 backend 하나를 정한다. Milvus는 Windows에서 공식 지원하는 Docker/WSL2 환경을 확인한다. 검색 adapter는 tenant/version 조건과 evidence ID를 반환해야 한다. 비용·운영·데이터 경계 ADR을 쓴다.
 
-**왜 필요한가:** 개념을 실제 핵심 경로에 연결해 다음 검증의 기준선을 만든다.
+### 5.4 적재/활성화/복구
 
-**수정/작성 위치:** app/guardrails/, tests/security/
+같은 corpus를 두 번 적재하고 논리 중복이 없음을 확인한다. v2 준비 영역 적재 실패 시 v1 활성 검색을 유지한다. 임베딩 차원·인덱스 설정·활성 버전·캐시 무효화 절차를 기록한다.
 
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W5.1의 산출물이 선행한다.
+### 5.5 회귀와 지속성
 
-**완료 조건:** injection을 실행 지시로 취급하지 않고 citation/tenant/PII 경계 실패를 관찰 가능한 테스트로 기록한다.
+교차 tenant·비활성 버전·없는 case·동시 갱신·프로세스 재시작 조회를 검증한다. 재시작 지속성과 별도 백업 복원은 구분한다.
 
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
+**다음 통합에 넘길 것:** 선택 벡터backend의 실제 검색 경로, PostgreSQL 사례/검토/감사 schema, 원자적 갱신 연습
 
-### W5.3 승인 API·durable HITL·중복/권한 제어 · 6h
+## 6. 이해 확인 · 해설을 보기 전에 설명하기
 
-**왜 필요한가:** 실패·권한·복구 경계를 구현해 정상 시연만으로 놓치는 문제를 찾는다.
-
-**수정/작성 위치:** app/agents/review.py, app/api/reviews.py, migrations/
-
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W5.2의 산출물이 선행한다.
-
-**완료 조건:** 대기→restart→무권한 거부→정상 재개→중복 승인 흐름에서 leak/무권한 변경/중복 audit 0을 확인한다.
-
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
-
-### W5.4 Threshold·coverage·holdout 평가와 안전성 보고 · 5h
-
-**왜 필요한가:** 검증 결과를 설계 결정과 다른 사람이 확인할 증거로 바꾼다.
-
-**수정/작성 위치:** reports/w05/, docs/guardrails.md, docs/evaluation.md
-
-**작업 순서:** 계약/예상 결과 작성 → 최소 구현 → 정상과 실패 경로 실행 → actual 결과 저장 → 문서/ADR 연결. W5.3의 산출물이 선행한다.
-
-**완료 조건:** dev에서 threshold 선택·holdout 별도 보고·human subset·false positive·unsafe rate·한계와 잔여 위험을 기록한다.
-
-**제출 증거:** PR/commit URL, run ID와 config, 기대/실제 결과, 실패/한계. 근거가 없으면 해당 구현은 Planned/Blocked로 둔다.
-
-
-
-## 주차 완료 기준
-
-- [ ] 200개 synthetic 평가셋·split·공격 성공 정의가 존재함
-- [ ] HITL pause→restart→권한 검토→resume→중복 보호가 재현됨
-- [ ] 권한/근거/고위험 hard gate가 score로 우회되지 않음
-- [ ] coverage·위험 누락·오탐·검토량·한계 보고서 작성
-
-## 이해 확인 퀴즈
-
-**Q1. LLM confidence 0.95면 자동승인 가능한가?**
+**Q1. 트랜잭션이면 외부 모델 호출도 롤백되는가?**
 
 <details>
-<summary>해설 확인</summary>
+<summary>해설</summary>
 
-검증된 확률이 아니다. 근거·권한·고위험 hard gate와 라벨 평가가 우선이다.
+DB 내부 변경 범위다. 외부 부작용은 별도 멱등/복구 설계가 필요하다.
 
 </details>
 
-**Q2. interrupt 앞에서 외부 알림을 보내도 되는가?**
+**Q2. 캐시TTL만으로 정책 갱신 즉시 반영을 보장하는가?**
 
 <details>
-<summary>해설 확인</summary>
+<summary>해설</summary>
 
-재개 때 앞 코드가 다시 실행될 수 있다. 외부 부작용은 별도 단계 또는 멱등 보호가 필요하다.
+아니다. 활성버전/캐시 키/무효화 절차를 함께 설계한다.
 
 </details>
 
-**Q3. 공격 40개 통과는 안전성 보증인가?**
+**Q3. ANN 인덱스 설정을 크게 하면 항상 좋은가?**
 
 <details>
-<summary>해설 확인</summary>
+<summary>해설</summary>
 
-그 시험 집합에서의 결과다. 공격 범위·잔여 위험·정상 오탐과 운영 조건을 함께 설명한다.
+메모리·구축/질의시간 비용이 증가할 수 있어 같은 데이터로 정확도와 비용을 측정한다.
 
 </details>
 
+## 7. 공식 자료 · 읽을 범위
 
+- [PostgreSQL: transaction](https://www.postgresql.org/docs/current/tutorial-transactions.html) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
+- [Pinecone 공식 문서](https://docs.pinecone.io/) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
+- [Milvus 공식 문서](https://milvus.io/docs) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
 
-## 면접에서 설명할 한 문장
+## 증거와 완료 상태
 
-“이번 주에는 불확실하거나 고위험인 사례를 승인 대기 상태로 멈추고, 권한 있는 검토자가 재개하도록 만든다. 이를 확인한 증거는 ___이며, 아직 확인하지 못한 범위는 ___입니다.”
-
-기술 이름을 외우기보다 선택 이유·실패 경우·측정 조건·대안을 자기 말로 설명한다.
-
-## 공식 자료: 읽을 범위와 사용법
-
-- [OWASP LLM 위험 분류](https://owasp.org/projects/top-10-for-large-language-model-applications) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-- [LangGraph interrupt/resume](https://docs.langchain.com/oss/python/langgraph/interrupts) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-- [LangGraph persistence](https://docs.langchain.com/oss/python/langgraph/persistence) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-- [PostgreSQL transaction](https://www.postgresql.org/docs/current/tutorial-transactions.html) — 해당 주차 강의와 대응하는 절만 읽고, 예제를 자기 corpus/API에 적용한다.
-
-문서 URL은 2026-10-01 확인. 설치/API 세부는 실습 시 사용 버전의 공식 문서를 다시 확인한다. 본 강의 설명·실습·프로젝트 판단 기준은 이 포트폴리오를 위해 작성한 교육 내용이다.
-
-## 선택 심화·환경이 막힐 때
-
-상용 PII detector·formal calibration·외부 보안 평가 도구는 심화. 실제 개인정보/회사 정책은 실습에 사용하지 않는다.
-
-핵심 gate가 안 되면 Jira에 실패 증상·환경·시도·다음 행동을 기록한다. fixture로 계약 학습을 이어 갈 수 있지만 real DB/model/cloud/GPU 완료로 바꾸지 않는다.
-
-
-## Jira 실행 작업 바로가기
-
-| 순서 | 작업·시간 | 선행 |
-|---|---|---|
-| 5.1 | [SCRUM-30](https://realrho-1790798942092.atlassian.net/browse/SCRUM-30) · Threat model·200개 라벨 평가셋 확장 · 5h | SCRUM-9 |
-| 5.2 | [SCRUM-31](https://realrho-1790798942092.atlassian.net/browse/SCRUM-31) · 입력·출력·PII·도구 guardrail 구현 · 6h | SCRUM-30 |
-| 5.3 | [SCRUM-32](https://realrho-1790798942092.atlassian.net/browse/SCRUM-32) · 승인 API·durable HITL·중복/권한 제어 · 6h | SCRUM-31 |
-| 5.4 | [SCRUM-33](https://realrho-1790798942092.atlassian.net/browse/SCRUM-33) · Threshold·coverage·holdout 평가와 안전성 보고 · 5h | SCRUM-32 |
-
-## 구현 레시피 · 승인 API와 공격 시험
-
-### 검토 결정 계약
-
-~~~json
-{"decision":"approve","comment":"합성 사례 근거 확인","expected_revision":1,"idempotency_key":"review-001-approve"}
-~~~
-
-reviewer ID/tenant/role은 body에서 믿지 않고 인증 컨텍스트에서 검증한다. decision은 approve/edit/reject allowlist로 제한하고 edit 내용도 schema/근거 검증을 거친다.
-
-1. threat model에 사례 입력·검색 문서·tool args·review API·logs/cache 경계를 그린다.
-2. input/output/citation/risk gate를 독립 함수로 만들고 이유 코드를 반환한다.
-3. review_pending record와 checkpoint thread_id를 저장한다.
-4. review endpoint에서 권한·같은 tenant·pending 상태·expected revision·멱등 키를 검사한다.
-5. review와 case/audit를 transaction으로 변경하고 재개 실패 때 복구 가능한 상태를 설계한다.
-6. checkpoint와 DB가 단일 transaction이 아니면 어느 순서로 쓰고 실패 시 재개/정합성을 어떻게 복구할지 runbook에 적는다.
-7. pause→restart→권한 거부→승인→resume→중복 재전송을 시험한다.
-
-### 공격/정상 테스트 매트릭스
-
-- 직접/간접 injection: 문구를 지시로 실행하지 않고 권한 제한 유지.
-- tenant bypass: 다른 tenant 문서/사례가 모델 context·응답·log에 들어가지 않음.
-- citation 위조: context 밖 ID를 최종 결과에서 거부.
-- PII: 합성 식별 정보의 payload/log/cache 흐름 확인; 탐지 한계 보고.
-- approval replay: 상태·audit 중복 없음.
-- normal false positive: 정상 요청이 부당하게 막힌 비율을 별도 측정.
-
-검증한 test identity provider는 로컬 학습 장치다. 인터넷 공개 deployment에서는 임의 header/test token을 그대로 권한 검증에 사용하지 않는다. 실제 인증 경로 미구현이면 production gap으로 남긴다.
+학습 노트에는 읽은 절·자신의 설명·실습 명령·Python/패키지/장치·데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 문서/fixture/실제DB·모델/클라우드·GPU의 수준을 구분한다. 자료 작성만으로 본인의 학습 또는 서비스 제작을 완료 처리하지 않는다. 막히면 증상·시도·다음 행동과 일정 영향을 남긴다.

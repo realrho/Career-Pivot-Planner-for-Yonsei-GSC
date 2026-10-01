@@ -1,108 +1,37 @@
-# 시작하기 · 학습법·환경·핵심 용어
+# 책 중심 학습 시작하기
 
-> **학습 기준:** 8주 × 22h = 176h. 날짜는 기존 2026-10-01~2026-11-25 계획을 유지했다. 22h는 확인되지 않은 학습 시간 가정이며 시간이 부족하면 선택 심화부터 줄인다.
+확정한 구조는 **학습 8주 + 제작 2주, 총 10주**다. 기존 주 22시간을 계획 가정으로 유지한다. 학습 176시간 + 제작 44시간이다. 날짜는 2026-10-02를 새 시작일로 가정해 12-10까지 배치했다. 실제 시작일/주당 시간이 다르면 주차 순서를 유지하며 날짜를 옮긴다.
 
-## 어떻게 공부할까
+## 매주 같은 순서로 공부하기
 
-1. 주차의 목표와 선행 조건을 먼저 읽는다.
-2. 개념 강의를 한 절씩 읽고 예제를 자기 말로 설명한다.
-3. 손계산·예상 결과를 적은 뒤 코드 실습을 실행한다.
-4. Wn.1→Wn.2→Wn.3→Wn.4 순서로 작은 구현과 검증을 반복한다.
-5. 퀴즈를 답하고 해설을 확인한 뒤 실제 결과/한계를 Evidence에 남긴다.
+1. **읽기 6h:** 배정한 모든 절을 읽는다. '무엇인가→어디에 쓰나→어떤 비용/한계가 있나'를 3문장으로 적는다.
+2. **책 실습 6h:** 주차의 필수 경로를 실행한다. 공식 노트북·정오표를 사용하고 버전/명령/입출력을 남긴다. GPU가 필요한 선택 실습은 따로 표시한다.
+3. **SA 보충 8h:** 주차의 네 강의를 읽고 계약 실습과 프로젝트용 작은 자산을 만든다. 계산 fixture에서 끝난 항목과 실제 DB/모델 항목을 구분한다.
+4. **설명·증거 검토 2h:** 퀴즈 3개를 해설 없이 답한다. 실행 결과와 남은 질문을 Jira/Notion에 기록한다.
 
-강의 6h·빌드 11h·검증 3h·회고/영어/내부이동 준비 2h를 출발 배분으로 사용한다. 각 Jira 작업의 5/6/6/5h 안에 학습·검증도 포함되므로 시간을 이중으로 더하지 않는다. 시간이 주당 12h 정도라면 동일 범위를 8주에 억지로 넣기보다 12~16주로 늘리거나 optional cloud/K8s/GPU를 제외한다.
+각 주차의 **통과 조건**을 충족해야 다음 의존 작업이 준비된다. 책 읽기만 끝났다면 읽기 완료로, 실행 못한 실습은 미실행으로 남긴다. 기간은 목표이지 학습 능력을 판단하는 점수가 아니다.
 
-## 시작 전 진단
+## 책 환경과 프로젝트 환경 분리
 
-- [ ] Python 함수·dict/list·예외를 읽고 간단한 JSON 처리를 할 수 있다.
-- [ ] Git clone·status·branch·commit의 차이를 설명한다.
-- [ ] POST body·GET·HTTP 202/404/422 의미를 안다.
-- [ ] VS Code/터미널에서 Python 환경을 구분한다.
-- [ ] Docker/WSL·API 접근·비용 허용 범위를 확인할 수 있다.
+책은 2024년 예제를 포함한다. 모델 이름·공급자 기능·SDK가 달라질 수 있으므로 [공식 코드](https://github.com/onlybooks/llm)와 [정오표](https://www.onlybook.co.kr/entry/llm-errata)를 먼저 확인한다. 오래된 노트북 설치를 최신 API 코드와 무조건 섞지 않는다. book environment와 project environment의 Python·패키지 버전·모델 revision을 각각 남긴다. 인증 토큰은 환경/비밀 관리 경로에 두며 노트북 출력·Git·로그에 넣지 않는다.
 
-앞의 세 가지가 어렵다면 W1 D1에 Python/Git 기초를 추가하고 선택 심화를 줄인다. 문법을 모두 외운 뒤 시작할 필요는 없지만 설명 없이 코드를 복사해 완료 처리하지 않는다.
+프로젝트의 기존 API는 Python 3.11+이다. 아래는 현재 뼈대 설치/검증 명령이며 정확 버전 잠금은 W7의 실습으로 정리한다. PowerShell에서 저장소 루트 기준:
 
-## PowerShell 첫 실행
-
-현재 저장소는 접수/조회 API 뼈대와 테스트 4개가 있다. 아래는 현재 뼈대 실행 순서이며 이후 주차 기능을 실행하는 명령이 아니다. runtime은 Python 3.11 이상; 학습 기준은 3.12다. .venv를 직접 호출하면 PowerShell activation 정책을 바꿀 필요가 없다.
-
-~~~powershell
-# 첫 checkout에서만 실행한다. 이미 checkout이 있다면 그 폴더를 사용한다.
-git clone https://github.com/realrho/test.git
-Set-Location test
+```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install 'fastapi>=0.115' 'uvicorn[standard]>=0.30' 'pydantic>=2.0' 'pytest>=8.0' 'httpx>=0.27'
+.\.venv\Scripts\python.exe -m pip install -e '.[dev]'
 .\.venv\Scripts\python.exe -m pytest -q
 .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-~~~
+```
 
-브라우저에서 http://127.0.0.1:8000/docs 를 연다. 별도 PowerShell에서 GET /health와 POST /cases/analyze를 실행하고 받은 case_id로 GET /cases/{case_id}를 조회한다. 현재 결과는 received이며 실제 AI 분석은 아직 없다. 실행한 환경 버전과 테스트 결과는 직접 기록한다. 패키지 설치의 느슨한 범위는 현재 뼈대 기준이며 W7에 실제 검증한 lock/버전으로 고정한다.
+`-m`은 해당 Python의 모듈을 실행한다. `-e`는 작업 중인 프로젝트를 편집 가능한 형태로 설치하며 `[dev]`는 테스트 의존성을 포함한다. `app.main:app`은 모듈과 FastAPI 객체 경로다. `--reload`는 개발 중 변경 반영용이다. 현재 /health·접수·메모리 조회만 있고 실제 분석/검색/영속DB는 아직 구현되지 않았다.
 
-## 환경·접근 의존성
+새로 제공한 `labs/week-01..08/contract_demo.py`는 표준 라이브러리 CPU 실습이다. 예: `python labs/week-01/contract_demo.py`. 이 예제의 통과는 웹API·모델·PostgreSQL·GPU 실행 검증과 다르다.
 
-| 항목 | 필요 주차 | 필수/대안/검증 |
-|---|---|---|
-| Python·Git·pytest | W1~W8 | 필수. 환경·commit·test 결과 기록 |
-| WSL2 Ubuntu/Milvus Lite | W2~ | Windows 학습 우선 경로; native Windows Lite를 전제하지 않음 |
-| Docker/Milvus Standalone | W2~W7 | 리소스 충분할 때 대안. 공식 compose/요구사항 확인 |
-| 실제 embedding | W2~ | CPU 로컬 모델 또는 허용된 API 하나. fixture는 실검색 품질이 아님 |
-| LLM API·예산 | W3·W6 | 실모델 RAG/2모델 측정에 필요. 없는 경우 해당 gate Blocked |
-| Postgres·Redis | W4·W6~ | 공유 사례/검토 저장·캐시; 실제 연결 검증 필요 |
-| Cloud 계정·region·예산 | W7 선택 | 기본은 설계 문서. 실제 배포는 별도 실행 증거 |
-| GPU/vLLM/LoRA | 선택 심화 | API/CPU 과정 완료와 분리. 미측정 수치를 쓰지 않음 |
+## 필수 / 선택 / 막혔을 때
 
+기초가 어려우면 추가 GPU/멀티모달 실습부터 줄이고 입력/DB/검색/권한 필수 자산을 우선한다. GPU 없이 학습 코드 흐름·메모리·평가 설계를 이해할 수 있지만 실제 학습했다고 쓰지는 않는다. 모델 키/예산이 없으면 retrieval과 fixture를 진행하고 최종 실제 모델 gate를 미완료로 둔다. 환경 실패는 Python경로→패키지→버전/하드웨어 지원→요청/데이터 계약 순으로 확인한다.
 
+W8 준비 gate: API 계약, 실제 검색, 영속 DB, 권한/검토, 재현 가능한 기동, 평가 세트. 이 자산이 없으면 2주 제작 추정을 다시 잡는다.
 
-## 자주 쓰는 용어
-
-| 용어 | 이 프로젝트에서의 의미 |
-|---|---|
-| SA | 고객 요구사항을 기술 선택·설계·실행 가능한 검증으로 연결하는 역할 |
-| FR/NFR | 해야 하는 행동 / 품질·제약 |
-| PoC/MVP | 불확실성 검증 / 최소 사용자 흐름 |
-| HTTP/API | 요청·응답 규칙 / 시스템 사용 계약 |
-| Schema | 데이터 필드·타입·제약 |
-| Type hint | 코드의 데이터 형태 설명; 런타임 검증과 다름 |
-| async/await | I/O 대기 동안 다른 작업 처리 |
-| Transaction | 묶인 DB 변경을 함께 성공/취소 |
-| Idempotency | 재실행해도 같은 결과/중복 부작용 없음 |
-| RAG | 검색한 근거로 모델 답변을 생성 |
-| Embedding | 텍스트를 비교 가능한 벡터로 표현 |
-| Chunk | 검색·모델에 넣는 문서 조각 |
-| Metadata | 출처·버전·권한·유효일 같은 부가정보 |
-| Dense/Lexical | 의미 벡터 / 단어 일치 검색 |
-| RRF | 점수 척도 대신 순위를 합치는 방법 |
-| Recall/Hit/MRR | 정답 회수 비율 / 하나라도 적중 / 첫 정답 순위 |
-| Citation | 답변이 참조한 근거 |
-| Abstention | 근거 부족으로 답변을 확정하지 않음 |
-| Holdout | 설정 선택에 쓰지 않는 최종 평가 집합 |
-| Agent/Workflow | 모델이 다음 행동 선택 / 정해진 경로 실행 |
-| Tool calling | 모델의 도구 실행 제안; 서버 검증이 필요 |
-| Checkpoint | 재개를 위한 실행 상태 저장 |
-| HITL | 사람이 검토하고 재개하는 흐름 |
-| Prompt injection | 데이터 안 지시로 시스템 행동을 바꾸려는 공격 |
-| Calibration | 점수와 실제 결과의 관계를 검증 |
-| P50/P95 | 중앙·꼬리 응답 시간 지표 |
-| Throughput/Concurrency | 초당 완료량 / 동시 작업 수 |
-| Cache/TTL | 결과 재사용 / 보관 시간 |
-| Image/Container | 실행 환경 스냅샷 / 실행 인스턴스 |
-| Readiness/Liveness | 요청 받을 준비 / 프로세스 생존 |
-| ADR | 설계 결정과 대가·재검토 조건 기록 |
-
-
-
-## 증거와 완료 상태
-
-- 학습 문서: 설명·예시·계획이 작성됐다는 상태.
-- fixture validated: 고정 입력/모형으로 계약·제어 경로를 확인한 상태.
-- real validated: 실제 DB/embedding/LLM/cloud를 해당 환경에서 실행한 상태.
-- measured: 데이터셋·설정·환경·원본 결과가 있는 수치.
-- Planned/Blocked: 실행하지 못한 항목. 원인과 다음 행동을 적는다.
-
-Jira AC가 실행 기준이다. Notion은 강의와 회고, GitHub는 구현·보고서·commit 증거다. 문서 편집만으로 기존 W1 진행 중/W2~W8 시작 전 상태를 Done으로 바꾸지 않는다.
-
-## 주간 회고·내부 이동
-
-매주 ‘무엇을 이해했나 / 어떤 실패를 재현했나 / 왜 이 선택을 했나 / 증거는 어디 있나 / 다음 blocker는 무엇인가’를 5줄로 남긴다. 기존 Internal Transfer 트랙은 유지한다. 연락 요청 초안과 현직자 질문은 개인이 직접 보내며, 이 정리는 동료에게 자동 메시지를 보내는 작업이 아니다.
-
-공식 자료: [Python](https://docs.python.org/3/tutorial/), [Git](https://git-scm.com/book/en/v2), [FastAPI](https://fastapi.tiangolo.com/tutorial/), [Milvus 환경](https://milvus.io/docs/prerequisite-docker.md).
+[목차](book-toc.md) · [SA 보충 범위](book-gap-map.md) · [영어·한글 용어](glossary-ko-en.md) · [10주 교재](curriculum/README.md) · [MVP 설계](project-blueprint.md)

@@ -1,16 +1,7 @@
-# Working on the eight-week portfolio
+# Contributing
 
-Jira owns execution acceptance criteria; Notion contains the learning narrative; GitHub contains implementation and reproducible evidence. Keep the same W1–W8 identifiers in all three.
+Use codex/wNN-<topic> branches. W1–W8 are book study/reusable labs; W9–W10 are MVP integration/validation. Link each PR to its GitHub issue and Jira key. Keep commits focused, describe behavior and failure boundaries, and preserve existing user work.
 
-1. Read the weekly course and its prerequisite gate.
-2. Work in task order Wn.1→Wn.2→Wn.3→Wn.4, using codex/wNN-<topic> branches.
-3. Make a minimal implementation; test the behavior that could be wrong, including failure and permission boundaries.
-4. Record expected/actual results, run configuration, commit, environment and limitations.
-5. Open a PR that references the weekly issue and SCRUM key; update Notion Evidence with links.
-6. Mark the task complete only after its AC is met. Documentation edits alone do not complete future features.
+Record tested versions, expected/actual results, run IDs and limits. Keep tokens, confidential data and notebook secrets out of Git. Synthetic fixtures, CPU examples and documentation are different from real model/DB/GPU/cloud validation. Do not close milestones merely because learning material was written.
 
-Use public or synthetic data. Do not commit .env, provider keys, company documents, personal data or confidential screenshots. Distinguish fixture, CPU, real model, cloud and GPU results. Read-only stubs cannot be presented as real integrations.
-
-Function/class docstrings explain inputs, outputs and exceptions; non-obvious logic comments explain why. Prefer explicit contracts and small replaceable adapters over unnecessary class hierarchies.
-
-Choose checks appropriate to the change: unit/contract for logic, integration for real stores/adapters, eval for retrieval/generation, restart/permission/duplicate tests for review, benchmark for performance. Avoid adding tests that simply repeat implementation details.
+[Roadmap](docs/curriculum/README.md) · [Blueprint](docs/project-blueprint.md)
