@@ -1,162 +1,124 @@
-# W3 학습 · 추론·서빙과 네트워크·타임아웃·비용 계산
+# W3 학습 — 평가 세트·근거 검증·부하 시험
 
-**기간:** 2026-10-16–2026-10-22 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e8116b6d0e972f595de78) · [Jira SCRUM-8](https://realrho-1790798942092.atlassian.net/browse/SCRUM-8) · [GitHub #3](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/3)
+**주교재:** 『AI 에이전트 엔지니어링』 · **책 범위:** 9장 검증 및 측정
 
-**이번 주 통과 조건:** 모델 응답 지연을 구간으로 나누고 429·timeout·4xx 처리 차이를 설명한다. 가상의 요금과 실제 청구를 구분한다.
+**일정:** 2026-10-16–2026-10-22 (Asia/Seoul) · **총 계획:** 22h
 
-[전체 학습표](README.md) · [책 목차 원문](../book-toc.md) · [용어 사전](../glossary-ko-en.md) · [책/보충 범위](../book-gap-map.md)
+[Notion 주차](https://app.notion.com/p/3ebc6f4a2c7e8116b6d0e972f595de78) · [SCRUM-8](https://realrho-1790798942092.atlassian.net/browse/SCRUM-8) · [GitHub #3](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/3)
 
-## 1. 책 읽기와 필수 실습
+## 1. 이번 주 목표와 책 읽기
 
-**배정:** 7장 모델 가볍게 만들기 · 8장 sLLM 서빙하기
+9.1–9.5 전체: 개발 생명주기 평가, 평가 세트, 도구·계획·메모리·학습의 컴포넌트 평가, 엔드투엔드 평가, 환각·예기치 않은 입력, 배포 준비. 2.9 평가 전략도 다시 읽는다.
 
-7.1–7.3의 토큰 생성·KV 캐시·양자화·증류를 읽고 8.1–8.4의 정적/동적/연속 배치, FlashAttention, PagedAttention, 추측 디코딩, 오프라인/온라인 서빙을 연결한다. GPU 커널을 새로 구현할 필요는 없다. vLLM 경로의 요청→대기→prefill→decode→응답을 그려 본다.
+**필수 실습:** dev20과 최종 holdout30을 분리한다. 검색 성공·근거 일치·답변 가능 여부·보류·검토·권한을 평가 rubric으로 작성하고 원시 결과를 남긴다. 기준선의 품질·지연·비용을 별도 측정한다.
 
-**필수 실습:** 7장 KV 캐시 크기를 간단한 조건으로 계산한다. 공식 8장 vLLM 노트북의 서버/클라이언트 입력과 응답을 설명한다. 호환 GPU가 있으면 짧은 서빙 호출만 측정한다. 없으면 지연/비용 계산 fixture를 실행하고 vLLM 속도 향상을 측정했다는 주장을 하지 않는다.
+**재사용 산출물:** 평가 rubric, dev20/holdout30 manifest, 평가 실행 포맷, 지연/오류 기준선, 부하 시험 시나리오
 
-책 본문은 소유한 책에서 읽는다. [공식 코드](https://github.com/onlybooks/llm)·[정오표](https://www.onlybook.co.kr/entry/llm-errata)를 확인하고 환경/모델/패키지 버전을 기록한다. 선택 GPU/멀티모달 실습의 미실행은 필수 완료와 분리한다.
+**완료 기준:** 평가 설정과 원시 결과가 추적되며 품질·응답시간·오류율을 분리해 보고한다. 최종 질문은 설정 선택에서 제외한다.
 
-## 2. 실행 순서·시간·수용 기준
+## 2. 책·영상·실습을 연결한 22h 실행 순서
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
-|---|---|---|---|---|
-| 1 | 책 7·8장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-22](https://realrho-1790798942092.atlassian.net/browse/SCRUM-22) |
-| 2 | 책 필수 실습·환경/결과 기록 | 6h | 7장 KV 캐시 크기를 간단한 조건으로 계산한다. 공식 8장 vLLM 노트북의 서버/클라이언트 입력과 응답을 설명한다. 호환 GPU가 있으면 짧은 서빙 호출만 측정한다. 없으면 지연/비용 계산 fixture를 실행하고 vLLM 속도 향상을 측정했다는 주장을 하지 않는다. | [SCRUM-23](https://realrho-1790798942092.atlassian.net/browse/SCRUM-23) |
-| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 모델 응답 지연을 구간으로 나누고 429·timeout·4xx 처리 차이를 설명한다. 가상의 요금과 실제 청구를 구분한다. | [SCRUM-24](https://realrho-1790798942092.atlassian.net/browse/SCRUM-24) |
-| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 모델 호출 계약·timeout/retry 정책, 지연/비용 표, AWS 네트워크 설계 초안를 버전/실행 상태와 함께 저장한다. | [SCRUM-25](https://realrho-1790798942092.atlassian.net/browse/SCRUM-25) |
+| 순서 | 활동 | 계획 시간 | 결과/목적 |
+|---|---|---|---|
+| 1 | 책 읽기·설계 노트 | 6h | 9.1–9.5 전체: 개발 생명주기 평가, 평가 세트, 도구·계획·메모리·학습의 컴포넌트 평가, 엔드투엔드 평가, 환각·예기치 않은 입력, 배포 준비. 2.9 평가 전략도 다시 읽는다. |
+| 2 | 승인 영상 선택 시청 | 2.5h | 묶음 9·5. 아래 보는 시점·범위를 따른다. |
+| 3 | 책 개념 프로젝트 실습 | 6h | dev20과 최종 holdout30을 분리한다. 검색 성공·근거 일치·답변 가능 여부·보류·검토·권한을 평가 rubric으로 작성하고 원시 결과를 남긴다. 기준선의 품질·지연·비용을 별도 측정한다. |
+| 4 | 영상과 연결한 SA 실습 | 5.5h | 평가 rubric, dev20/holdout30 manifest, 평가 실행 포맷, 지연/오류 기준선, 부하 시험 시나리오 |
+| 5 | 설명·퀴즈·증거 검토 | 2h | 평가 설정과 원시 결과가 추적되며 품질·응답시간·오류율을 분리해 보고한다. 최종 질문은 설정 선택에서 제외한다. |
 
-## 3. SA 보충 강의 · 개념→이유→예제→실습
+영상 배정은 주간 시간 안에 포함된 선택 시청·메모 시간이다. 영상마다 아래 시청 직후 실습을 이어서 수행한다. 순서는 진행 안내이며 Jira 네 작업은 읽기6h·개념 실습6h·영상/SA8h·검토2h로 시간을 집계한다.
 
-### 3.1 DNS·TCP·TLS·HTTPS 요청 경로
+## 3. 이번 주에 볼 한국어 영상과 연결 실습
 
-DNS, Domain Name System(도메인 이름 시스템)은 이름을 IP 주소로 해석한다. IP, Internet Protocol(인터넷 프로토콜)은 네트워크 주소와 전달 규칙이며 TCP, Transmission Control Protocol(전송 제어 프로토콜)은 순서 있는 바이트 전송을 제공한다. TLS, Transport Layer Security(전송 계층 보안)는 전송 암호화와 인증서 기반 서버 신원 확인을 제공한다. HTTPS, HTTP over TLS(TLS를 사용하는 HTTP)는 HTTP를 보호된 연결로 전송한다. 요청 경로는 이름 해석→연결→TLS→HTTP→서버 처리→응답이다. LLM이 느린 것처럼 보여도 DNS 실패·연결 풀 대기·DB 지연일 수 있으므로 구간을 나눠 본다.
+### 영상 1. Load testing k6 · 학습 묶음 9
 
-**작동 예시/실패 경계:** 401은 인증 문제, 403은 권한 거부, 429는 요청량 제한을 의미하는 대표 상태다. CORS, Cross-Origin Resource Sharing(교차 출처 리소스 공유)은 브라우저의 출처 접근 규칙이며 서버 인증을 대신하지 않는다. TLS도 애플리케이션의 tenant 권한을 대신하지 않는다.
+**보는 시점:** 9장 컴포넌트/E2E 평가와 평가 세트 분리 다음.
 
-**직접 해 보기:** 모델 API 호출 경로를 화살표로 그린다. 오류 메시지를 DNS/연결/TLS/HTTP/본문 검증으로 분류한다. 비밀 값을 출력하지 않고 호스트·오류 종류·request_id만 기록한다.
+- [[인프런] 대규모 트래픽 처리를 위한 부하 테스트 입문/실전 — 공개 영상](https://www.youtube.com/playlist?list=PLtUgHNmvcs6qAqWz-UhH-_ploSbK2eHwG) — JSCODE, 한국어 수업.
 
-### 3.2 시간 제한·재시도·멱등성
+**볼 범위:** 공개 목록 1.3 처리량, 1.4 k6 선택, 1.7 테스트 실습, 2.1·2.2 병목 분석. 서버 준비는 기존 로컬 API로 대체한다.
 
-timeout(시간 제한)은 작업을 기다리는 최대 시간이다. connect/read/전체 deadline을 구분하면 연결과 처리의 병목을 찾기 쉽다. retry(재시도)는 일시 실패를 다시 시도하는 동작이며 exponential backoff(지수형 대기)와 jitter(무작위 분산)는 동시에 재시도하는 부하를 줄인다. 모든 오류를 재시도하면 잘못된 입력도 비용을 반복 소모한다. idempotency(멱등성)는 같은 작업을 반복해도 추가 부작용이 생기지 않는 성질이다. 요청 시간 초과는 서버가 아무 작업도 하지 않았다는 뜻이 아니므로 쓰기 요청은 중복 방지가 중요하다.
+**시청 직후 실습:** k6로 기존 /health와 유효 접수 경로를 측정한다. 입력·동시성·시간을 고정하고 P50/P95·오류율을 기록한다. AI 분석 지연으로 오인하지 않는다.
 
-**작동 예시/실패 경계:** 일시 429/일부5xx는 공급자 지침과 전체 deadline 안에서 최대 2회 추가 시도한다. 401·422는 수정 없이 반복하지 않는다. 케이스 접수는 Idempotency-Key와 본문 해시를 묶고 같은 키/다른 본문이면 409로 거부한다. 공급자 모델 호출의 과금 중복 가능성은 별도 추적한다.
+### 영상 2. Kubernetes · 학습 묶음 5
 
-**직접 해 보기:** docs/contracts.md에 오류별 재시도 표와 최대 총 호출 수를 쓴다. 실패 fixture로 재시도 횟수와 예산 초과 중단을 확인한다. 랜덤 지연 때문에 결과가 달라지면 테스트에서는 고정 난수를 쓴다.
+**보는 시점:** 성능 측정에서 실행 환경을 기록하는 이유 다음.
 
-### 3.3 KV 캐시와 응답 캐시·성능 수치
+- [[따배쿠] 쿠버네티스 시리즈](https://www.youtube.com/playlist?list=PLApuRlvrZKohaBHvXAOhUD-RxD0uQ3z0c) — TTABAE-LEARN, 한국어 수업.
 
-KV, Key-Value(키·값)는 어텐션의 이전 토큰 계산을 재사용하기 위한 캐시다. 9장 LLM 응답 캐시는 입력에 대한 결과 재사용으로 다른 계층이다. KV 캐시는 모델 추론 내부에, 응답 캐시는 서비스/공급자 계층에 있을 수 있다. prefill(입력 토큰 처리)은 프롬프트를 읽는 단계, decode(출력 생성)는 다음 토큰을 반복 생성하는 단계다. TTFT, Time To First Token(첫 토큰까지 시간), TPOT, Time Per Output Token(출력 토큰당 시간), end-to-end latency(전체 응답 지연)를 구분한다. throughput(처리량)은 시간당 처리 요청/토큰이며 낮은 지연과 항상 같이 좋아지지 않는다.
+**볼 범위:** 따배쿠 1편 소개, 3-2 kubectl, 4-1 아키텍처/Pod를 골라 본다. 오래된 설치 절차는 현재 공식 로컬 가이드로 대체한다.
 
-**작동 예시/실패 경계:** 연속 배치는 끝난 요청 자리에 새 요청을 넣어 자원 활용을 높일 수 있다. 대기열이 길면 처리량은 높아도 개별 요청 P95는 악화할 수 있다. P95는 95백분위 수치이며 표본·동시성·warm/cold 조건을 붙여 보고한다.
+**시청 직후 실습:** kind 또는 minikube 중 하나로 로컬 클러스터를 만들고 kubectl get/describe/logs와 샘플 Pod 상태를 확인한다. W7 Deployment 실습의 선행 준비다.
 
-**직접 해 보기:** 요청량이 같은 조건에서 입력 길이·출력 길이·배치를 한 가지씩 바꾼다. GPU 미실행이면 계산 결과를 예상값으로 표기한다. 실제 모델 호출의 TTFT가 없으면 전체 지연만 보고한다.
 
-### 3.4 클라우드 네트워크와 비용·용량
+## 4. 영어·한국어 개념 강의
 
-AWS, Amazon Web Services(아마존 웹 서비스)는 클라우드 서비스군이다. VPC, Virtual Private Cloud(가상 사설 클라우드)는 논리적으로 분리된 네트워크 공간, subnet(서브넷)은 그 안의 주소 범위, route table(라우팅 테이블)은 패킷의 다음 경로를 정한다. security group(보안 그룹)은 리소스에 붙는 트래픽 허용 규칙이다. 공개 API 입구와 비공개 DB를 분리하고 앱만 DB 포트에 접근하도록 설계한다. 비용은 토큰뿐 아니라 컴퓨트·DB·스토리지·전송·운영 시간을 포함한다. RPM, Requests Per Minute(분당 요청 수), TPM, Tokens Per Minute(분당 토큰 수)은 서로 다른 제한이다.
+### 3.1 Evaluation Dataset — 평가 세트와 누수 방지
 
-**작동 예시/실패 경계:** 가상 입력단가 $1/백만 토큰, 출력 $4/백만 토큰이면 2,000입력+300출력 요청은 $0.0032다. 1만 요청은 재시도/검색/저장비 없이 $32다. 현재 공급자 가격으로 착각하지 않는다. DB를 인터넷 전체에 공개해 연결 문제를 해결하지 않는다.
+evaluation(평가)은 원하는 행동을 대표 사례와 기준으로 확인하는 과정이다. dev set(개발 세트)은 설정 선택에 쓰고 holdout set(보류 평가 세트)은 최종 결과를 확인할 때 사용한다. ID만 달라도 같은 문서나 사실상 같은 질문이면 leakage(평가 누수)가 생길 수 있다. 데이터·정답 근거·평가 설정의 버전을 같이 고정한다.
 
-**직접 해 보기:** 요금은 실습 당일 공식 가격을 기록하고 사용 상한을 정한다. API→앱→DB→모델 공급자 경로에 주소·포트·인증·외부 송신 여부를 표시한다. AWS 실제 생성은 선택이고 설계만 했으면 설계 증거로 기록한다.
+**업무 예시:** dev20으로 문서 분할을 골랐다면 최종30은 별도로 보관한다. 50개 전체 점수로 개발과 최종 결과를 섞어 보여 주지 않는다.
 
-## 4. 실행 가능한 기초 계약 실습
+**직접 할 일:** 질문 ID·문서 출처·의미 중복을 검사한다. 정답 근거와 답변 가능 여부를 함께 기록하고 holdout manifest를 동결한다.
 
-아래는 핵심 규칙을 작게 분리해 CPU에서 확인하는 접근이다. 라이브러리 설치나 실제 모델 호출 없이 개념을 검증한다. 프로젝트 통합 구현과 증거 수준을 구분한다.
+### 3.2 Retrieval·Answer Quality — 검색과 답변 품질
 
-실행: `python labs/week-03/contract_demo.py` (저장소 루트).
+Recall@k(상위 k개 검색의 정답 근거 포함률)는 검색 단계, MRR, Mean Reciprocal Rank(평균 역순위)는 첫 정답 근거의 순위를 평가한다. 인용 ID가 존재하는지는 구조 검사이며 근거가 답을 뒷받침하는지는 의미 검사다. LLM-as-a-judge(모델을 이용한 평가)는 보조 수단이고 사람의 rubric·불일치 검토가 필요하다.
 
-```python
-"""W3: 가상 단가로 토큰 비용을 계산한다. 실제 청구/성능 결과가 아니다."""
-from decimal import Decimal
+**업무 예시:** 없는 근거 ID, 맞는 ID로 잘못 설명한 답, 근거 없는 질문의 답변 보류를 서로 다른 실패로 분류한다.
 
-def token_cost(input_tokens: int, output_tokens: int,
-               input_per_million: Decimal, output_per_million: Decimal) -> Decimal:
-    """입력/출력 토큰의 가상 사용료 합계를 계산한다.
+**직접 할 일:** 검색·형식·근거 의미·보류/검토 항목을 분리한 평가표와 5개 실패 사례를 만든다.
 
-    Args:
-        input_tokens: 입력 토큰 개수.
-        output_tokens: 출력 토큰 개수.
-        input_per_million: 입력 백만 토큰당 가상 단가.
-        output_per_million: 출력 백만 토큰당 가상 단가.
-    Returns:
-        같은 통화 단위의 비용. 검색/재시도/저장 비용은 제외한다.
-    Raises:
-        ValueError: 개수 또는 단가가 음수인 경우.
-    """
-    if min(input_tokens, output_tokens, input_per_million, output_per_million) < 0:
-        raise ValueError("negative usage or price")
-    # 이진 부동소수점 반올림 영향을 줄이기 위해 Decimal로 계산한다.
-    million = Decimal(1_000_000)
-    return (Decimal(input_tokens) * input_per_million
-            + Decimal(output_tokens) * output_per_million) / million
+### 3.3 Load Test·Latency — 부하 시험과 응답시간
 
-assert token_cost(2000, 300, Decimal("1"), Decimal("4")) == Decimal("0.0032")
-print("W3 fictional token cost:", token_cost(2000, 300, Decimal("1"), Decimal("4")))
-```
+load test(부하 시험)는 요청량과 동시성이 늘 때 품질·오류·지연이 어떻게 변하는지 확인한다. throughput(처리량)과 latency(지연시간)는 다른 지표다. P95는 95백분위 응답시간이며 평균만 보면 느린 요청을 놓칠 수 있다. k6는 부하 생성 도구 이름이다. 실제 모델 호출 비용과 외부 서비스 제한도 시험 조건에 포함한다.
 
-**복잡도/병목:** 시간/추가 공간 O(1), 임의 정밀 숫자의 표현 비용은 제외한 작은 입력 기준이다.
+**업무 예시:** 동시성을 높여도 성공 요청이 늘지 않고 오류만 증가하면 서버 수 추가만으로 해결되지 않을 수 있다. timeout을 성공한 보류로 세지 않는다.
 
-## 5. 학습 중 만들 재사용 자산 · 상세 작업
+**직접 할 일:** 영상 9의 처리량·지연·병목·시험 흐름 편을 보고 로컬 API 기준선을 측정한다. 고비용 모델은 낮은 부하·고정 예산으로 별도 측정한다.
 
-아래 app/data/deployment 파일은 **앞으로 작성할 예정 경로**다. 현재 구현된 것으로 읽지 않는다. 작은 계약 실습을 실제 저장소/모델 경로로 확장하는 작업이다.
+### 3.4 Kubernetes Architecture — 클러스터와 선언된 상태
 
-### 5.1 모델 호출 어댑터 계약
+K8s는 Kubernetes의 K와 s 사이 8글자를 숫자로 표시한 이름이다. control plane(제어 영역)은 원하는 상태를 관리하고 node(노드)는 Pod를 실행한다. Pod는 컨테이너 실행의 기본 단위이며 Deployment는 복제 수와 업데이트를 관리한다. YAML은 설정 표현 형식이지 서버에 실제 배포된 상태의 증거는 아니다.
 
-예정 `app/adapters/model.py`에 generate(prompt, deadline, budget)의 출력 text/usage/model_version과 timeout/rate_limit/invalid_output을 명시한다. 책 8장의 자체 서빙과 외부 API를 같은 논리 계약으로 이해하되 구현은 하나만 사용한다.
+**업무 예시:** 'replicas: 2' 파일을 쓴 것과 Ready Pod가 2개 실행된 것은 다르다. 실제 클러스터 상태와 설정을 비교한다.
 
-### 5.2 재시도와 지연 구간 기록
+**직접 할 일:** 따배쿠 1·3-2·4-1을 먼저 본다. 최신 공식 로컬 환경 안내로 kubectl 조회·Pod 상태를 확인하고 W7 배포 전에 구조를 설명한다.
 
-연결·읽기·전체 deadline을 정한다. 429/일시 5xx와 401/422를 분리한다. 최대 2회 추가 시도, 공급자의 Retry-After 존중, 총예산 초과 중단을 명시한다. fixture로 호출 횟수를 확인하고 실제 공급자에서는 재시도 과금도 추적한다.
+## 5. 확인 퀴즈
 
-### 5.3 비용 계산 도구 만들기
+### Q1. 모든 50문제로 설정을 고르고 같은 점수를 최종 평가로 보고해도 되는가?
 
-`labs/week-03/` 예제를 실제 가격표 입력과 연결할 수 있도록 확장한다. 가상 단가·실제 단가 날짜·모델명·input/output usage·재시도 수를 별도 열로 저장한다.
+**해설:** 개발/최종 세트를 나누고 최종 세트는 선택에 쓰지 않는다. 중복과 누수도 검사한다.
 
-### 5.4 네트워크 초안
+### Q2. 올바른 인용 ID가 있으면 근거 검증이 끝나는가?
 
-`docs/deployment/network.md`에 공개 API 입구→앱→비공개 DB→외부 모델 흐름을 그린다. DNS·TLS·보안 그룹·DB 포트·외부 송신 경계를 표시한다. 실제 AWS 생성은 선택이다.
+**해설:** ID 검사와 답의 의미가 근거와 일치하는지 검사는 별도다.
 
-### 5.5 검증 범위 표시
+### Q3. 평균 응답시간만 비교하면 충분한가?
 
-실제 API를 호출했으면 요청 ID·총지연·usage를 남긴다. GPU/vLLM 미실행이면 배치·KV 계산만 확인했으며 서빙 성능은 측정하지 않았다고 명시한다.
+**해설:** P95·오류율·성공률·동시성·요청 구성·비용을 함께 봐야 한다.
 
-**다음 통합에 넘길 것:** 모델 호출 계약·timeout/retry 정책, 지연/비용 표, AWS 네트워크 설계 초안
+## 6. Jira 작업·수용 기준
 
-## 6. 이해 확인 · 해설을 보기 전에 설명하기
+- **SCRUM-22 · 책 9장 읽기·설계/개념 노트 (6h)**
+  - 선행: SCRUM-7.
+  - 수용 기준: 9.1–9.5 전체: 개발 생명주기 평가, 평가 세트, 도구·계획·메모리·학습의 컴포넌트 평가, 엔드투엔드 평가, 환각·예기치 않은 입력, 배포 준비. 2.9 평가 전략도 다시 읽는다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.
+- **SCRUM-23 · 책 개념을 적용한 프로젝트 실습 (6h)**
+  - 선행: SCRUM-22.
+  - 수용 기준: dev20과 최종 holdout30을 분리한다. 검색 성공·근거 일치·답변 가능 여부·보류·검토·권한을 평가 rubric으로 작성하고 원시 결과를 남긴다. 기준선의 품질·지연·비용을 별도 측정한다. 산출물: 정상/실패 expected/actual·raw 결과.
+- **SCRUM-24 · 영상·SA 보충 실습 — 평가 세트·근거 검증·부하 시험 (8h)**
+  - 선행: SCRUM-23.
+  - 수용 기준: 승인 영상 배정 2.5h + 연결 실습 5.5h. 평가 rubric, dev20/holdout30 manifest, 평가 실행 포맷, 지연/오류 기준선, 부하 시험 시나리오. 평가 설정과 원시 결과가 추적되며 품질·응답시간·오류율을 분리해 보고한다. 최종 질문은 설정 선택에서 제외한다.
+- **SCRUM-25 · 퀴즈·본인 설명·증거·다음 주 준비 검토 (2h)**
+  - 선행: SCRUM-24.
+  - 수용 기준: 퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.
 
-**Q1. timeout은 모델이 실행되지 않았다는 뜻인가?**
+## 7. 공식 문서와 증거
 
-<details>
-<summary>해설</summary>
+- [Kubernetes 로컬 기초](https://kubernetes.io/docs/tutorials/kubernetes-basics/) — 현재 API·설치·보안 설정을 확인한다.
+- [k6](https://grafana.com/docs/k6/latest/) — 현재 API·설치·보안 설정을 확인한다.
 
-서버 작업/과금은 이미 발생했을 수 있다. 작업 ID·멱등 키·공급자 응답을 추적한다.
+[책 공식 소개](https://www.hanbit.co.kr/books/ai-에이전트-엔지니어링?code=B1562725816) · [저자 예제 코드](https://github.com/michaelalbada/BuildingApplicationsWithAIAgents) · [승인 영상과 선정 근거](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/video-resources.md) · [13장 목차](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-toc.md) · [SA 보완 영역](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-gap-map.md) · [영어·한글 용어 사전](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/glossary-ko-en.md)
 
-</details>
-
-**Q2. KV 캐시를 켜면 tenant별 응답 캐시가 안전해지는가?**
-
-<details>
-<summary>해설</summary>
-
-다른 계층이다. 응답 캐시는 tenant·권한·문서 버전 등을 키와 검증에 반영해야 한다.
-
-</details>
-
-**Q3. P95와 처리량 중 무엇이 중요할까?**
-
-<details>
-<summary>해설</summary>
-
-고객 요구에 따라 둘 다 조건과 목표를 정한다. 배치 개선이 두 지표를 모두 개선한다고 가정하지 않는다.
-
-</details>
-
-## 7. 공식 자료 · 읽을 범위
-
-- [HTTP 공식 개요](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
-- [AWS VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
-- [vLLM 공식 문서](https://docs.vllm.ai/en/latest/) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
-
-## 증거와 완료 상태
-
-학습 노트에는 읽은 절·자신의 설명·실습 명령·Python/패키지/장치·데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 문서/fixture/실제DB·모델/클라우드·GPU의 수준을 구분한다. 자료 작성만으로 본인의 학습 또는 서비스 제작을 완료 처리하지 않는다. 막히면 증상·시도·다음 행동과 일정 영향을 남긴다.
+읽은 절·자신의 설명·실습 명령·환경/패키지/데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 계획과 실행, fixture와 실제 모델/검색/DB 실행, 목표와 실측을 구분한다. 자료 갱신만으로 학습 또는 구현을 Done 처리하지 않는다.

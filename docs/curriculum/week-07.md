@@ -1,167 +1,139 @@
-# W7 학습 · 멀티모달·에이전트와 배포·관측·복구
+# W7 학습 — 관측·Docker·Kubernetes·CI/CD·복구
 
-**기간:** 2026-11-13–2026-11-19 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e81909714e0d4739b893f) · [Jira SCRUM-12](https://realrho-1790798942092.atlassian.net/browse/SCRUM-12) · [GitHub #7](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/7)
+**주교재:** 『AI 에이전트 엔지니어링』 · **책 범위:** 10장 운영 환경 모니터링
 
-**이번 주 통과 조건:** 워크플로가 최대 횟수 안에 종료되고 검토가 자동 승인되지 않는다. 컨테이너 재시작 후 DB 자료를 조회하고 readiness/liveness 차이를 설명한다.
+**일정:** 2026-11-13–2026-11-19 (Asia/Seoul) · **총 계획:** 22h
 
-[전체 학습표](README.md) · [책 목차 원문](../book-toc.md) · [용어 사전](../glossary-ko-en.md) · [책/보충 범위](../book-gap-map.md)
+[Notion 주차](https://app.notion.com/p/3ebc6f4a2c7e81909714e0d4739b893f) · [SCRUM-12](https://realrho-1790798942092.atlassian.net/browse/SCRUM-12) · [GitHub #7](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/7)
 
-## 1. 책 읽기와 필수 실습
+## 1. 이번 주 목표와 책 읽기
 
-**배정:** 14장 멀티모달 · 15장 LLM 에이전트
+10.1–10.10 전체: 모니터링 스택 선택·OpenTelemetry 계측·시각화/알림·섀도/카나리·회귀 트레이스·자가 치유·피드백·분포 변화·지표 소유권. 9.4 배포 준비와 8.9 상태/영속성도 복습한다.
 
-14.1–14.4는 CLIP·디퓨전·DALL-E·LLaVA의 입력/출력과 표현 연결을 읽는다. 15.1–15.4는 에이전트의 모델·감각·행동·단일/다중 형태와 평가를 읽고 AutoGen 기본 예제 한 경로를 따라간다. 멀티모달/멀티에이전트 전체 구현은 핵심 MVP 밖이다.
+**필수 실습:** Dockerfile과 Compose로 앱/DB를 재현 기동한다. 관측 필드·트레이스를 연결하고 DB 재시작/별도 백업 복원을 확인한다. 로컬 Kubernetes에서 API Deployment·Service·설정·probes·자원 제한·롤백을 실습한다. CI는 테스트·이미지 빌드 한 경로를 만든다.
 
-**필수 실습:** 15장 단일/RAG 에이전트 호출 구조를 추적하고 도구 하나에 최대 호출수·timeout·권한 조건을 붙인다. 14장 예제는 입력 이미지→표현/생성 경로를 설명하는 비교표를 만든다. GPU/유료이미지 생성은 선택으로 두고 원본 출처와 실행 상태를 적는다.
+**재사용 산출물:** Dockerfile·Compose, 로컬 Kubernetes 설정/배포 기록, CI workflow, 구조화 로그·트레이스, 백업/복구 runbook
 
-책 본문은 소유한 책에서 읽는다. [공식 코드](https://github.com/onlybooks/llm)·[정오표](https://www.onlybook.co.kr/entry/llm-errata)를 확인하고 환경/모델/패키지 버전을 기록한다. 선택 GPU/멀티모달 실습의 미실행은 필수 완료와 분리한다.
+**완료 기준:** 같은 버전으로 재현 기동하고 readiness/liveness를 구분한다. 로컬 배포·롤백·상태 확인과 DB 백업 복원 증거가 있으며 비밀 값이 Git/로그에 없다.
 
-## 2. 실행 순서·시간·수용 기준
+## 2. 책·영상·실습을 연결한 22h 실행 순서
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
-|---|---|---|---|---|
-| 1 | 책 14·15장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-38](https://realrho-1790798942092.atlassian.net/browse/SCRUM-38) |
-| 2 | 책 필수 실습·환경/결과 기록 | 6h | 15장 단일/RAG 에이전트 호출 구조를 추적하고 도구 하나에 최대 호출수·timeout·권한 조건을 붙인다. 14장 예제는 입력 이미지→표현/생성 경로를 설명하는 비교표를 만든다. GPU/유료이미지 생성은 선택으로 두고 원본 출처와 실행 상태를 적는다. | [SCRUM-39](https://realrho-1790798942092.atlassian.net/browse/SCRUM-39) |
-| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 워크플로가 최대 횟수 안에 종료되고 검토가 자동 승인되지 않는다. 컨테이너 재시작 후 DB자료를 조회하고 readiness/liveness 차이를 설명한다. | [SCRUM-40](https://realrho-1790798942092.atlassian.net/browse/SCRUM-40) |
-| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 제한된 workflow 계약, Compose기동/지속 볼륨·관측필드·복구runbook 초안를 버전/실행 상태와 함께 저장한다. | [SCRUM-41](https://realrho-1790798942092.atlassian.net/browse/SCRUM-41) |
+| 순서 | 활동 | 계획 시간 | 결과/목적 |
+|---|---|---|---|
+| 1 | 책 읽기·설계 노트 | 6h | 10.1–10.10 전체: 모니터링 스택 선택·OpenTelemetry 계측·시각화/알림·섀도/카나리·회귀 트레이스·자가 치유·피드백·분포 변화·지표 소유권. 9.4 배포 준비와 8.9 상태/영속성도 복습한다. |
+| 2 | 승인 영상 선택 시청 | 4.5h | 묶음 4·5·7. 아래 보는 시점·범위를 따른다. |
+| 3 | 책 개념 프로젝트 실습 | 6h | Dockerfile과 Compose로 앱/DB를 재현 기동한다. 관측 필드·트레이스를 연결하고 DB 재시작/별도 백업 복원을 확인한다. 로컬 Kubernetes에서 API Deployment·Service·설정·probes·자원 제한·롤백을 실습한다. CI는 테스트·이미지 빌드 한 경로를 만든다. |
+| 4 | 영상과 연결한 SA 실습 | 3.5h | Dockerfile·Compose, 로컬 Kubernetes 설정/배포 기록, CI workflow, 구조화 로그·트레이스, 백업/복구 runbook |
+| 5 | 설명·퀴즈·증거 검토 | 2h | 같은 버전으로 재현 기동하고 readiness/liveness를 구분한다. 로컬 배포·롤백·상태 확인과 DB 백업 복원 증거가 있으며 비밀 값이 Git/로그에 없다. |
 
-## 3. SA 보충 강의 · 개념→이유→예제→실습
+영상 배정은 주간 시간 안에 포함된 선택 시청·메모 시간이다. 영상마다 아래 시청 직후 실습을 이어서 수행한다. 순서는 진행 안내이며 Jira 네 작업은 읽기6h·개념 실습6h·영상/SA8h·검토2h로 시간을 집계한다.
 
-### 3.1 에이전트와 제한된 워크플로 선택
+## 3. 이번 주에 볼 한국어 영상과 연결 실습
 
-agent(에이전트)는 목표를 위해 모델의 판단과 도구 실행을 반복하는 시스템이다. workflow(워크플로)는 미리 정한 상태/순서를 따라 작업을 수행한다. node(노드)는 단계, edge(간선)는 다음 연결, checkpoint(체크포인트)는 재개에 필요한 상태 저장이다. AutoGen/LangGraph는 제품 이름이며 영어 약어의 확장 이름을 만들어 붙이지 않는다. 정책검색→출력검증→위험분기→검토 요청처럼 경로가 분명하면 작은 상태 기계만으로 시작할 수 있다. 여러 에이전트를 추가하면 조정 비용·실패 경우·평가 대상이 늘어난다.
+### 영상 1. Docker · 학습 묶음 4
 
-**작동 예시/실패 경계:** 모델이 도구를 반복 호출하려 해도 max_steps=3·총 deadline·토큰 예산에서 중단한다. retry는 일시 오류에 제한하고 resume은 checkpoint버전/권한/활성정책을 다시 확인한다. 검토 승인도구를 모델의 허용 목록에 넣지 않는다.
+**보는 시점:** 10장 관측 필드와 배포 대상 이해 다음.
 
-**직접 해 보기:** 입력 상태·노드별 출력·허용 전이·실패 상태를 표로 쓴다. 시작/시간초과/도구 오류/검토 대기/재개 다섯 경로를 fixture로 검증한 뒤 한 실제 도구로 통합한다.
+- [도커: 이미지 만드는 법 - Dockerfile & build](https://www.youtube.com/watch?v=0kQC19w0gTI) — 생활코딩, 한국어 수업.
+- [Docker Compose](https://www.youtube.com/watch?v=EK6iYRCIjYs) — 생활코딩, 한국어 수업.
 
-### 3.2 Docker 이미지·컨테이너·Compose
+**볼 범위:** W1에 이어 Dockerfile/build 약 18분 + Compose 약 16분. 같은 입문 목록 전체를 반복하지 않는다.
 
-Docker(도커)는 컨테이너 관련 도구의 제품 이름이다. image(이미지)는 실행 코드/의존성의 템플릿, container(컨테이너)는 그 이미지를 실행한 프로세스 환경이다. volume(볼륨)은 컨테이너 수명과 별개로 데이터를 유지하는 저장 장치다. Docker Compose(도커 컴포즈)는 여러 서비스의 설정/연결/기동을 선언하는 도구다. 컨테이너 내부 localhost는 자기 컨테이너를 가리키므로 앱에서 DB호스트는 서비스이름 db로 지정한다. 파일 설치 버전과 이미지태그를 검증해 고정해야 재현성이 높아진다.
+**시청 직후 실습:** API 이미지, DB 볼륨, healthcheck, 설정/비밀 분리를 구현하고 Compose 재기동 및 DB 복원을 확인한다.
 
-**작동 예시/실패 경계:** 서비스는 API+PostgreSQL+선택 벡터backend만 필수다. Pinecone같은 외부backend면 로컬컨테이너가 아니라 외부의존성을 명시한다. Redis는 캐시가 필요하고 검증했을 때만 추가한다. 순서 있는 기동만으로 DB준비가 보장되지는 않는다.
+### 영상 2. Kubernetes · 학습 묶음 5
 
-**직접 해 보기:** Dockerfile/compose초안을 작성해 healthcheck와 DB 볼륨을 연결한다. 비밀은 이미지에 굽지 않는다. 새 환경에서기동 → 의존성준비확인→케이스저장→API재시작→조회 순으로 검증한다.
+**보는 시점:** Docker 이미지·상태/설정 분리 다음.
 
-### 3.3 관측과 SLI·SLO·릴리스 경계
+- [[따배쿠] 쿠버네티스 시리즈](https://www.youtube.com/playlist?list=PLApuRlvrZKohaBHvXAOhUD-RxD0uQ3z0c) — TTABAE-LEARN, 한국어 수업.
 
-observability(관측 가능성)는 외부 신호로 시스템 내부 상태를 설명할 수 있는 정도다. log(로그)는 사건 기록, metric(메트릭)은 수치 시계열, trace(트레이스)는 한 요청의 여러 구간 연결이고 span(스팬)은 그 안의 한 작업이다. OTel, OpenTelemetry(오픈텔레메트리)는 이런 신호를 계측/전달하는 프로젝트다. SLI, Service Level Indicator(서비스 수준 지표)는 실제 측정치, SLO, Service Level Objective(서비스 수준 목표)는 내부 목표, SLA, Service Level Agreement(서비스 수준 계약)는 고객과의 합의다. CI, Continuous Integration(지속적 통합)은 변경의 자동검증, CD는 이 계획에서 Continuous Delivery(지속적 전달)로 사용하며 배포 준비와 실제 배포를 구분한다.
+**볼 범위:** 5-2 probes, 5-6 자원, 6-3 Deployment, 7-1 Service, 10 ConfigMap, 11 Secret을 선택한다. 실행에 필요한 예제부터 보고 남는 심화는 추가 시간에 본다.
 
-**작동 예시/실패 경계:** 프로세스 liveness(살아 있음)와 readiness(요청 처리 준비)를 나눈다. DB가 죽었을 때 liveness200/readiness503을 기대할 수 있다. P95 5초라는 목표에는 요청길이·동시성·환경·모델을 붙이며 실제 결과를 별도 기록한다.
+**시청 직후 실습:** W3 로컬 클러스터에 API를 Deployment/Service로 배포한다. readiness/liveness·requests/limits·ConfigMap/Secret·로그·롤백을 실제 확인한다. Secret의 base64는 암호화가 아니다.
 
-**직접 해 보기:** request_id와 case_id로 intake/retrieve/generate/validate/persist의 시간·성공·오류종류를 연결한다. CI에서입력/권한/상태/검색필터회귀를실행한다. 토큰/원문비밀은로그에서제외한다. 실제 계측없으면관측설계문서만완료한다.
+### 영상 3. CI/CD · 학습 묶음 7
 
-### 3.4 백업·RTO/RPO·Kubernetes의 위치
+**보는 시점:** 로컬 배포가 재현된 뒤 다음.
 
-RTO, Recovery Time Objective(복구 시간 목표)는 서비스 복구까지 허용할 시간, RPO, Recovery Point Objective(복구 시점 목표)는 허용할 데이터 손실 구간이다. backup(백업)은 복구할 사본이며 restore(복원)로 읽을 수 있는지 확인해야 의미가 있다. 컨테이너 재시작 후 데이터가 남는 것은 지속성 증거지만 디스크 손실 복구 증거와 다르다. Kubernetes(쿠버네티스, K8s)는 컨테이너 배포/운영을 조정하는 플랫폼이다. Pod는 배포 단위, Deployment는 복제/업데이트 관리, Service는 안정된 연결 입구다. 운영체계가 커질 때 유용하지만 이번2주MVP에 새클러스터 구축을 필수로 넣지 않는다.
+- [[10분 테코톡] 도비의 CI/CD와 Github Action](https://www.youtube.com/watch?v=SKILL1pT6f4) — 우아한테크, 한국어 수업.
 
-**작동 예시/실패 경계:** 실습목표 RTO30분/RPO24시간은 가상의 설계값이다. DB 볼륨과 별도의백업을 준비해 새 DB로복원한 뒤 케이스·감사행을 조회하고 걸린시간을 잰다. Kubernetes설계도와 실제 배포 완료를 구분한다.
+**볼 범위:** CI/CD와 GitHub Actions 개념을 보고 공식 문서로 프로젝트용 최소 workflow를 만든다.
 
-**직접 해 보기:** 복구runbook에증상→확인→복원→검증→재개를 적는다. 잘못된마이그레이션/모델 API중단/DB중단에대한fallback을 정의한다. 시간이 부족하면 K8s는 개념·ADR만 남기고 Compose복구를완료한다.
+**시청 직후 실습:** 검증→테스트→이미지 빌드 단계와 실패 차단을 확인한다. 자동 운영 배포 권한은 설계에서 검토한다.
 
-## 4. 실행 가능한 기초 계약 실습
 
-아래는 핵심 규칙을 작게 분리해 CPU에서 확인하는 접근이다. 라이브러리 설치나 실제 모델 호출 없이 개념을 검증한다. 프로젝트 통합 구현과 증거 수준을 구분한다.
+## 4. 영어·한국어 개념 강의
 
-실행: `python labs/week-07/contract_demo.py` (저장소 루트).
+### 7.1 Dockerfile·Compose — 이미지 제작과 서비스 묶음
 
-```python
-"""W7: 에이전트 도구 호출을 제한하는 순수 함수 실습."""
-def bounded_workflow(actions: list[str], max_steps: int = 3) -> str:
-    """허용된 도구만 최대 단계 수 안에서 처리한다.
+Dockerfile은 이미지를 만들 절차, Compose는 여러 서비스·네트워크·볼륨의 구성을 선언한다. build-time(빌드 시점)과 runtime(실행 시점)의 설정을 구분한다. 비밀정보를 이미지 층이나 Git에 넣지 않고 검증한 의존성·이미지 버전을 기록한다. DB 볼륨이 남는 것과 독립 백업에서 복원되는 것은 다른 검증이다.
 
-    Args:
-        actions: 모델이 제안했다고 가정한 도구 이름의 fixture 목록.
-        max_steps: 허용할 최대 도구 개수.
-    Returns:
-        완료 시 COMPLETED, review 요청 시 REVIEW_PENDING.
-    Raises:
-        ValueError: 최대 단계가 양수가 아니거나 횟수 초과인 경우.
-        PermissionError: 허용 목록 밖의 도구인 경우.
-    """
-    if max_steps < 1 or len(actions) > max_steps:
-        raise ValueError("step budget exceeded")
-    for action in actions:
-        if action not in {"retrieve", "validate", "request_review"}:
-            raise PermissionError("tool not allowed")
-        if action == "request_review":
-            return "REVIEW_PENDING"  # 검토 요청은 자동 승인과 다르다.
-    return "COMPLETED"
+**업무 예시:** API와 DB를 별도 서비스로 만들고 DB 준비 실패를 관측한다. 컨테이너 생성 순서만으로 DB 준비가 끝났다고 가정하지 않는다.
 
-assert bounded_workflow(["retrieve", "validate", "request_review"]) == "REVIEW_PENDING"
-for actions in [["approve"], ["retrieve"] * 4]:
-    try:
-        bounded_workflow(actions)
-    except (PermissionError, ValueError):
-        pass
-    else:
-        raise AssertionError("unbounded or unauthorized action")
-print("W7 workflow fixture: passed; real agent/deployment not validated")
-```
+**직접 할 일:** Dockerfile/build·Compose 영상을 보고 예정 Dockerfile·compose.yaml을 작성한다. 깨끗한 기동·종료·재기동·의존성 실패를 기록한다.
 
-**복잡도/병목:** 허용 단계 수 n에 시간 O(n), 추가 공간 O(1). 실제 LLM·도구·checkpoint·타임아웃은 별도 통합한다.
+### 7.2 Deployment·Probe·Secret — Kubernetes 운영 경계
 
-## 5. 학습 중 만들 재사용 자산 · 상세 작업
+Deployment는 업데이트와 복제 상태를 관리하고 Service는 Pod 교체와 독립된 접근 지점을 제공한다. readiness probe(준비 상태 검사)는 요청 수신 가능 여부, liveness probe(생존 상태 검사)는 재시작 판단, startup probe(시작 검사)는 느린 초기화를 다룬다. requests/limits(요청 자원/제한)는 스케줄링과 자원 사용에 영향을 준다. ConfigMap은 일반 설정, Secret은 민감 값을 위한 자원이다. base64 인코딩 자체는 암호화가 아니다.
 
-아래 app/data/deployment 파일은 **앞으로 작성할 예정 경로**다. 현재 구현된 것으로 읽지 않는다. 작은 계약 실습을 실제 저장소/모델 경로로 확장하는 작업이다.
+**업무 예시:** 외부 모델 장애마다 liveness를 실패시키면 재시작 폭풍이 생길 수 있다. readiness 실패와 업무 오류를 구분하고 운영 요구에 맞는 검사 범위를 정한다.
 
-### 5.1 작은 workflow 연결
+**직접 할 일:** 따배쿠 5-2·5-6·6-3·7-1·10·11을 선별한다. 최신 공식 로컬 환경에서 API Deployment/Service·설정 주입·롤백을 실행한다. 영속 볼륨·RBAC·Ingress/Gateway 선택은 설계표로 보충한다.
 
-예정 `app/workflows/analyze.py`는 retrieve→generate→validate→riskroute→persist 순서를 명시한다. max_steps/deadline/토큰 예산·실패 상태를 정한다. 이미 실습한 라이브러리 하나 또는 단순 상태 기계만 사용한다.
+### 7.3 CI/CD·Release — 검증과 배포 절차
 
-### 5.2 Compose 환경
+CI, Continuous Integration(지속적 통합)는 변경마다 자동 검증을 수행한다. CD는 Continuous Delivery(지속적 전달) 또는 Continuous Deployment(지속적 배포)를 뜻하며 승인 방식에 따라 구분한다. GitHub Actions는 실행 자동화 제품이다. 테스트 성공·이미지 빌드·배포·배포 후 확인을 다른 단계로 기록하고 실패하면 다음 단계로 진행하지 않게 한다.
 
-예정 Dockerfile·compose.yaml은 API·DB·선택 backend를 구성한다. 이미지/패키지 버전·DB 볼륨·서비스 DNS·healthcheck·환경변수 설정을 남긴다. Redis/전체 OTel 스택/K8s 클러스터는 필수로 추가하지 않는다.
+**업무 예시:** 테스트 통과가 실제 모델 품질이나 복구 성공을 증명하지는 않는다. 비밀 키를 YAML에 쓰지 않고 제한된 실행 권한을 사용한다.
 
-### 5.3 관측 필드 최소 구현
+**직접 할 일:** 영상 7 후 공식 문서로 테스트→이미지 빌드 workflow를 만든다. 로컬/검토 환경의 배포 후 상태 확인과 롤백 명령을 작성한다.
 
-request_id·case_id·단계·duration·오류 종류·usage·버전을 연결하는 구조화 로그를 설계·실행한다. 원문·비밀은 제외한다. /health와 /readiness는 의존성 준비 실패를 구분한다.
+### 7.4 Observability·Recovery — 관측과 복구 증거
 
-### 5.4 CI와 복구 초안
+observability(관측 가능성)는 로그·지표·트레이스로 내부 실패를 설명할 수 있는 정도다. OpenTelemetry는 계측 표준/도구, Langfuse는 모델 실행 관측 제품이다. trace(트레이스)는 요청의 단계와 지연을 연결한다. SLO, Service Level Objective(서비스 수준 목표)는 품질/가용성 목표다. RTO, Recovery Time Objective(목표 복구 시간), RPO, Recovery Point Objective(목표 복구 시점)는 복구 시간과 허용 데이터 손실 기준이다.
 
-예정 `.github/workflows/ci.yml`에 계약·권한·상태·필터 회귀를 연결한다. `docs/runbooks/recovery.md`에 DB 백업→새 DB 복원→조회 확인 절차를 쓴다. 실제 실행한 명령·결과만 완료로 표시한다.
+**업무 예시:** request_id·case_id·run_id로 검색·모델·검증·DB 구간을 연결한다. 민감한 원문·토큰을 통째로 로그에 남기지 않는다. 백업 파일 생성만으로 복구 성공이라 보고하지 않는다.
 
-### 5.5 재개 검증
+**직접 할 일:** 한 관측 경로를 선택하고 장애→알림→진단→복원→검증을 runbook(운영 절차서)으로 적는다. 별도 백업에서 실제 조회까지 확인한다.
 
-검토 대기 case가 재시작 후 같은 상태인지 확인한다. checkpoint에 policy/model/prompt 버전을 저장하고 resume 시 권한·활성 버전을 재검사한다. 모델이 검토를 자동 승인하지 못하게 한다.
+## 5. 확인 퀴즈
 
-**다음 통합에 넘길 것:** 제한된 workflow 계약, Compose기동/지속 볼륨·관측필드·복구runbook 초안
+### Q1. readiness와 liveness는 같은 검사인가?
 
-## 6. 이해 확인 · 해설을 보기 전에 설명하기
+**해설:** 요청을 받을 준비와 재시작 필요 판단은 다르다. 외부 의존성 실패를 무조건 생존 실패로 처리하지 않는다.
 
-**Q1. 컨테이너를 재시작해 데이터가 남으면 백업 검증도 끝인가?**
+### Q2. Kubernetes Secret은 base64라서 안전하게 암호화되는가?
 
-<details>
-<summary>해설</summary>
+**해설:** base64는 인코딩이다. 최소 권한·저장 암호화·노출 방지 등 별도 보호가 필요하다.
 
-지속성만 확인했다. 별도 사본에서 새저장소로 복원하는 검증이 필요하다.
+### Q3. 백업 파일이 생성됐으면 복구 검증도 끝나는가?
 
-</details>
+**해설:** 복원 후 실제 상태·데이터 조회와 시간/손실 조건을 확인해야 한다.
 
-**Q2. readiness와liveness는 같은가?**
+## 6. Jira 작업·수용 기준
 
-<details>
-<summary>해설</summary>
+- **SCRUM-38 · 책 10장 읽기·설계/개념 노트 (6h)**
+  - 선행: SCRUM-11.
+  - 수용 기준: 10.1–10.10 전체: 모니터링 스택 선택·OpenTelemetry 계측·시각화/알림·섀도/카나리·회귀 트레이스·자가 치유·피드백·분포 변화·지표 소유권. 9.4 배포 준비와 8.9 상태/영속성도 복습한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.
+- **SCRUM-39 · 책 개념을 적용한 프로젝트 실습 (6h)**
+  - 선행: SCRUM-38.
+  - 수용 기준: Dockerfile과 Compose로 앱/DB를 재현 기동한다. 관측 필드·트레이스를 연결하고 DB 재시작/별도 백업 복원을 확인한다. 로컬 Kubernetes에서 API Deployment·Service·설정·probes·자원 제한·롤백을 실습한다. CI는 테스트·이미지 빌드 한 경로를 만든다. 산출물: 정상/실패 expected/actual·raw 결과.
+- **SCRUM-40 · 영상·SA 보충 실습 — 관측·Docker·Kubernetes·CI/CD·복구 (8h)**
+  - 선행: SCRUM-39.
+  - 수용 기준: 승인 영상 배정 4.5h + 연결 실습 3.5h. Dockerfile·Compose, 로컬 Kubernetes 설정/배포 기록, CI workflow, 구조화 로그·트레이스, 백업/복구 runbook. 같은 버전으로 재현 기동하고 readiness/liveness를 구분한다. 로컬 배포·롤백·상태 확인과 DB 백업 복원 증거가 있으며 비밀 값이 Git/로그에 없다.
+- **SCRUM-41 · 퀴즈·본인 설명·증거·다음 주 준비 검토 (2h)**
+  - 선행: SCRUM-40.
+  - 수용 기준: 퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.
 
-프로세스존재와처리준비를 다르게 확인한다. 의존성장애를 구분한다.
+## 7. 공식 문서와 증거
 
-</details>
+- [Docker Compose](https://docs.docker.com/compose/) — 현재 API·설치·보안 설정을 확인한다.
+- [Kubernetes 로컬 기초](https://kubernetes.io/docs/tutorials/kubernetes-basics/) — 현재 API·설치·보안 설정을 확인한다.
+- [Kubernetes probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) — 현재 API·설치·보안 설정을 확인한다.
+- [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/) — 현재 API·설치·보안 설정을 확인한다.
+- [GitHub Actions CI](https://docs.github.com/en/actions/get-started/continuous-integration) — 현재 API·설치·보안 설정을 확인한다.
+- [OpenTelemetry](https://opentelemetry.io/docs/concepts/signals/) — 현재 API·설치·보안 설정을 확인한다.
 
-**Q3. 에이전트가 자율적이면 권한도 스스로 결정하는가?**
+[책 공식 소개](https://www.hanbit.co.kr/books/ai-에이전트-엔지니어링?code=B1562725816) · [저자 예제 코드](https://github.com/michaelalbada/BuildingApplicationsWithAIAgents) · [승인 영상과 선정 근거](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/video-resources.md) · [13장 목차](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-toc.md) · [SA 보완 영역](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-gap-map.md) · [영어·한글 용어 사전](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/glossary-ko-en.md)
 
-<details>
-<summary>해설</summary>
-
-서버의검증된신원·허용도구·상태계약이 결정한다.
-
-</details>
-
-## 7. 공식 자료 · 읽을 범위
-
-- [Docker Compose](https://docs.docker.com/compose/) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
-- [OpenTelemetry signals](https://opentelemetry.io/docs/concepts/signals/) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
-- [Kubernetes overview](https://kubernetes.io/docs/concepts/overview/) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
-
-## 증거와 완료 상태
-
-학습 노트에는 읽은 절·자신의 설명·실습 명령·Python/패키지/장치·데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 문서/fixture/실제DB·모델/클라우드·GPU의 수준을 구분한다. 자료 작성만으로 본인의 학습 또는 서비스 제작을 완료 처리하지 않는다. 막히면 증상·시도·다음 행동과 일정 영향을 남긴다.
+읽은 절·자신의 설명·실습 명령·환경/패키지/데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 계획과 실행, fixture와 실제 모델/검색/DB 실행, 목표와 실측을 구분한다. 자료 갱신만으로 학습 또는 구현을 Done 처리하지 않는다.

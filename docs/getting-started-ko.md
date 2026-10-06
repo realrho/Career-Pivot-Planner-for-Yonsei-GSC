@@ -1,37 +1,35 @@
-# 책 중심 학습 시작하기
+# 시작하기 · 책·영상·실습을 연결하는 방법
 
-확정한 구조는 **학습 8주 + 제작 2주, 총 10주**다. 기존 주 22시간을 계획 가정으로 유지한다. 학습 176시간 + 제작 44시간이다. 날짜는 2026-10-02를 새 시작일로 가정해 12-10까지 배치했다. 실제 시작일/주당 시간이 다르면 주차 순서를 유지하며 날짜를 옮긴다.
+주교재는 Michael Albada의 **『AI 에이전트 엔지니어링』(한빛미디어)**이다. 제공받은 13장 목차를 전부 읽되, 프로젝트에 필요한 지식·평가를 먼저 배워 적용하도록 장 순서를 바꿨다. 목차로 범위를 판단한 계획이며 책 본문을 검토한 품질 평가나 책 내용의 대체 요약은 아니다.
 
-## 매주 같은 순서로 공부하기
+학습 8주(176h) + 제작 2주(44h), 총 10주. 기존 일정 2026-10-02–2026-12-10, 주 22h, Asia/Seoul을 유지한다. **2026-10-06 사용자 승인 영상 10묶음**을 각 주차의 읽기→영상→실습에 연결했다. Python·HTTP·SQL 기초 과정은 제외하고 API·입력 검증·트랜잭션·비동기 처리를 학습한다. 구현에 필요한 프레임워크와 영속 저장소 사용은 해당 실습에서 익힌다.
 
-1. **읽기 6h:** 배정한 모든 절을 읽는다. '무엇인가→어디에 쓰나→어떤 비용/한계가 있나'를 3문장으로 적는다.
-2. **책 실습 6h:** 주차의 필수 경로를 실행한다. 공식 노트북·정오표를 사용하고 버전/명령/입출력을 남긴다. GPU가 필요한 선택 실습은 따로 표시한다.
-3. **SA 보충 8h:** 주차의 네 강의를 읽고 계약 실습과 프로젝트용 작은 자산을 만든다. 계산 fixture에서 끝난 항목과 실제 DB/모델 항목을 구분한다.
-4. **설명·증거 검토 2h:** 퀴즈 3개를 해설 없이 답한다. 실행 결과와 남은 질문을 Jira/Notion에 기록한다.
+Docker와 Kubernetes는 로컬 실행 실습까지 필수다. 실제 클라우드 배포, 운영 Kubernetes HA, 추가 모델/검색 엔진, GPU 학습은 선택 심화다.
 
-각 주차의 **통과 조건**을 충족해야 다음 의존 작업이 준비된다. 책 읽기만 끝났다면 읽기 완료로, 실행 못한 실습은 미실행으로 남긴다. 기간은 목표이지 학습 능력을 판단하는 점수가 아니다.
+[책 공식 소개](https://www.hanbit.co.kr/books/ai-에이전트-엔지니어링?code=B1562725816) · [저자 예제 코드](https://github.com/michaelalbada/BuildingApplicationsWithAIAgents) · [승인 영상과 선정 근거](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/video-resources.md) · [13장 목차](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-toc.md) · [SA 보완 영역](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-gap-map.md) · [영어·한글 용어 사전](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/glossary-ko-en.md)
 
-## 책 환경과 프로젝트 환경 분리
+## 매주 실제 진행 순서
 
-책은 2024년 예제를 포함한다. 모델 이름·공급자 기능·SDK가 달라질 수 있으므로 [공식 코드](https://github.com/onlybooks/llm)와 [정오표](https://www.onlybook.co.kr/entry/llm-errata)를 먼저 확인한다. 오래된 노트북 설치를 최신 API 코드와 무조건 섞지 않는다. book environment와 project environment의 Python·패키지 버전·모델 revision을 각각 남긴다. 인증 토큰은 환경/비밀 관리 경로에 두며 노트북 출력·Git·로그에 넣지 않는다.
+1. 주차 교재에서 책의 장/절과 이번 주 문제·완료 기준을 확인한다.
+2. 책 개념을 읽으며 용어를 **약어 → English full name → 자연스러운 한국어 뜻 → 프로젝트에서 하는 일**로 적는다.
+3. 해당 주차의 “이번 주에 볼 영상”에서 지정한 편/부분만 본다. 영상을 본 직후 옆에 적힌 입력·실패·배포 실습을 한다.
+4. 책 개념을 합성 정책 프로젝트에 적용하고 정상/실패 expected/actual을 비교한다.
+5. 자기 설명·퀴즈·raw 결과·commit/run_id를 남기고 수용 기준을 만족했을 때 본인의 진행 상태를 바꾼다.
 
-프로젝트의 기존 API는 Python 3.11+이다. 아래는 현재 뼈대 설치/검증 명령이며 정확 버전 잠금은 W7의 실습으로 정리한다. PowerShell에서 저장소 루트 기준:
+주차 강의는 책 본문의 발췌가 아니라 개념과 시스템 경계를 연결한 자체 설명이다. 이해가 막히면 책 해당 절→영상 해당 부분→현재 공식 문서 순서로 확인한다. 영상에 나온 오래된 API/설치/가격을 그대로 쓰지 않는다.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -e '.[dev]'
-.\.venv\Scripts\python.exe -m pytest -q
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-```
+## 환경과 학습 범위
 
-`-m`은 해당 Python의 모듈을 실행한다. `-e`는 작업 중인 프로젝트를 편집 가능한 형태로 설치하며 `[dev]`는 테스트 의존성을 포함한다. `app.main:app`은 모듈과 FastAPI 객체 경로다. `--reload`는 개발 중 변경 반영용이다. 현재 /health·접수·메모리 조회만 있고 실제 분석/검색/영속DB는 아직 구현되지 않았다.
+프로젝트 기존 FastAPI/Pydantic 환경을 이용한다. Python·HTTP·SQL 기초 과정은 배정하지 않는다. API·입력 검증·트랜잭션·비동기 실패 처리는 실제 실습으로 익힌다. 서로 다른 실험의 패키지/모델 환경은 분리하고 검증한 버전을 기록한다.
 
-새로 제공한 `labs/week-01..08/contract_demo.py`는 표준 라이브러리 CPU 실습이다. 예: `python labs/week-01/contract_demo.py`. 이 예제의 통과는 웹API·모델·PostgreSQL·GPU 실행 검증과 다르다.
+W1 Docker 이미지/컨테이너 입문 → W3 kind 또는 minikube 로컬 클러스터와 kubectl → W5 PostgreSQL 영속 상태 → W6 Terraform 로컬 plan/state → W7 Dockerfile/Compose + Kubernetes API 배포/probes/Secret/롤백 + Actions CI + 백업 복원으로 이어진다. Docker·Kubernetes는 개념 시청만으로 완료하지 않는다. GPU/실제 클라우드/운영 K8s HA는 선택 심화다.
 
-## 필수 / 선택 / 막혔을 때
+실제 RAG 경로는 W2 한 검색 backend로 시작하고 W3 평가 세트로 확인한다. dev20과 최종 holdout30은 분리한다. 최종 질문으로 설정을 선택하지 않는다. 모델·DB·권한 통합이 없으면 fixture 실습만으로 W8 준비 gate를 통과했다고 기록하지 않는다.
 
-기초가 어려우면 추가 GPU/멀티모달 실습부터 줄이고 입력/DB/검색/권한 필수 자산을 우선한다. GPU 없이 학습 코드 흐름·메모리·평가 설계를 이해할 수 있지만 실제 학습했다고 쓰지는 않는다. 모델 키/예산이 없으면 retrieval과 fixture를 진행하고 최종 실제 모델 gate를 미완료로 둔다. 환경 실패는 Python경로→패키지→버전/하드웨어 지원→요청/데이터 계약 순으로 확인한다.
+## W9 제작 시작 조건
 
-W8 준비 gate: API 계약, 실제 검색, 영속 DB, 권한/검토, 재현 가능한 기동, 평가 세트. 이 자산이 없으면 2주 제작 추정을 다시 잡는다.
+API 계약·실제 검색·영속 DB·권한/검토·재현 기동·평가 세트의 6자산을 W8까지 준비한다. 로컬 Kubernetes는 API 배포/롤백 학습 증거를 남기며 최종 데모의 기본 전체 스택은 Compose로 재현할 수 있다. 6자산이 없으면 2주 제작 추정을 다시 잡는다.
 
-[목차](book-toc.md) · [SA 보충 범위](book-gap-map.md) · [영어·한글 용어](glossary-ko-en.md) · [10주 교재](curriculum/README.md) · [MVP 설계](project-blueprint.md)
+읽은 절·자신의 설명·실습 명령·환경/패키지/데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 계획과 실행, fixture와 실제 모델/검색/DB 실행, 목표와 실측을 구분한다. 자료 갱신만으로 학습 또는 구현을 Done 처리하지 않는다.
+
+[10주 교재](curriculum/README.md) · [MVP 설계](project-blueprint.md) · [이전 교재 보관](curriculum/archive-book-v2/README.md)

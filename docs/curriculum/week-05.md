@@ -1,171 +1,125 @@
-# W5 학습 · 검색 고도화·벡터 DB와 영속성·트랜잭션
+# W5 학습 — 멀티 에이전트·영속 상태·트랜잭션·보안
 
-**기간:** 2026-10-30–2026-11-05 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e817e9825cec827df9013) · [Jira SCRUM-10](https://realrho-1790798942092.atlassian.net/browse/SCRUM-10) · [GitHub #5](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/5)
+**주교재:** 『AI 에이전트 엔지니어링』 · **책 범위:** 8장 단일 에이전트에서 멀티 에이전트로 / 12장 에이전틱 시스템 보안
 
-**이번 주 통과 조건:** 다른 tenant/비활성 버전 근거가 나오지 않으며 DB 쓰기 실패 시 상태와 감사 기록이 함께 롤백된다. 재시작 후 조회 경로를 확인한다.
+**일정:** 2026-10-30–2026-11-05 (Asia/Seoul) · **총 계획:** 22h
 
-[전체 학습표](README.md) · [책 목차 원문](../book-toc.md) · [용어 사전](../glossary-ko-en.md) · [책/보충 범위](../book-gap-map.md)
+[Notion 주차](https://app.notion.com/p/3ebc6f4a2c7e817e9825cec827df9013) · [SCRUM-10](https://realrho-1790798942092.atlassian.net/browse/SCRUM-10) · [GitHub #5](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/5)
 
-## 1. 책 읽기와 필수 실습
+## 1. 이번 주 목표와 책 읽기
 
-**배정:** 11장 임베딩 학습·순위 재정렬 · 12장 벡터 DB·RAG 확장
+8.1–8.10 전체: 에이전트 수·조율·A2A·메시지 브로커·액터·워크플로 엔진·상태/영속성. 12.1–12.6 전체: 에이전트 위험·공격·모델 보안·레드팀·MAESTRO·데이터 보호·보호 장치. 한 에이전트 기준선을 먼저 유지한다.
 
-11.1–11.5는 임베딩 학습·대조 학습·MNR loss·교차 인코더 순위 재정렬을 기본 검색 대비 개선 실험으로 읽는다. 12.1–12.4는 KNN/ANN·NSW/HNSW·m/ef 파라미터·Pinecone 연동을 실행한다. 12.5 멀티모달 예제는 흐름을 읽고 실행은 선택 심화로 둔다.
+**필수 실습:** PostgreSQL의 사례 상태·검토·감사를 한 트랜잭션으로 저장하고 실패·동시 갱신을 검증한다. 인증된 tenant/role로 검색·조회·검토를 제한한다. 도구 접근 위협 모델을 그리고 클라우드 IAM/VPC 설계를 작성한다.
 
-**필수 실습:** 기본 embedding+reranker 한 조합을 작은 corpus에 적용해 정확도/지연을 비교한다. Pinecone 공식 책 예제를 따라가거나 사용할 수 있는 로컬 벡터 backend 하나를 선택하고 차이를 ADR에 기록한다. 임베딩 미세 조정/GPU·다른 DB 추가·이미지 생성 전체 실행은 선택이다.
+**재사용 산출물:** 영속 상태·검토·감사 설계, 트랜잭션 실패 기록, 권한 매핑, 위협 모델, 큐·저장소·네트워크 선택표
 
-책 본문은 소유한 책에서 읽는다. [공식 코드](https://github.com/onlybooks/llm)·[정오표](https://www.onlybook.co.kr/entry/llm-errata)를 확인하고 환경/모델/패키지 버전을 기록한다. 선택 GPU/멀티모달 실습의 미실행은 필수 완료와 분리한다.
+**완료 기준:** 감사 저장 실패 시 업무 상태도 롤백되며 중복·동시 검토가 잘못 승인되지 않는다. 교차 tenant·viewer 승인·주입된 도구 호출을 거부한다.
 
-## 2. 실행 순서·시간·수용 기준
+## 2. 책·영상·실습을 연결한 22h 실행 순서
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
-|---|---|---|---|---|
-| 1 | 책 11·12장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-30](https://realrho-1790798942092.atlassian.net/browse/SCRUM-30) |
-| 2 | 책 필수 실습·환경/결과 기록 | 6h | 기본 embedding+reranker 한 조합을 작은 corpus에 적용해 정확도/지연을 비교한다. Pinecone 공식 책 예제를 따라가거나 사용할 수 있는 로컬 벡터 backend 하나를 선택하고 차이를 ADR에 기록한다. 임베딩 미세 조정/GPU·다른 DB 추가·이미지 생성 전체 실행은 선택이다. | [SCRUM-31](https://realrho-1790798942092.atlassian.net/browse/SCRUM-31) |
-| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 다른 tenant/비활성 버전 근거가 나오지 않으며 DB 쓰기 실패 시 상태와 감사 기록이 함께 롤백된다. 재시작 후 조회 경로를 확인한다. | [SCRUM-32](https://realrho-1790798942092.atlassian.net/browse/SCRUM-32) |
-| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 선택 벡터backend의 실제 검색 경로, PostgreSQL 사례/검토/감사 schema, 원자적 갱신 연습를 버전/실행 상태와 함께 저장한다. | [SCRUM-33](https://realrho-1790798942092.atlassian.net/browse/SCRUM-33) |
+| 순서 | 활동 | 계획 시간 | 결과/목적 |
+|---|---|---|---|
+| 1 | 책 읽기·설계 노트 | 6h | 8.1–8.10 전체: 에이전트 수·조율·A2A·메시지 브로커·액터·워크플로 엔진·상태/영속성. 12.1–12.6 전체: 에이전트 위험·공격·모델 보안·레드팀·MAESTRO·데이터 보호·보호 장치. 한 에이전트 기준선을 먼저 유지한다. |
+| 2 | 승인 영상 선택 시청 | 1h | 묶음 2·6. 아래 보는 시점·범위를 따른다. |
+| 3 | 책 개념 프로젝트 실습 | 6h | PostgreSQL의 사례 상태·검토·감사를 한 트랜잭션으로 저장하고 실패·동시 갱신을 검증한다. 인증된 tenant/role로 검색·조회·검토를 제한한다. 도구 접근 위협 모델을 그리고 클라우드 IAM/VPC 설계를 작성한다. |
+| 4 | 영상과 연결한 SA 실습 | 7h | 영속 상태·검토·감사 설계, 트랜잭션 실패 기록, 권한 매핑, 위협 모델, 큐·저장소·네트워크 선택표 |
+| 5 | 설명·퀴즈·증거 검토 | 2h | 감사 저장 실패 시 업무 상태도 롤백되며 중복·동시 검토가 잘못 승인되지 않는다. 교차 tenant·viewer 승인·주입된 도구 호출을 거부한다. |
 
-## 3. SA 보충 강의 · 개념→이유→예제→실습
+영상 배정은 주간 시간 안에 포함된 선택 시청·메모 시간이다. 영상마다 아래 시청 직후 실습을 이어서 수행한다. 순서는 진행 안내이며 Jira 네 작업은 읽기6h·개념 실습6h·영상/SA8h·검토2h로 시간을 집계한다.
 
-### 3.1 벡터 검색과 업무 저장소 분리
+## 3. 이번 주에 볼 한국어 영상과 연결 실습
 
-KNN, k-Nearest Neighbors(k-최근접 이웃)은 거리상 가까운 k개를 찾는 방식이고 ANN, Approximate Nearest Neighbor(근사 최근접 이웃)는 정확도를 일부 교환해 검색을 빠르게 한다. HNSW, Hierarchical Navigable Small World(계층형 탐색 가능한 작은 세계)는 여러 층의 그래프를 탐색하는 인덱스다. m은 연결 수, ef_construction은 구축 탐색 폭, ef_search는 질의 탐색 폭에 관계한다. 높은 값은 메모리/구축/질의 비용을 늘릴 수 있으므로 Recall·지연·메모리를 같이 본다. 벡터 DB는 근거 유사 검색에, PostgreSQL은 사례 상태·검토·감사·제약에 사용하면 책임이 명확하다.
+### 영상 1. Transactions · 학습 묶음 2
 
-**작동 예시/실패 경계:** '문서와 비슷한 질문'은 벡터 검색으로 찾고 'case_id=123이 검토 대기인가'는 기본 키 조회로 확인한다. 벡터 검색 score를 업무 상태로 저장하거나 DB 전체를 하나로 바꾸려 하기 전에 필요한 질의와 일관성을 구분한다.
+**보는 시점:** 8.9 상태와 영속성 관리 다음.
 
-**직접 해 보기:** RAGBackend.search(query, trusted_scope, active_version, k)의 반환 형식을 하나로 정의한다. Pinecone/Milvus는 제품 이름이다. 이번 MVP는 검증한 하나만 사용하며 두 backend 비교는 추가 과제다.
+- [BJ.42 데이터베이스 트랜잭션과 ACID](https://www.youtube.com/watch?v=sLJ8ypeHGlM) — 쉬운코드, 한국어 수업.
 
-### 3.2 ACID 트랜잭션과 동시 검토
+**볼 범위:** 트랜잭션·ACID 개념(약 25분). SQL 문법과 Java/Spring 문법 학습은 제외한다.
 
-ACID는 Atomicity(원자성), Consistency(일관성), Isolation(격리성), Durability(지속성)의 묶음이다. transaction(트랜잭션)은 관련 DB 변경을 함께 성공시키거나 롤백하는 단위다. 상태 변경과 감사 기록이 따로 성공하면 누가 무엇을 결정했는지 사라질 수 있으므로 함께 묶는다. 동시 검토자 두 명이 같은 case를 수정하면 마지막 쓰기가 앞 결정을 덮을 수 있다. optimistic concurrency(낙관적 동시성 제어)는 version 조건이 맞는 갱신만 허용하고 실패한 경쟁 요청을 거부한다.
+**시청 직후 실습:** 승인 상태 변경과 감사 기록을 같은 트랜잭션으로 묶고 감사 실패를 주입한다. 모두 롤백되는지, 중복/동시 승인에 충돌 처리가 있는지 확인한다.
 
-**작동 예시/실패 경계:** UPDATE cases SET status='APPROVED', version=version+1 WHERE id=? AND version=? AND status='REVIEW_PENDING' 후 영향행이1인지 확인한다. 감사 INSERT도 같은 트랜잭션 안에서 수행한다. 0행이면409 충돌을 반환한다. DB 트랜잭션이 외부 이메일/모델 호출까지 자동 취소하지는 않는다.
+### 영상 2. AWS network and permissions · 학습 묶음 6
 
-**직접 해 보기:** SQLite로 원자성 원리를 연습한 뒤 PostgreSQL 실제 경로에서 실패 주입·재시작·동시 갱신을 검증한다. SQL은 바인딩하고 사례 tenant 조건도 포함한다. 시스템이 검토 요청을 생성한 것과 사람이 승인한 것은 다른 상태다.
+**보는 시점:** 12장 위협·데이터 보호·에이전트 권한 다음.
 
-### 3.3 멱등 ingestion과 버전 활성화
+- [(리뉴얼) 쉽게 설명하는 AWS 기초강의 29. VPC와 서브넷](https://www.youtube.com/watch?v=azd_k4bOXqw) — AWS 강의실, 한국어 수업.
+- [(리뉴얼) 쉽게 설명하는 AWS 기초강의 9. IAM 기초](https://www.youtube.com/watch?v=HKIg04dDS8A) — AWS 강의실, 한국어 수업.
 
-ingestion(데이터 수집·적재)은 원본을 읽어 정제/분할/임베딩/저장하는 과정이다. content hash(내용 해시)는 동일 내용 확인에, document version(문서 버전)은 정책 변화 추적에 쓰며 같은 개념이 아니다. tenant+source+version+chunk identity에 유일 제약을 두면 재실행 중복을 줄인다. 새 버전을 일부만 적재한 상태에서 검색을 열면 빠진 근거로 답할 수 있다. staging(준비 영역)에 새 인덱스를 만들고 검증 후 active version(활성 버전) 포인터를 바꾸는 절차가 안전하다.
+**볼 범위:** VPC·서브넷 약 23분 + IAM 기초 약 11분. 독립 강사 채널이며 AWS 공식 채널과 구분한다.
 
-**작동 예시/실패 경계:** v2를 준비하다 중간 실패하면 v1검색을 유지한다. v2검증 후 활성화하면서 v1캐시를 무효화한다. DB와 벡터 DB 사이에 단일 트랜잭션이 없으면 적재 manifest·상태·재시도 가능한 작업 기록으로 불일치를 복구한다.
+**시청 직후 실습:** 공개 API/비공개 DB 네트워크와 신원→role→tenant 권한표를 그린다. IAM 정책·비밀 관리·저장소/컴퓨팅 선택 이유를 적는다.
 
-**직접 해 보기:** 12개 문서를 두 번 적재해 같은 논리 청크 수가 유지되는지 확인한다. 실패 후 재시작하여 누락만 채우는지 본다. schema/mapping 변경 시 임베딩 차원·거리 함수·모델 버전도 manifest에 적는다.
 
-### 3.4 권한 필터와 인덱스 평가
+## 4. 영어·한국어 개념 강의
 
-tenant(테넌트)는 서비스를 공유하는 고객/조직 경계다. 요청 본문에 적힌 tenant_id보다 검증된 사용자→tenant 매핑을 신뢰해야 한다. 검색 전에 범위를 제한하고 검색 결과를 반환하기 전 다시 확인하면 권한 밖 근거가 프롬프트/로그/캐시로 흐르는 위험을 줄일 수 있다. 제한 없는 전체 검색 후 단순히 상위 k에서 몇 개를 지우면 정답 근거가 사라질 수 있으므로 backend의 필터 지원과 검색 품질을 같이 확인한다. 불충분한 필터 구현이면 그 환경을 안전한 멀티테넌트 구현으로 보고하지 않는다.
+### 5.1 Transaction·ACID — 트랜잭션과 일관된 갱신
 
-**작동 예시/실패 경계:** tenant A의 정책코드 R-17 질문에 B의 더 가까운 벡터가 존재하도록 합성 데이터를 만든다. A조건 검색이 A근거를 반환하거나 명시적으로 보류해야 한다. 비활성 v1문서가 높은 점수여도 v2활성 조건에서 제외된다.
+transaction(트랜잭션)은 함께 성공하거나 함께 실패해야 하는 업무 변경의 경계다. ACID는 Atomicity(원자성), Consistency(일관성), Isolation(격리성), Durability(지속성)이다. 격리 수준·조건부 갱신·제약은 동시 요청의 결과에 영향을 준다. 한 DB의 원자성이 외부 API나 메시지 발행까지 자동으로 확장되지는 않는다.
 
-**직접 해 보기:** 교차tenant·버전변경·문서삭제·reranker오류 4개를 회귀 사례로 만든다. 조회할 수 없는 case가 존재하는지도 드러내지 않는404 계약을 선택할 수 있으며 이 결정을 ADR에 적는다.
+**업무 예시:** 검토 결정과 감사 기록을 한 트랜잭션으로 저장한다. 감사 삽입 실패가 나면 사례 상태만 승인으로 남아서는 안 된다. 오래된 case_version으로 결정하면 충돌을 반환한다.
 
-## 4. 실행 가능한 기초 계약 실습
+**직접 할 일:** 쉬운코드 영상에서 개념·ACID를 보고 SQL/Java 문법 기초는 생략한다. 실제 PostgreSQL에서 실패 주입·동시 검토·재시작 후 조회를 검증한다.
 
-아래는 핵심 규칙을 작게 분리해 CPU에서 확인하는 접근이다. 라이브러리 설치나 실제 모델 호출 없이 개념을 검증한다. 프로젝트 통합 구현과 증거 수준을 구분한다.
+### 5.2 Queue·Cache·Outbox — 큐·캐시·발행 기록
 
-실행: `python labs/week-05/contract_demo.py` (저장소 루트).
+message broker(메시지 브로커)는 작업이나 이벤트 전달을 중개한다. worker(워커)는 전달된 작업을 수행한다. Redis는 캐시 등에 쓰이는 저장소 제품이고 SQS·RabbitMQ·Kafka는 서로 다른 운영·전달 모델을 가진 제품이다. 모든 제품을 구현하지 않고 지속성·순서·중복·지연·운영 부담으로 하나를 선택한다. outbox(발행 기록 패턴)는 DB 변경과 발행할 이벤트를 함께 기록한 뒤 전달을 수행하는 방식이다.
 
-```python
-"""W5: SQLite 실패 주입으로 상태/감사의 원자성만 검증한다."""
-import sqlite3
+**업무 예시:** 접수 상태만 DB에 저장하고 메시지 전송이 실패하면 작업이 사라질 수 있다. 중복 전달도 고려해 워커의 업무 효과를 멱등하게 만든다.
 
-def atomic_review(connection: sqlite3.Connection, fail_audit: bool = False) -> None:
-    """상태와 감사 행을 한 트랜잭션으로 저장한다.
+**직접 할 일:** 내구성 요구와 로컬 시연 범위를 적고 DB 작업 기록/브로커 중 하나를 선택한다. 캐시 키에 tenant·정책 버전을 넣고 만료·무효화를 설명한다.
 
-    Args:
-        connection: 실습용 SQLite 연결.
-        fail_audit: 감사 기록 전에 오류를 주입할지 여부.
-    Returns:
-        None. 성공하면 두 변경을 커밋한다.
-    Raises:
-        RuntimeError: 실패 주입 시 발생하며 상태 변경도 롤백된다.
-        sqlite3.Error: SQL 실행이 실패한 경우.
-    """
-    with connection:  # context manager는 예외 시 DB 변경을 롤백한다.
-        connection.execute("UPDATE cases SET status = ? WHERE id = ?", ("APPROVED", 1))
-        if fail_audit:
-            raise RuntimeError("injected audit failure")
-        connection.execute("INSERT INTO audit(case_id) VALUES (?)", (1,))
+### 5.3 Identity·IAM·RBAC — 신원과 권한
 
-connection = sqlite3.connect(":memory:")
-connection.executescript("CREATE TABLE cases(id INTEGER PRIMARY KEY, status TEXT);"
-                         "CREATE TABLE audit(case_id INTEGER);"
-                         "INSERT INTO cases VALUES(1, 'REVIEW_PENDING');")
-try:
-    atomic_review(connection, fail_audit=True)
-except RuntimeError:
-    pass
-assert connection.execute("SELECT status FROM cases").fetchone()[0] == "REVIEW_PENDING"
-assert connection.execute("SELECT count(*) FROM audit").fetchone()[0] == 0
-atomic_review(connection)
-assert connection.execute("SELECT count(*) FROM audit").fetchone()[0] == 1
-connection.close()
-print("W5 SQLite atomicity: passed; PostgreSQL/concurrency not validated")
-```
+IAM, Identity and Access Management(신원·접근 관리)는 리소스 권한을 관리한다. RBAC, Role-Based Access Control(역할 기반 접근 제어)은 역할별 허용 행동을 정한다. authentication(인증)은 신원 확인, authorization(인가)은 해당 행동의 허용 여부다. SSO, Single Sign-On(통합 로그인)과 OAuth/OIDC는 기업 신원 통합을 위한 선택 영역이다. 서비스 권한과 최종 사용자의 업무 권한을 모두 확인한다.
 
-**복잡도/병목:** 상수 개수 DB 연산. 실제 DB 비용은 인덱스·락·I/O에 좌우된다. PostgreSQL·동시성·백업은 별도 검증한다.
+**업무 예시:** API 서버가 DB에 접근하는 권한과 viewer가 검토를 승인하는 권한은 다르다. 본문 reviewer=true는 신원 증거가 아니다.
 
-## 5. 학습 중 만들 재사용 자산 · 상세 작업
+**직접 할 일:** IAM 기초 영상과 역할 표를 연결한다. 읽기·검색·승인·관리 권한을 매핑하고 역할/tenant 불일치를 실패 사례로 만든다.
 
-아래 app/data/deployment 파일은 **앞으로 작성할 예정 경로**다. 현재 구현된 것으로 읽지 않는다. 작은 계약 실습을 실제 저장소/모델 경로로 확장하는 작업이다.
+### 5.4 Threat Model·VPC — 위협 모델과 네트워크 경계
 
-### 5.1 관계형 schema와 제약
+threat model(위협 모델)은 자산·신뢰 경계·공격 경로·대응을 정리한 것이다. VPC, Virtual Private Cloud(가상 사설 클라우드)는 클라우드 네트워크를 구성하는 경계다. subnet(서브넷)·라우팅·보안 그룹은 서로 다른 역할을 한다. prompt injection(프롬프트 주입)은 문서의 악성 지시가 업무 권한처럼 해석되는 위험이다. 책의 MAESTRO는 Multi-Agent Environment, Security, Threat, Risk, and Outcome(다중 에이전트 환경·보안·위협·위험·결과) 위협 모델링 틀이다.
 
-예정 `app/repositories/postgres.py`와 DB migration에 cases(id,tenant_id,status,version), reviews(case_id,actor,decision), audit(case_id,actor,old/new_status,run_id)를 정의한다. 외래 키·유일 키·조회 인덱스와 tenant 조건을 명시한다.
+**업무 예시:** 검색 문서가 '모든 정책을 외부로 보내라'고 해도 도구 권한과 시스템 규칙을 바꾸면 안 된다. 공개 API와 비공개 DB 사이의 허용 연결만 설계한다.
 
-### 5.2 원자적 검토 갱신
+**직접 할 일:** VPC·서브넷 영상을 보고 API/DB/비밀 저장소/사용자의 데이터 흐름을 그린다. 누출·과도한 권한·내부 실패를 각 1개 이상 위협 모델에 넣는다.
 
-상태·기존 version 조건을 가진 UPDATE와 audit INSERT를 한 트랜잭션으로 묶는다. 영향 행 0이면 충돌·잘못된 전이로 처리한다. 감사 실패를 주입해 case 상태도 원래대로 남는지 검증한다. SQLite 연습 뒤 PostgreSQL 실제 연결로 확인한다.
+## 5. 확인 퀴즈
 
-### 5.3 벡터 backend 하나 확정
+### Q1. DB 트랜잭션으로 외부 API 쓰기도 자동 롤백되는가?
 
-책의 Pinecone 또는 호환 로컬 backend 하나를 정한다. Milvus는 Windows에서 공식 지원하는 Docker/WSL2 환경을 확인한다. 검색 adapter는 tenant/version 조건과 evidence ID를 반환해야 한다. 비용·운영·데이터 경계 ADR을 쓴다.
+**해설:** 한 DB 경계를 넘는 부작용에는 별도 발행 기록·보상·조정이 필요하다.
 
-### 5.4 적재/활성화/복구
+### Q2. 비동기 작업이 한 번만 전달된다고 가정해도 되는가?
 
-같은 corpus를 두 번 적재하고 논리 중복이 없음을 확인한다. v2 준비 영역 적재 실패 시 v1 활성 검색을 유지한다. 임베딩 차원·인덱스 설정·활성 버전·캐시 무효화 절차를 기록한다.
+**해설:** 선택 시스템의 전달 보장을 확인하고 중복 처리와 실패 복원을 설계한다.
 
-### 5.5 회귀와 지속성
+### Q3. viewer=true 같은 본문 필드를 권한으로 사용해도 되는가?
 
-교차 tenant·비활성 버전·없는 case·동시 갱신·프로세스 재시작 조회를 검증한다. 재시작 지속성과 별도 백업 복원은 구분한다.
-
-**다음 통합에 넘길 것:** 선택 벡터backend의 실제 검색 경로, PostgreSQL 사례/검토/감사 schema, 원자적 갱신 연습
-
-## 6. 이해 확인 · 해설을 보기 전에 설명하기
-
-**Q1. 트랜잭션이면 외부 모델 호출도 롤백되는가?**
-
-<details>
-<summary>해설</summary>
-
-DB 내부 변경 범위다. 외부 부작용은 별도 멱등/복구 설계가 필요하다.
-
-</details>
-
-**Q2. 캐시TTL만으로 정책 갱신 즉시 반영을 보장하는가?**
-
-<details>
-<summary>해설</summary>
-
-아니다. 활성버전/캐시 키/무효화 절차를 함께 설계한다.
-
-</details>
-
-**Q3. ANN 인덱스 설정을 크게 하면 항상 좋은가?**
-
-<details>
-<summary>해설</summary>
-
-메모리·구축/질의시간 비용이 증가할 수 있어 같은 데이터로 정확도와 비용을 측정한다.
-
-</details>
-
-## 7. 공식 자료 · 읽을 범위
-
-- [PostgreSQL: transaction](https://www.postgresql.org/docs/current/tutorial-transactions.html) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
-- [Pinecone 공식 문서](https://docs.pinecone.io/) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
-- [Milvus 공식 문서](https://milvus.io/docs) — 해당 강의에 필요한 절과 예제만 읽고 자신의 합성 자료/계약에 적용한다.
-
-## 증거와 완료 상태
-
-학습 노트에는 읽은 절·자신의 설명·실습 명령·Python/패키지/장치·데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 문서/fixture/실제DB·모델/클라우드·GPU의 수준을 구분한다. 자료 작성만으로 본인의 학습 또는 서비스 제작을 완료 처리하지 않는다. 막히면 증상·시도·다음 행동과 일정 영향을 남긴다.
+**해설:** 서버가 검증한 신원과 역할을 권한 판단에 사용한다.
+
+## 6. Jira 작업·수용 기준
+
+- **SCRUM-30 · 책 8·12장 읽기·설계/개념 노트 (6h)**
+  - 선행: SCRUM-9.
+  - 수용 기준: 8.1–8.10 전체: 에이전트 수·조율·A2A·메시지 브로커·액터·워크플로 엔진·상태/영속성. 12.1–12.6 전체: 에이전트 위험·공격·모델 보안·레드팀·MAESTRO·데이터 보호·보호 장치. 한 에이전트 기준선을 먼저 유지한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.
+- **SCRUM-31 · 책 개념을 적용한 프로젝트 실습 (6h)**
+  - 선행: SCRUM-30.
+  - 수용 기준: PostgreSQL의 사례 상태·검토·감사를 한 트랜잭션으로 저장하고 실패·동시 갱신을 검증한다. 인증된 tenant/role로 검색·조회·검토를 제한한다. 도구 접근 위협 모델을 그리고 클라우드 IAM/VPC 설계를 작성한다. 산출물: 정상/실패 expected/actual·raw 결과.
+- **SCRUM-32 · 영상·SA 보충 실습 — 멀티 에이전트·영속 상태·트랜잭션·보안 (8h)**
+  - 선행: SCRUM-31.
+  - 수용 기준: 승인 영상 배정 1h + 연결 실습 7h. 영속 상태·검토·감사 설계, 트랜잭션 실패 기록, 권한 매핑, 위협 모델, 큐·저장소·네트워크 선택표. 감사 저장 실패 시 업무 상태도 롤백되며 중복·동시 검토가 잘못 승인되지 않는다. 교차 tenant·viewer 승인·주입된 도구 호출을 거부한다.
+- **SCRUM-33 · 퀴즈·본인 설명·증거·다음 주 준비 검토 (2h)**
+  - 선행: SCRUM-32.
+  - 수용 기준: 퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.
+
+## 7. 공식 문서와 증거
+
+- [트랜잭션](https://www.postgresql.org/docs/current/tutorial-transactions.html) — 현재 API·설치·보안 설정을 확인한다.
+- [MAESTRO](https://labs.cloudsecurityalliance.org/maestro/) — 현재 API·설치·보안 설정을 확인한다.
+
+[책 공식 소개](https://www.hanbit.co.kr/books/ai-에이전트-엔지니어링?code=B1562725816) · [저자 예제 코드](https://github.com/michaelalbada/BuildingApplicationsWithAIAgents) · [승인 영상과 선정 근거](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/video-resources.md) · [13장 목차](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-toc.md) · [SA 보완 영역](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-gap-map.md) · [영어·한글 용어 사전](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/glossary-ko-en.md)
+
+읽은 절·자신의 설명·실습 명령·환경/패키지/데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 계획과 실행, fixture와 실제 모델/검색/DB 실행, 목표와 실측을 구분한다. 자료 갱신만으로 학습 또는 구현을 Done 처리하지 않는다.

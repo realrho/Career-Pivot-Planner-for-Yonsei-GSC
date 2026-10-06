@@ -1,54 +1,59 @@
-# W10 제작 · MVP 검증 — 최종 평가·복구·포트폴리오 시연
+# W10 제작 — MVP 검증 — 최종 평가·복구·포트폴리오 시연
 
-**기간:** 2026-12-04–2026-12-10 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ecc6f4a2c7e819b9b43f0b0f71f1323) · [Jira SCRUM-48](https://realrho-1790798942092.atlassian.net/browse/SCRUM-48) · [GitHub #10](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/10)
+**주교재:** 『AI 에이전트 엔지니어링』 · **책 범위:** W1–W8 자산 재사용
 
-**이번 주 통과 조건:** 재현 명령·버전·예산·측정 조건과 실패 사례가 합성 자료의 실행 증거로 추적된다. 안전 gate 통과 여부와 품질 목표 달성을 분리해 보고한다.
+**일정:** 2026-12-04–2026-12-10 (Asia/Seoul) · **총 계획:** 22h
 
-[전체 학습표](README.md) · [책 목차 원문](../book-toc.md) · [용어 사전](../glossary-ko-en.md) · [책/보충 범위](../book-gap-map.md)
+[Notion 주차](https://app.notion.com/p/3ecc6f4a2c7e819b9b43f0b0f71f1323) · [SCRUM-48](https://realrho-1790798942092.atlassian.net/browse/SCRUM-48) · [GitHub #10](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/10)
 
-## 1. 책 읽기와 필수 실습
+## 1. 이번 주 목표와 책 읽기
 
-**배정:** 이전 8주 자산 재사용
-
-책 13장의평가와 W7–W8의관측/복구/증거전달을적용한다. 목표 미달결과도평가보고서에남긴다.
+『AI 에이전트 엔지니어링』9·10·11·13장의 평가·관측·개선·고객 설명을 적용한다.
 
 **필수 실습:** 개발20+동결 holdout30질문을구분해실제 모델평가를수행한다. 깨끗한환경기동·재시작·백업 복원을검증하고코드/보고서/시연을연결한다.
 
-책 본문은 소유한 책에서 읽는다. [공식 코드](https://github.com/onlybooks/llm)·[정오표](https://www.onlybook.co.kr/entry/llm-errata)를 확인하고 환경/모델/패키지 버전을 기록한다. 선택 GPU/멀티모달 실습의 미실행은 필수 완료와 분리한다.
+**재사용 산출물:** 평가raw결과·benchmark표·복구기록·README/아키텍처·5분데모
 
-## 2. 실행 순서·시간·수용 기준
+**완료 기준:** 재현 명령·버전·예산·측정 조건과 실패 사례가 합성 자료의 실행 증거로 추적된다. 안전 gate 통과 여부와 품질 목표 달성을 분리해 보고한다.
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
-|---|---|---|---|---|
-| 1 | 50질문 평가·실패 분석·지연/비용 측정 | 5h | dev20/holdout30을 분리 보고하고 raw결과·측정조건·실제 공급자가격·재시도를 기록한다. | [SCRUM-53](https://realrho-1790798942092.atlassian.net/browse/SCRUM-53) |
-| 2 | 깨끗한 기동·재시작·백업 복원·CI 검증 | 6h | 새 환경 기동, DB복원 후 사례/감사 조회, 권한/필터/전이 회귀를 통과하고 복구시간을 기록한다. | [SCRUM-54](https://realrho-1790798942092.atlassian.net/browse/SCRUM-54) |
-| 3 | README·ADR·아키텍처·평가 보고서 정리 | 6h | 필수/선택범위와 구현/미구현·목표/실측을 구분. commit/run_id로 모든 핵심주장을 연결한다. | [SCRUM-55](https://realrho-1790798942092.atlassian.net/browse/SCRUM-55) |
-| 4 | 5분 데모·영어 설명·최종 수용 기준 확인 | 5h | 정상근거/보류/검토3경로를 시연하고 SA90초영어설명·한계/대안·재현명령을 검토한다. | [SCRUM-56](https://realrho-1790798942092.atlassian.net/browse/SCRUM-56) |
+## 2. 책·영상·실습을 연결한 22h 실행 순서
 
-## 3. 상세 빌드 레시피 · 파일·입력·실패·검증
+| 순서 | 활동 | 계획 시간 | 결과/목적 |
+|---|---|---|---|
+| 1 | 50질문 평가·실패 분석·지연/비용 측정 | 5h | dev20/holdout30을 분리 보고하고 raw결과·측정조건·실제 공급자가격·재시도를 기록한다. |
+| 2 | Compose·로컬 Kubernetes 기동·롤백·DB 복원·CI 검증 | 6h | 새 환경 기동, DB복원 후 사례/감사 조회, 권한/필터/전이 회귀를 통과하고 복구시간을 기록한다. W7에서 준비한 로컬 Kubernetes API 배포/롤백 증거를 재확인한다. 운영 HA 구축은 추가 과정이다. |
+| 3 | README·ADR·아키텍처·평가 보고서 정리 | 6h | 필수/선택범위와 구현/미구현·목표/실측을 구분. commit/run_id로 모든 핵심주장을 연결한다. |
+| 4 | 5분 데모·영어 설명·최종 수용 기준 확인 | 5h | 정상근거/보류/검토3경로를 시연하고 SA90초영어설명·한계/대안·재현명령을 검토한다. |
 
-### 1. 최종 평가·지연·비용 기록 (5h)
+영상 배정은 주간 시간 안에 포함된 선택 시청·메모 시간이다. 제작 주차는 아래 Jira 네 작업의 5h·6h·6h·5h로 시간을 집계한다. 새 강의를 추가하지 않고 앞 주차 실습 자산을 연결한다.
 
-dev20과 동결 holdout30을 분리해 실행한다. 질문별 근거순위·답·보류·권한·형식·실패유형·model/prompt/index버전을 JSONL로 남긴다. 검색 Recall/MRR와 답변 의미 일치를 분리한다. P50/P95 계산법·표본·동시성·입출력길이·warm/cold·재시도를 명시한다. 공급자 실제 단가 날짜와 usage로 비용을 계산하며 소표본/미측정 한계를 적는다.
+## 3. 이번 주에 볼 한국어 영상과 연결 실습
 
-### 2. 기동·CI·별도 백업 복원 (6h)
+새 강의는 추가하지 않는다. W1–W8의 선택 영상·완료한 실습 기록을 필요한 문제에만 다시 참조한다.
 
-깨끗한 환경에서 README 명령으로 API/DB/선택backend를 기동한다. readiness 준비 실패와 API 재시작 지속성을 확인한다. 백업을 별도 새 DB로 복원한 뒤 case/review/audit를 조회하고 시간을 기록한다. CI의 권한/필터/전이/실패 회귀를 실행한다. 볼륨에 자료가 남는 것만으로 복원 완료라고 하지 않는다.
+## 4. 통합·검증 진행 방식
 
-### 3. 기술 문서·증거 정리 (6h)
+dev20과 동결 holdout30을 각각 보고한다. 지연·비용·오류율을 실행 환경과 함께 기록한다. Compose 새 기동, W7 로컬 Kubernetes 배포/롤백, DB 백업 복원, CI 실패 차단을 확인하고 5분 시연을 준비한다.
 
-README 현재 구현/재현명령, 고객 FR/NFR, 논리/배포도, 모델/backend/workflow ADR, 평가/비용/복구 보고서, 알려진 한계를 정리한다. 숫자는 run_id/raw결과/commit으로 연결한다. 미실행GPU/클라우드/멀티모달은 다음 단계로 남긴다. Jira와 GitHub는 실제 수용 기준 충족 작업만 완료한다.
+## 5. Jira 작업·수용 기준
 
-### 4. 5분 시연과 최종 수용 (5h)
+- **SCRUM-53 · 50질문 평가·실패 분석·지연/비용 측정 (5h)**
+  - 선행: SCRUM-47.
+  - 수용 기준: dev20/holdout30을 분리 보고하고 raw결과·측정조건·실제 공급자가격·재시도를 기록한다.
+- **SCRUM-54 · Compose·로컬 Kubernetes 기동·롤백·DB 복원·CI 검증 (6h)**
+  - 선행: SCRUM-53.
+  - 수용 기준: 새 환경 기동, DB복원 후 사례/감사 조회, 권한/필터/전이 회귀를 통과하고 복구시간을 기록한다. W7에서 준비한 로컬 Kubernetes API 배포/롤백 증거를 재확인한다. 운영 HA 구축은 추가 과정이다.
+- **SCRUM-55 · README·ADR·아키텍처·평가 보고서 정리 (6h)**
+  - 선행: SCRUM-54.
+  - 수용 기준: 필수/선택범위와 구현/미구현·목표/실측을 구분. commit/run_id로 모든 핵심주장을 연결한다.
+- **SCRUM-56 · 5분 데모·영어 설명·최종 수용 기준 확인 (5h)**
+  - 선행: SCRUM-55.
+  - 수용 기준: 정상근거/보류/검토3경로를 시연하고 SA90초영어설명·한계/대안·재현명령을 검토한다.
 
-문제30초→설계45초→정상근거60초→보류30초→검토60초→측정/한계75초를 기본 시연 구성으로 사용한다. 영어90초 설명도 별도로 연습한다. 권한·필터·상태회귀 통과와 품질목표 달성을 각각 보고한다. 결과 미달은 실패원인/개선과 함께 남기고 준비되지 않은 공개서비스로 표현하지 않는다.
+## 6. 공식 문서와 증거
 
-## 4. 이 주차에서 새로 확장하지 않을 범위
 
-GPU미세조정·멀티모달·다중에이전트·두번째DB/모델·KubernetesHA는 추가 과정이다. 필수 Compose와 실제 모델/검색/DB 경로를 먼저 검증한다. 기존 준비 자산이 없으면 예상44시간을 다시 산정한다.
 
-[공통 MVP 설계/계약](../project-blueprint.md) · [환경/학습법](../getting-started-ko.md)
+[책 공식 소개](https://www.hanbit.co.kr/books/ai-에이전트-엔지니어링?code=B1562725816) · [저자 예제 코드](https://github.com/michaelalbada/BuildingApplicationsWithAIAgents) · [승인 영상과 선정 근거](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/video-resources.md) · [13장 목차](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-toc.md) · [SA 보완 영역](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-gap-map.md) · [영어·한글 용어 사전](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/glossary-ko-en.md)
 
-## 증거와 완료 상태
-
-학습 노트에는 읽은 절·자신의 설명·실습 명령·Python/패키지/장치·데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 문서/fixture/실제DB·모델/클라우드·GPU의 수준을 구분한다. 자료 작성만으로 본인의 학습 또는 서비스 제작을 완료 처리하지 않는다. 막히면 증상·시도·다음 행동과 일정 영향을 남긴다.
+읽은 절·자신의 설명·실습 명령·환경/패키지/데이터/모델/프롬프트/인덱스 버전·expected/actual·raw 결과·commit/run_id·한계를 기록한다. 계획과 실행, fixture와 실제 모델/검색/DB 실행, 목표와 실측을 구분한다. 자료 갱신만으로 학습 또는 구현을 Done 처리하지 않는다.

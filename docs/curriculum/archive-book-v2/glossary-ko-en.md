@@ -1,6 +1,6 @@
 # 영어·한글 기술 용어 사전
 
-약어는 영어 확장·한글 의미·실제 역할로 읽는다. 제품 이름과 알고리즘 이름에 근거 없는 풀네임을 만들지 않는다. 축약 표기는 문맥에 따라 달라질 수 있다. 각 주차 강의에는 이 용어가 필요한 이유와 실패 예시를 넣었다. 기존 모델 용어는 참고로 보존하며 Python·HTTP·SQL 기초 학습 과제로 배정하지 않는다. 2026-10-06 『AI 에이전트 엔지니어링』 및 SA 보완 용어를 추가했다.
+약어는 영어 확장·한글 의미·실제 역할로 읽는다. 제품 이름과 알고리즘 이름에 근거 없는 풀네임을 만들지 않는다. 축약 표기는 문맥에 따라 달라질 수 있다. 각 주차 강의에는 이 용어가 필요한 이유와 실패 예시를 넣었다.
 
 ## 기초·모델
 
@@ -134,36 +134,4 @@
 | LlamaIndex / AutoGen / LangGraph | LlamaIndex / AutoGen / LangGraph | 라마인덱스·오토젠·랭그래프 | RAG/에이전트/워크플로 관련 제품 이름. 약어 풀네임을 만들지 않는다. |
 | Pinecone / Milvus / Redis | Pinecone / Milvus / Redis | 파인콘·밀버스·레디스 | 벡터검색/데이터저장 관련 제품 이름. 본 계획에서는 사용 역할과 실제 검증 범위를 명시한다. |
 
-[이전 교재 참고 정오표: TPM·RoPE 등](https://www.onlybook.co.kr/entry/llm-errata) · [LoRA 원 논문](https://arxiv.org/abs/2106.09685) · [S4 원 논문](https://arxiv.org/abs/2111.00396) · [Mamba 원 논문](https://arxiv.org/abs/2312.00752) · [MNR 공식 문서](https://www.sbert.net/docs/package_reference/sentence_transformer/losses.html). 기본 개념 정의와 프로젝트 예시는 독립적으로 작성한 학습 설명이다.
-
-## 에이전트·플랫폼·SA 보완
-
-| 표기 | English | 한글 | 의미·주의점 |
-|---|---|---|---|
-| A2A | Agent2Agent | 에이전트 간 통신 | 에이전트 상호운용 프로토콜 이름. MCP의 도구/컨텍스트 연결과 역할을 구분한다. |
-| ReAct | Reasoning and Acting | 추론과 행동 | 다음 행동을 결정하며 도구 결과를 반영하는 패턴. 프런트엔드 React와 다르다. |
-| RLVR | Reinforcement Learning with Verifiable Rewards | 검증 가능 보상을 이용한 강화 학습 | 정답 검사 등 검증 가능한 신호를 보상으로 사용. 업무의 모든 품질이 자동 검증되는 것은 아니다. |
-| MAESTRO | Multi-Agent Environment, Security, Threat, Risk, and Outcome | 에이전트 환경·보안·위협·위험·결과 위협 모델 | CSA의 에이전틱 AI 위협 모델. 계층과 연결 경계를 확인한다. |
-| IaC | Infrastructure as Code | 코드로 관리하는 인프라 | 변경 계획·상태·검증을 추적. Terraform은 제품 이름. |
-| CI/CD | Continuous Integration / Continuous Delivery or Deployment | 지속적 통합 / 지속적 전달 또는 배포 | CD는 팀의 배포 승인 방식에 따라 의미가 달라진다. |
-| OIDC | OpenID Connect | 오픈아이디 커넥트 | OAuth 2.0 위에 신원 계층을 더한 프로토콜. 서명/발급자/대상/만료를 검증한다. |
-| SSO | Single Sign-On | 통합 로그인 | 한 로그인 경험으로 여러 서비스 접근. 권한과 tenant 통제를 대체하지 않는다. |
-| OAuth 2.0 | OAuth 2.0 (authorization framework name) | 권한 위임 프레임워크 | 공식 명세 이름으로 쓰며 억지로 약어 확장을 만들지 않는다. 인증·인가 목적을 구분한다. |
-| RTO | Recovery Time Objective | 목표 복구 시간 | 업무가 허용하는 복구 시간 목표. 실제 복구시간을 측정해 비교한다. |
-| RPO | Recovery Point Objective | 목표 복구 시점 | 장애 시 허용할 데이터 손실 시간 범위. 백업 생성만으로 보장되지 않는다. |
-| NFR | Non-Functional Requirement | 비기능 요구사항 | 성능·신뢰성·보안·비용·운영 제약을 측정 가능한 조건으로 정의한다. |
-| TCO | Total Cost of Ownership | 총 소유 비용 | 컴퓨팅뿐 아니라 검색/저장·운영·검토·전환 비용을 포함한다. |
-| ROI | Return on Investment | 투자 수익률 | 도입 효과와 총비용을 가정/기간/측정 기준과 함께 계산한다. |
-| ELK | Elasticsearch, Logstash, Kibana | 로그 수집·저장·시각화 스택 | 제품 이름의 머리글자. 최신 스택 구성은 실제 선택에 따라 달라진다. |
-| SLA | Service Level Agreement | 서비스 수준 협약 | 고객과 합의한 책임/조건. 내부 목표 SLO 및 실측 SLI와 구분한다. |
-| P95 | 95th percentile | 95백분위 응답시간 | 관측 요청의 약 95%가 이 값 이하. 평균/최댓값과 다르다. |
-| Idempotency | Idempotency | 멱등성 | 같은 작업을 반복 요청해도 업무 효과가 중복되지 않는 성질. 키 저장과 작업 결과의 원자성을 검증한다. |
-| Outbox | Transactional outbox pattern | 트랜잭션 아웃박스 | 업무 변경과 발행 예정 이벤트를 원자적으로 저장. 재발행·소비 중복은 별도 처리한다. |
-| Probe | Liveness / Readiness / Startup probe | 생존·준비·시작 상태 점검 | 재시작 조건·트래픽 수신 준비·느린 시작을 구분한다. |
-| ConfigMap / Secret | Kubernetes ConfigMap / Secret | 일반 설정 / 민감 설정 객체 | Secret의 base64 인코딩은 암호화가 아니다. 접근 통제·저장 암호화·로그 보호가 필요하다. |
-| Digest | Image content digest | 이미지 내용 식별값 | 변할 수 있는 tag와 구분해 검증된 이미지 내용을 식별한다. |
-| GraphRAG | Graph-based Retrieval-Augmented Generation | 그래프 기반 검색 증강 생성 | 관계/연결 질문에 도움. 지식 그래프 구축·권한·오염 비용을 따진다. |
-| Context Engineering | Context Engineering | 컨텍스트 엔지니어링 | 모델이 사용할 지침·도구·근거·메모리를 선택/구성/제한하는 과정. 프롬프트 한 문장만 다루지 않는다. |
-| C4 | Context, Containers, Components, Code | 컨텍스트·컨테이너·컴포넌트·코드 설계도 | C4의 container는 실행/저장 단위이며 반드시 Docker 컨테이너를 뜻하지 않는다. |
-
-[MAESTRO 공식 설명](https://labs.cloudsecurityalliance.org/maestro/) · [Kubernetes 공식 문서](https://kubernetes.io/docs/concepts/) · [추가 영상](video-resources.md)
+[책 정오표: TPM·RoPE 등](https://www.onlybook.co.kr/entry/llm-errata) · [LoRA 원 논문](https://arxiv.org/abs/2106.09685) · [S4 원 논문](https://arxiv.org/abs/2111.00396) · [Mamba 원 논문](https://arxiv.org/abs/2312.00752) · [MNR 공식 문서](https://www.sbert.net/docs/package_reference/sentence_transformer/losses.html). 기본 개념 정의와 프로젝트 예시는 독립적으로 작성한 학습 설명이다.

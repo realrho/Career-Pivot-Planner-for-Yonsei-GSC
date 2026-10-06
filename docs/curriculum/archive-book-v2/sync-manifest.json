@@ -1,8 +1,8 @@
 {
-  "version": "agent-engineering-10-week-v3",
-  "prepared_on": "2026-10-06",
+  "version": "book-first-10-week-v2",
+  "prepared_on": "2026-10-02",
   "repository": "realrho/Enterprise-AI-Knowledge-Risk-Copilot",
-  "base_commit": "91f235a9e945deb2c5563c5108e9ea4cbda78a50",
+  "base_commit": "29f5060a6ccecd0524632dfcc10caa32470f0669",
   "planning_hours_per_week": 22,
   "notion_root": "3ebc6f4a-2c7e-81dc-a9d6-f2cf630b9602",
   "notion_archive": "3ecc6f4a-2c7e-8170-b4be-e80fc7705236",
@@ -11,14 +11,14 @@
       "id": "3ecc6f4a-2c7e-815c-876f-c4ade47c16cb",
       "url": "https://app.notion.com/p/3ecc6f4a2c7e815c876fc4ade47c16cb?pvs=204",
       "properties": {
-        "title": "『AI 에이전트 엔지니어링』13장 목차·주차 배정"
+        "title": "책 원문 목차 · 16장 주차 배정"
       }
     },
     {
       "id": "3ecc6f4a-2c7e-8104-8381-fefb26e895fb",
       "url": "https://app.notion.com/p/3ecc6f4a2c7e81048381fefb26e895fb?pvs=204",
       "properties": {
-        "title": "영어·한글 기술 용어 사전 · 에이전트·SA 보완"
+        "title": "영어·한글 기술 용어 사전 · 107항목"
       }
     },
     {
@@ -32,17 +32,6 @@
   "weeks": [
     {
       "week": 1,
-      "title": "에이전트 설계·UX와 API 계약·입력 검증",
-      "chapters": [
-        1,
-        2,
-        3
-      ],
-      "videos": [
-        1,
-        4
-      ],
-      "video_hours": 2,
       "start": "2026-10-02",
       "due": "2026-10-08",
       "notion_id": "3ebc6f4a-2c7e-817e-9b59-e2ed884085ed",
@@ -51,25 +40,25 @@
       "subtasks": [
         {
           "key": "SCRUM-14",
-          "title": "책 1·2·3장 읽기·설계/개념 노트",
+          "title": "책 1·2·3장 읽기·개념 노트",
           "hours": 6,
           "dependsOn": null
         },
         {
           "key": "SCRUM-15",
-          "title": "책 개념을 적용한 프로젝트 실습",
+          "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "dependsOn": "SCRUM-14"
         },
         {
           "key": "SCRUM-16",
-          "title": "영상·SA 보충 실습 — 에이전트 설계·UX와 API 계약·입력 검증",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "dependsOn": "SCRUM-15"
         },
         {
           "key": "SCRUM-17",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "dependsOn": "SCRUM-16"
         }
@@ -77,12 +66,6 @@
     },
     {
       "week": 2,
-      "title": "지식·메모리·RAG와 정책·권한 필터",
-      "chapters": [
-        6
-      ],
-      "videos": [],
-      "video_hours": 0,
       "start": "2026-10-09",
       "due": "2026-10-15",
       "notion_id": "3ebc6f4a-2c7e-819f-ae0c-d5cb69a99181",
@@ -91,25 +74,25 @@
       "subtasks": [
         {
           "key": "SCRUM-18",
-          "title": "책 6장 읽기·설계/개념 노트",
+          "title": "책 4·5·6장 읽기·개념 노트",
           "hours": 6,
           "dependsOn": "SCRUM-6"
         },
         {
           "key": "SCRUM-19",
-          "title": "책 개념을 적용한 프로젝트 실습",
+          "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "dependsOn": "SCRUM-18"
         },
         {
           "key": "SCRUM-20",
-          "title": "영상·SA 보충 실습 — 지식·메모리·RAG와 정책·권한 필터",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "dependsOn": "SCRUM-19"
         },
         {
           "key": "SCRUM-21",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "dependsOn": "SCRUM-20"
         }
@@ -117,15 +100,6 @@
     },
     {
       "week": 3,
-      "title": "평가 세트·근거 검증·부하 시험",
-      "chapters": [
-        9
-      ],
-      "videos": [
-        9,
-        5
-      ],
-      "video_hours": 2.5,
       "start": "2026-10-16",
       "due": "2026-10-22",
       "notion_id": "3ebc6f4a-2c7e-8116-b6d0-e972f595de78",
@@ -134,25 +108,25 @@
       "subtasks": [
         {
           "key": "SCRUM-22",
-          "title": "책 9장 읽기·설계/개념 노트",
+          "title": "책 7·8장 읽기·개념 노트",
           "hours": 6,
           "dependsOn": "SCRUM-7"
         },
         {
           "key": "SCRUM-23",
-          "title": "책 개념을 적용한 프로젝트 실습",
+          "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "dependsOn": "SCRUM-22"
         },
         {
           "key": "SCRUM-24",
-          "title": "영상·SA 보충 실습 — 평가 세트·근거 검증·부하 시험",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "dependsOn": "SCRUM-23"
         },
         {
           "key": "SCRUM-25",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "dependsOn": "SCRUM-24"
         }
@@ -160,15 +134,6 @@
     },
     {
       "week": 4,
-      "title": "도구·오케스트레이션·비동기 처리",
-      "chapters": [
-        4,
-        5
-      ],
-      "videos": [
-        3
-      ],
-      "video_hours": 1,
       "start": "2026-10-23",
       "due": "2026-10-29",
       "notion_id": "3ebc6f4a-2c7e-81b7-98f7-e962553f93f9",
@@ -177,25 +142,25 @@
       "subtasks": [
         {
           "key": "SCRUM-26",
-          "title": "책 4·5장 읽기·설계/개념 노트",
+          "title": "책 9·10장 읽기·개념 노트",
           "hours": 6,
           "dependsOn": "SCRUM-8"
         },
         {
           "key": "SCRUM-27",
-          "title": "책 개념을 적용한 프로젝트 실습",
+          "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "dependsOn": "SCRUM-26"
         },
         {
           "key": "SCRUM-28",
-          "title": "영상·SA 보충 실습 — 도구·오케스트레이션·비동기 처리",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "dependsOn": "SCRUM-27"
         },
         {
           "key": "SCRUM-29",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "dependsOn": "SCRUM-28"
         }
@@ -203,16 +168,6 @@
     },
     {
       "week": 5,
-      "title": "멀티 에이전트·영속 상태·트랜잭션·보안",
-      "chapters": [
-        8,
-        12
-      ],
-      "videos": [
-        2,
-        6
-      ],
-      "video_hours": 1,
       "start": "2026-10-30",
       "due": "2026-11-05",
       "notion_id": "3ebc6f4a-2c7e-817e-9825-cec827df9013",
@@ -221,25 +176,25 @@
       "subtasks": [
         {
           "key": "SCRUM-30",
-          "title": "책 8·12장 읽기·설계/개념 노트",
+          "title": "책 11·12장 읽기·개념 노트",
           "hours": 6,
           "dependsOn": "SCRUM-9"
         },
         {
           "key": "SCRUM-31",
-          "title": "책 개념을 적용한 프로젝트 실습",
+          "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "dependsOn": "SCRUM-30"
         },
         {
           "key": "SCRUM-32",
-          "title": "영상·SA 보충 실습 — 멀티 에이전트·영속 상태·트랜잭션·보안",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "dependsOn": "SCRUM-31"
         },
         {
           "key": "SCRUM-33",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "dependsOn": "SCRUM-32"
         }
@@ -247,16 +202,6 @@
     },
     {
       "week": 6,
-      "title": "학습·개선 루프·실험·비용·인프라 코드",
-      "chapters": [
-        7,
-        11
-      ],
-      "videos": [
-        8,
-        10
-      ],
-      "video_hours": 1,
       "start": "2026-11-06",
       "due": "2026-11-12",
       "notion_id": "3ebc6f4a-2c7e-8156-b65d-dfe5240f458e",
@@ -265,25 +210,25 @@
       "subtasks": [
         {
           "key": "SCRUM-34",
-          "title": "책 7·11장 읽기·설계/개념 노트",
+          "title": "책 13장 읽기·개념 노트",
           "hours": 6,
           "dependsOn": "SCRUM-10"
         },
         {
           "key": "SCRUM-35",
-          "title": "책 개념을 적용한 프로젝트 실습",
+          "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "dependsOn": "SCRUM-34"
         },
         {
           "key": "SCRUM-36",
-          "title": "영상·SA 보충 실습 — 학습·개선 루프·실험·비용·인프라 코드",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "dependsOn": "SCRUM-35"
         },
         {
           "key": "SCRUM-37",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "dependsOn": "SCRUM-36"
         }
@@ -291,16 +236,6 @@
     },
     {
       "week": 7,
-      "title": "관측·Docker·Kubernetes·CI/CD·복구",
-      "chapters": [
-        10
-      ],
-      "videos": [
-        4,
-        5,
-        7
-      ],
-      "video_hours": 4.5,
       "start": "2026-11-13",
       "due": "2026-11-19",
       "notion_id": "3ebc6f4a-2c7e-8190-9714-e0d4739b893f",
@@ -309,25 +244,25 @@
       "subtasks": [
         {
           "key": "SCRUM-38",
-          "title": "책 10장 읽기·설계/개념 노트",
+          "title": "책 14·15장 읽기·개념 노트",
           "hours": 6,
           "dependsOn": "SCRUM-11"
         },
         {
           "key": "SCRUM-39",
-          "title": "책 개념을 적용한 프로젝트 실습",
+          "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "dependsOn": "SCRUM-38"
         },
         {
           "key": "SCRUM-40",
-          "title": "영상·SA 보충 실습 — 관측·Docker·Kubernetes·CI/CD·복구",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "dependsOn": "SCRUM-39"
         },
         {
           "key": "SCRUM-41",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "dependsOn": "SCRUM-40"
         }
@@ -335,14 +270,6 @@
     },
     {
       "week": 8,
-      "title": "인간 협업·거버넌스·고객 제안·제작 준비",
-      "chapters": [
-        13
-      ],
-      "videos": [
-        10
-      ],
-      "video_hours": 0.5,
       "start": "2026-11-20",
       "due": "2026-11-26",
       "notion_id": "3ebc6f4a-2c7e-81aa-88be-ca3d312c0854",
@@ -351,25 +278,25 @@
       "subtasks": [
         {
           "key": "SCRUM-42",
-          "title": "책 13장 읽기·설계/개념 노트",
+          "title": "책 16장 읽기·개념 노트",
           "hours": 6,
           "dependsOn": "SCRUM-12"
         },
         {
           "key": "SCRUM-43",
-          "title": "책 개념을 적용한 프로젝트 실습",
+          "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "dependsOn": "SCRUM-42"
         },
         {
           "key": "SCRUM-44",
-          "title": "영상·SA 보충 실습 — 인간 협업·거버넌스·고객 제안·제작 준비",
+          "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "dependsOn": "SCRUM-43"
         },
         {
           "key": "SCRUM-45",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
+          "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "dependsOn": "SCRUM-44"
         }
@@ -377,10 +304,6 @@
     },
     {
       "week": 9,
-      "title": "MVP 통합 — 근거 응답·영속 상태·권한 있는 검토",
-      "chapters": [],
-      "videos": [],
-      "video_hours": 0,
       "start": "2026-11-27",
       "due": "2026-12-03",
       "notion_id": "3ecc6f4a-2c7e-8121-89a5-fad40b9b3f33",
@@ -415,10 +338,6 @@
     },
     {
       "week": 10,
-      "title": "MVP 검증 — 최종 평가·복구·포트폴리오 시연",
-      "chapters": [],
-      "videos": [],
-      "video_hours": 0,
       "start": "2026-12-04",
       "due": "2026-12-10",
       "notion_id": "3ecc6f4a-2c7e-819b-9b43-f0b0f71f1323",
@@ -433,7 +352,7 @@
         },
         {
           "key": "SCRUM-54",
-          "title": "Compose·로컬 Kubernetes 기동·롤백·DB 복원·CI 검증",
+          "title": "깨끗한 기동·재시작·백업 복원·CI 검증",
           "hours": 6,
           "dependsOn": "SCRUM-53"
         },
@@ -451,26 +370,5 @@
         }
       ]
     }
-  ],
-  "book": {
-    "title": "AI 에이전트 엔지니어링",
-    "author": "Michael Albada",
-    "publisher": "한빛미디어",
-    "chapters": 13
-  },
-  "approved_video_groups": 10,
-  "video_page": {
-    "id": "3f1c6f4a-2c7e-8198-b7b2-feea1074722d",
-    "url": "https://app.notion.com/p/3f1c6f4a2c7e8198b7b2feea1074722d?pvs=204",
-    "properties": {
-      "title": "승인한 한국어 영상 · 주차별 시청·실습 연결"
-    }
-  },
-  "previous_book_archive": {
-    "id": "3f1c6f4a-2c7e-8172-bb52-f64d68b221df",
-    "url": "https://app.notion.com/p/3f1c6f4a2c7e8172bb52f64d68b221df?pvs=204",
-    "properties": {
-      "title": "이전 교재 16장 계획 보관 · 2026-10-06"
-    }
-  }
+  ]
 }

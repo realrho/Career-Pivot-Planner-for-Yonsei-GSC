@@ -1,4 +1,4 @@
-# Enterprise AI Knowledge & Risk Copilot · 2주 MVP 설계
+# Enterprise AI Knowledge & Risk Copilot · 새 교재 기반 2주 MVP 설계
 
 ## 해결할 고객 문제와 범위
 
@@ -16,11 +16,11 @@ W1–W8은 학습과 모듈 준비, W9–W10은 **준비된 모듈의 통합·�
 | 서버 신원/tenant/role 검증·검토 권한 | 공개 서비스용 OIDC 통합 심화 |
 | PostgreSQL 사례/검토/감사와 원자적 갱신 | 별도 worker/큐/outbox 운영 |
 | 실제 검색의 tenant/활성version 조건 | 두 번째 벡터 DB·임베딩 미세 조정 |
-| Compose 기동·지속성·별도 백업 복원 | 실제 AWS 배포·Kubernetes HA |
+| Compose 기동·지속성·별도 백업 복원 + 로컬 Kubernetes API 배포·롤백 학습 증거 | 실제 AWS 배포·운영 Kubernetes HA |
 | dev20 + 동결 holdout30 질문, raw결과/조건 | 200+질문·독립 전문가 평가 |
 | 최소 구조화 로그·CI·ADR·5분 데모 | Redis/전체 OTel/자동 비용 라우팅 |
 
-책의 Pinecone를 선택하면 외부 의존성/비용/데이터 경계를 명시한다. Milvus를 선택하면 지원 환경과 운영 시간을 확인한다. W8까지 검증한 하나를 쓰고, 실제 모델 접근이 없으면 fixture 프로토타입까지만 완료했다고 표시한다.
+검색 backend를 선택할 때 외부 의존성/비용/데이터 경계를 명시한다. Milvus를 선택하면 지원 환경과 운영 시간을 확인한다. W8까지 검증한 하나를 쓰고, 실제 모델 접근이 없으면 fixture 프로토타입까지만 완료했다고 표시한다.
 
 ## 논리 아키텍처
 
@@ -79,3 +79,12 @@ dev20은 설정 선택에 사용한다. 최종30 holdout은 질문·gold근거·
 W8 6가지 준비 자산이 미완료면 W9 시작을 옮기거나 범위를 줄인다. 제작2주는 조건부 추정이다. GPU미세조정·실제클라우드·멀티모달 미실행은 포트폴리오의 '다음 단계'에 적는다.
 
 [W9 통합 레시피](curriculum/week-09.md) · [W10 최종 검증](curriculum/week-10.md) · [준비 학습표](curriculum/README.md)
+
+
+## 개편된 교재·영상과 구현 자산
+
+주교재 『AI 에이전트 엔지니어링』13장. W1 계약/입력·UX → W2 지식/검색 → W3 평가/k6 → W4 도구/비동기 → W5 상태/트랜잭션/신원 → W6 개선/비용/IaC → W7 관측/컨테이너/Kubernetes/CI/복구 → W8 인간 협업/고객 제안으로 준비한다. 각 주차 영상은 [교재](curriculum/README.md)에 실제 URL·보는 시점·연결 실습으로 배정했다.
+
+**필수 학습 깊이:** Dockerfile/Compose로 API와 PostgreSQL을 재현 기동하고 백업/복원한다. 로컬 Kubernetes에 API를 배포해 Service·probes·requests/limits·ConfigMap/Secret·로그·롤백을 검증한다. W3 클러스터 기초와 W7 배포 실습을 재사용한다. 전체 DB의 Kubernetes 운영, HA, 실제 관리형 클러스터는 선택 심화다. 최종 데모 전체 스택은 Compose로 재현할 수 있고, K8s 학습 증거는 별도로 연결한다.
+
+Terraform 로컬 plan/state 실습과 GitHub Actions 검증 기록을 함께 남긴다. 책 8장의 큐/메시징을 고려하되 내구성이 필요한 비동기 202 경로는 작업 상태/재개/멱등성을 실제 구현해 확인한다. in-memory BackgroundTasks만으로 작업 지속성을 주장하지 않는다. 워크플로/멀티 에이전트·관리형 컨테이너/Kubernetes·build/buy 선택은 ADR과 비용표로 설명한다.
