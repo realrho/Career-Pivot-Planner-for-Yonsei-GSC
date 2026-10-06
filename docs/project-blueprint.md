@@ -81,6 +81,8 @@ W8 6가지 준비 자산이 미완료면 W9 시작을 옮기거나 범위를 줄
 [W9 통합 레시피](curriculum/week-09.md) · [W10 최종 검증](curriculum/week-10.md) · [준비 학습표](curriculum/README.md)
 
 
+**AWS 준비 자산:** 사용자 지정 [AWS 입문/실전 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3)을 W5 네트워크/권한 설계, W6 비용·자원 정리, W7 FastAPI/Compose 배포/복원, W8 선택 ADR에 연결한다. 영상의 Express/Spring 예제는 기존 FastAPI에 적용한다. 실제 EC2 배포와 도메인 구매는 선택 심화다.
+
 ## 개편된 교재·영상과 구현 자산
 
 주교재 『AI 에이전트 엔지니어링』13장. W1 계약/입력·UX → W2 지식/검색 → W3 평가/k6 → W4 도구/비동기 → W5 상태/트랜잭션/신원 → W6 개선/비용/IaC → W7 관측/컨테이너/Kubernetes/CI/복구 → W8 인간 협업/고객 제안으로 준비한다. 각 주차 영상은 [교재](curriculum/README.md)에 실제 URL·보는 시점·연결 실습으로 배정했다.

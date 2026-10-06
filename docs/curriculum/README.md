@@ -8,6 +8,16 @@ Docker와 Kubernetes는 로컬 실행 실습까지 필수다. 실제 클라우�
 
 [책 공식 소개](https://www.hanbit.co.kr/books/ai-에이전트-엔지니어링?code=B1562725816) · [저자 예제 코드](https://github.com/michaelalbada/BuildingApplicationsWithAIAgents) · [승인 영상과 선정 근거](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/video-resources.md) · [13장 목차](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-toc.md) · [SA 보완 영역](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-gap-map.md) · [영어·한글 용어 사전](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/glossary-ko-en.md)
 
+## Notion 학습 허브 · Career Pivot Planner
+
+날짜는 2026년 10월 시작, 주 22h를 계획 가정으로 배치했습니다. 학습 176h + 제작 44h, 종료 12월 입니다.
+
+**CS 기본 공부를 위한 추천 온라인 강의**
+
+[Fast Campus: Computer Science course](https://fastcampus.co.kr/dev_online_computer)
+
+AWS 주교재는 [사용자 지정 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3)과 연결 재생목록으로 교체했다(2026-10-07). W5 EC2·보안그룹 → W6 비용/정리 → W7 기존 FastAPI/Compose 배포 개념 → W8 선택 ADR로 연결한다. IAM/VPC는 공식 문서로 보완한다. 실제 AWS 배포는 선택 심화이며 주 22h와 8+2주 일정은 유지한다.
+
 ## 주차별 책·영상·실습 연결
 
 | 주차·기존 일정 | 책과 학습 주제 | 영상 배정 | 교재·진행 |

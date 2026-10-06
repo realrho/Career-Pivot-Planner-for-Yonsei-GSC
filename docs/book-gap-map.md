@@ -31,6 +31,8 @@
 | 신뢰성 / k6·SLO·RTO·RPO | P95/오류율·용량·장애 주입·복구 시간/데이터 손실 | W3 부하 baseline, W7·10 복구 실행 |
 | 설계 전달 / ADR·C4·TCO/ROI | 요구→선택→대안→측정→운영 책임 연결 | W8 고객 제안, W10 5분 시연·90초 영어 설명 |
 
+**AWS 학습 자료:** 기존 AWS 네트워크·권한 영상 2개는 사용자 지정 [AWS 입문/실전 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3)으로 교체했다. EC2/보안그룹/포트/배포는 영상·교안으로, VPC/IAM은 공식 문서로 보완하고 W5–W8 기존 실습에 연결한다.
+
 ## 필수와 선택
 
 학습에서 13장 전체를 읽는다. 프로젝트 필수는 텍스트 정책, 한 모델, 한 검색 backend, PostgreSQL, 제한된 workflow, 역할/tenant 경계, 검토/감사, Compose, **로컬 Kubernetes API 배포·롤백**, 평가/관측/CI다. 실제 클라우드 운영·HA·GPU 파인튜닝·멀티모달·복잡한 멀티 에이전트·두 번째 DB/모델은 선택 심화다. 교재에 있는 멀티 에이전트와 학습 기법은 이해/선택 기준을 공부하되 MVP에 자동으로 추가하지 않는다.

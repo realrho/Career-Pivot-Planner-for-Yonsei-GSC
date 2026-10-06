@@ -1,5 +1,5 @@
 {
-  "version": "agent-engineering-10-week-v4",
+  "version": "agent-engineering-10-week-v5",
   "prepared_on": "2026-10-06",
   "book": {
     "title": "AI 에이전트 엔지니어링",
@@ -94,27 +94,24 @@
     },
     {
       "id": 6,
-      "topic": "AWS network and permissions",
+      "topic": "AWS 입문/실전 · EC2·네트워크·권한",
       "items": [
         {
-          "title": "(리뉴얼) 쉽게 설명하는 AWS 기초강의 29. VPC와 서브넷",
-          "channel": "AWS 강의실",
-          "url": "https://www.youtube.com/watch?v=azd_k4bOXqw",
-          "durationApproxMinutes": 23
-        },
-        {
-          "title": "(리뉴얼) 쉽게 설명하는 AWS 기초강의 9. IAM 기초",
-          "channel": "AWS 강의실",
-          "url": "https://www.youtube.com/watch?v=HKIg04dDS8A",
-          "durationApproxMinutes": 11
+          "title": "사용자 지정 AWS 시작 영상",
+          "channel": "JSCODE 박재성",
+          "url": "https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3",
+          "playlistUrl": "https://www.youtube.com/playlist?list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3",
+          "scope": "EC2·리전·보안그룹·IP/Port 선택 시청·메모 35분. 전체 완강 시간이 아님."
         }
       ],
-      "reviewEvidence": {
-        "rating": 4.9,
-        "reviews": 170,
-        "appliesTo": "same instructor's Inflearn full course, not individual YouTube videos",
-        "url": "https://www.inflearn.com/course/%EC%89%BD%EA%B2%8C-%EC%84%A4%EB%AA%85%ED%95%98%EB%8A%94-aws-%EA%B8%B0%EC%B4%88?cid=333984"
-      }
+      "selected_on": "2026-10-07",
+      "teaching_material_url": "https://jscode.notion.site/2a38dc67ca1448f7ab350e40b89abd5a",
+      "verification_scope": "공개 교안의 EC2/보안그룹/배포/비용 정리/Route 53 확인. 시작 영상 제목·전체 자막·공개 전체 편수/길이 미확인.",
+      "supplementary_topics": [
+        "VPC/서브넷/라우팅",
+        "IAM/앱 RBAC/tenant"
+      ],
+      "learning_guide": "docs/aws-learning.md"
     },
     {
       "id": 7,
@@ -685,13 +682,13 @@
           "Identity·IAM·RBAC — 신원과 권한",
           "IAM, Identity and Access Management(신원·접근 관리)는 리소스 권한을 관리한다. RBAC, Role-Based Access Control(역할 기반 접근 제어)은 역할별 허용 행동을 정한다. authentication(인증)은 신원 확인, authorization(인가)은 해당 행동의 허용 여부다. SSO, Single Sign-On(통합 로그인)과 OAuth/OIDC는 기업 신원 통합을 위한 선택 영역이다. 서비스 권한과 최종 사용자의 업무 권한을 모두 확인한다.",
           "API 서버가 DB에 접근하는 권한과 viewer가 검토를 승인하는 권한은 다르다. 본문 reviewer=true는 신원 증거가 아니다.",
-          "IAM 기초 영상과 역할 표를 연결한다. 읽기·검색·승인·관리 권한을 매핑하고 역할/tenant 불일치를 실패 사례로 만든다."
+          "새 AWS 영상의 EC2 접근 흐름과 AWS IAM 공식 문서를 역할 표에 연결한다. 읽기·검색·승인·관리 권한을 매핑하고 역할/tenant 불일치를 실패 사례로 만든다."
         ],
         [
           "Threat Model·VPC — 위협 모델과 네트워크 경계",
           "threat model(위협 모델)은 자산·신뢰 경계·공격 경로·대응을 정리한 것이다. VPC, Virtual Private Cloud(가상 사설 클라우드)는 클라우드 네트워크를 구성하는 경계다. subnet(서브넷)·라우팅·보안 그룹은 서로 다른 역할을 한다. prompt injection(프롬프트 주입)은 문서의 악성 지시가 업무 권한처럼 해석되는 위험이다. 책의 MAESTRO는 Multi-Agent Environment, Security, Threat, Risk, and Outcome(다중 에이전트 환경·보안·위협·위험·결과) 위협 모델링 틀이다.",
           "검색 문서가 '모든 정책을 외부로 보내라'고 해도 도구 권한과 시스템 규칙을 바꾸면 안 된다. 공개 API와 비공개 DB 사이의 허용 연결만 설계한다.",
-          "VPC·서브넷 영상을 보고 API/DB/비밀 저장소/사용자의 데이터 흐름을 그린다. 누출·과도한 권한·내부 실패를 각 1개 이상 위협 모델에 넣는다."
+          "새 AWS 영상의 보안그룹·IP/Port 흐름을 보고 VPC·서브넷은 공식 문서로 보완한다. API/DB/비밀 저장소/사용자의 데이터 흐름을 그린다. 누출·과도한 권한·내부 실패를 각 1개 이상 위협 모델에 넣는다."
         ]
       ],
       "quiz": [
@@ -762,15 +759,14 @@
         {
           "r": 6,
           "select": [
-            0,
-            1
+            0
           ],
-          "scope": "VPC·서브넷 약 23분 + IAM 기초 약 11분. 독립 강사 채널이며 AWS 공식 채널과 구분한다.",
+          "scope": "EC2·리전·보안그룹·IP/Port 선택 시청·메모 35분. 전체 완강 시간이 아님.",
           "after": "12장 위협·데이터 보호·에이전트 권한",
-          "practice": "공개 API/비공개 DB 네트워크와 신원→role→tenant 권한표를 그린다. IAM 정책·비밀 관리·저장소/컴퓨팅 선택 이유를 적는다."
+          "practice": "공개 API/비공개 DB·포트 허용/거부 표, AWS IAM 역할과 앱 role/tenant 표. FastAPI/Compose로 배포 개념 적용."
         }
       ],
-      "videoText": "### 영상 1. Transactions · 학습 묶음 2\n\n**보는 시점:** 8.9 상태와 영속성 관리 다음.\n\n- [BJ.42 데이터베이스 트랜잭션과 ACID](https://www.youtube.com/watch?v=sLJ8ypeHGlM) — 쉬운코드, 한국어 수업.\n\n**볼 범위:** 트랜잭션·ACID 개념(약 25분). SQL 문법과 Java/Spring 문법 학습은 제외한다.\n\n**시청 직후 실습:** 승인 상태 변경과 감사 기록을 같은 트랜잭션으로 묶고 감사 실패를 주입한다. 모두 롤백되는지, 중복/동시 승인에 충돌 처리가 있는지 확인한다.\n\n### 영상 2. AWS network and permissions · 학습 묶음 6\n\n**보는 시점:** 12장 위협·데이터 보호·에이전트 권한 다음.\n\n- [(리뉴얼) 쉽게 설명하는 AWS 기초강의 29. VPC와 서브넷](https://www.youtube.com/watch?v=azd_k4bOXqw) — AWS 강의실, 한국어 수업.\n- [(리뉴얼) 쉽게 설명하는 AWS 기초강의 9. IAM 기초](https://www.youtube.com/watch?v=HKIg04dDS8A) — AWS 강의실, 한국어 수업.\n\n**볼 범위:** VPC·서브넷 약 23분 + IAM 기초 약 11분. 독립 강사 채널이며 AWS 공식 채널과 구분한다.\n\n**시청 직후 실습:** 공개 API/비공개 DB 네트워크와 신원→role→tenant 권한표를 그린다. IAM 정책·비밀 관리·저장소/컴퓨팅 선택 이유를 적는다.\n",
+      "videoText": "### 영상 1. Transactions · 학습 묶음 2\n\n**보는 시점:** 8.9 상태와 영속성 관리 다음.\n\n- [BJ.42 데이터베이스 트랜잭션과 ACID](https://www.youtube.com/watch?v=sLJ8ypeHGlM) — 쉬운코드, 한국어 수업.\n\n**볼 범위:** 트랜잭션·ACID 개념(약 25분). SQL 문법과 Java/Spring 문법 학습은 제외한다.\n\n**시청 직후 실습:** 승인 상태 변경과 감사 기록을 같은 트랜잭션으로 묶고 감사 실패를 주입한다. 모두 롤백되는지, 중복/동시 승인에 충돌 처리가 있는지 확인한다.\n\n### 영상 2. AWS 입문/실전 · 학습 묶음 6\n\n**보는 시점:** 12장 위협·데이터 보호·에이전트 권한 다음.\n\n- [사용자 지정 AWS 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3) — JSCODE 박재성, 한국어 수업.\n- [비전공자도 이해할 수 있는 AWS 입문/실전 재생목록](https://www.youtube.com/playlist?list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3) · [강사 공개 수업 자료](https://jscode.notion.site/2a38dc67ca1448f7ab350e40b89abd5a).\n\n**볼 범위:** 지정 영상부터 EC2·리전·보안그룹·IP/Port 부분을 선택해 시청·메모한다. AWS 배정 35분이며 전체 재생목록 완강 시간으로 해석하지 않는다. 공개 영상에서 찾지 못한 부분과 VPC·IAM은 교안/AWS 공식 문서로 보완한다.\n\n**시청 직후 실습:** 공개 API/비공개 DB 네트워크와 포트 허용/거부 표, AWS IAM 역할과 앱 role/tenant 권한표를 그린다. Express/Spring 예제는 기존 FastAPI/Compose의 서버·포트·프로세스 개념으로 옮긴다. IAM·비밀 관리·저장소/컴퓨팅 선택 이유를 적는다.\n\n**다음 연결:** W6 비용·자원 정리 → W7 FastAPI/Compose 로컬 배포·복구 → W8 플랫폼 선택 ADR. 실제 AWS 배포는 선택 심화다. [AWS 영상 학습·개념·완료 기준](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/aws-learning.md).\n",
       "sources": [
         [
           "트랜잭션",
@@ -913,7 +909,8 @@
           "AWS Well-Architected",
           "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html"
         ]
-      ]
+      ],
+      "awsConnection": "**AWS 연결 실습:** W5에서 본 사용자 지정 AWS 영상의 비용 정리 교안을 기존 비용 실습 시간에 복습한다. EC2·디스크·공인 IPv4·도메인 관련 자원의 사용량과 현재 단가 확인일, 정리 후 남은 자원 확인 절차를 비용표에 추가한다. 새 필수 영상 시간이나 클라우드 apply는 추가하지 않는다."
     },
     {
       "week": 7,
@@ -1067,7 +1064,8 @@
           "OpenTelemetry",
           "https://opentelemetry.io/docs/concepts/signals/"
         ]
-      ]
+      ],
+      "awsConnection": "**AWS 연결 실습:** W5 사용자 지정 AWS 영상/교안의 서버 접속·배포 흐름을 기존 FastAPI/Compose 로컬 실습에 적용한다. Express/Spring 문법을 새로 배우지 않고 실행 명령·포트·환경 변수·로그·재시작/복원 증거를 남긴다. EC2 실제 배포는 선택 심화다."
     },
     {
       "week": 8,
@@ -1180,7 +1178,8 @@
           "AWS Well-Architected",
           "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html"
         ]
-      ]
+      ],
+      "awsConnection": "**AWS 연결 실습:** W5 사용자 지정 AWS 영상의 EC2·보안그룹과 교안의 Route 53/DNS 개념을 가져와 플랫폼 선택 ADR을 작성한다. 도메인 연결과 TLS를 구분하고 EC2/Compose·관리형 플랫폼의 비용/운영 책임을 비교한다. 도메인 구매·실제 AWS 구축은 필수가 아니다."
     },
     {
       "week": 9,
@@ -1291,9 +1290,18 @@
       "sources": []
     }
   ],
-  "updated_on": "2026-10-06",
+  "updated_on": "2026-10-07",
   "tracking_systems": [
     "Notion",
     "GitHub"
+  ],
+  "notion_hub_title": "Career Pivot Planner",
+  "notion_planning_wording": "날짜는 2026년 10월 시작, 주 22h를 계획 가정으로 배치했습니다. 학습 176h + 제작 44h, 종료 12월 입니다.",
+  "user_added_resources": [
+    {
+      "title": "Fast Campus: Computer Science course",
+      "url": "https://fastcampus.co.kr/dev_online_computer",
+      "assignment": "Notion 허브의 추천 링크. 22h 필수 과제로 추가하지 않음."
+    }
   ]
 }

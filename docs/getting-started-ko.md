@@ -8,6 +8,8 @@ Docker와 Kubernetes는 로컬 실행 실습까지 필수다. 실제 클라우�
 
 [책 공식 소개](https://www.hanbit.co.kr/books/ai-에이전트-엔지니어링?code=B1562725816) · [저자 예제 코드](https://github.com/michaelalbada/BuildingApplicationsWithAIAgents) · [승인 영상과 선정 근거](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/video-resources.md) · [13장 목차](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-toc.md) · [SA 보완 영역](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/book-gap-map.md) · [영어·한글 용어 사전](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/glossary-ko-en.md)
 
+AWS 주교재는 [사용자 지정 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3)과 연결 재생목록으로 교체했다(2026-10-07). W5 EC2·보안그룹 → W6 비용/정리 → W7 기존 FastAPI/Compose 배포 개념 → W8 선택 ADR로 연결한다. IAM/VPC는 공식 문서로 보완한다. 실제 AWS 배포는 선택 심화이며 주 22h와 8+2주 일정은 유지한다.
+
 ## 매주 실제 진행 순서
 
 1. 주차 교재에서 책의 장/절과 이번 주 문제·완료 기준을 확인한다.
@@ -17,8 +19,6 @@ Docker와 Kubernetes는 로컬 실행 실습까지 필수다. 실제 클라우�
 5. 자기 설명·퀴즈·raw 결과·commit/run_id를 남기고 수용 기준을 만족했을 때 본인의 진행 상태를 바꾼다.
 
 주차 강의는 책 본문의 발췌가 아니라 개념과 시스템 경계를 연결한 자체 설명이다. 이해가 막히면 책 해당 절→영상 해당 부분→현재 공식 문서 순서로 확인한다. 영상에 나온 오래된 API/설치/가격을 그대로 쓰지 않는다.
-
-진행 관리는 Notion의 Status·학습 기록과 GitHub 주차 이슈 체크리스트로 한다. 각 작업은 W1.1–W10.4 형식의 주차 작업 ID로 구분한다.
 
 ## 환경과 학습 범위
 

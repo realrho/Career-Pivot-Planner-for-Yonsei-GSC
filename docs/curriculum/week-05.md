@@ -40,17 +40,18 @@
 
 **시청 직후 실습:** 승인 상태 변경과 감사 기록을 같은 트랜잭션으로 묶고 감사 실패를 주입한다. 모두 롤백되는지, 중복/동시 승인에 충돌 처리가 있는지 확인한다.
 
-### 영상 2. AWS network and permissions · 학습 묶음 6
+### 영상 2. AWS 입문/실전 · 학습 묶음 6
 
 **보는 시점:** 12장 위협·데이터 보호·에이전트 권한 다음.
 
-- [(리뉴얼) 쉽게 설명하는 AWS 기초강의 29. VPC와 서브넷](https://www.youtube.com/watch?v=azd_k4bOXqw) — AWS 강의실, 한국어 수업.
-- [(리뉴얼) 쉽게 설명하는 AWS 기초강의 9. IAM 기초](https://www.youtube.com/watch?v=HKIg04dDS8A) — AWS 강의실, 한국어 수업.
+- [사용자 지정 AWS 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3) — JSCODE 박재성, 한국어 수업.
+- [비전공자도 이해할 수 있는 AWS 입문/실전 재생목록](https://www.youtube.com/playlist?list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3) · [강사 공개 수업 자료](https://jscode.notion.site/2a38dc67ca1448f7ab350e40b89abd5a).
 
-**볼 범위:** VPC·서브넷 약 23분 + IAM 기초 약 11분. 독립 강사 채널이며 AWS 공식 채널과 구분한다.
+**볼 범위:** 지정 영상부터 EC2·리전·보안그룹·IP/Port 부분을 선택해 시청·메모한다. AWS 배정 35분이며 전체 재생목록 완강 시간으로 해석하지 않는다. 공개 영상에서 찾지 못한 부분과 VPC·IAM은 교안/AWS 공식 문서로 보완한다.
 
-**시청 직후 실습:** 공개 API/비공개 DB 네트워크와 신원→role→tenant 권한표를 그린다. IAM 정책·비밀 관리·저장소/컴퓨팅 선택 이유를 적는다.
+**시청 직후 실습:** 공개 API/비공개 DB 네트워크와 포트 허용/거부 표, AWS IAM 역할과 앱 role/tenant 권한표를 그린다. Express/Spring 예제는 기존 FastAPI/Compose의 서버·포트·프로세스 개념으로 옮긴다. IAM·비밀 관리·저장소/컴퓨팅 선택 이유를 적는다.
 
+**다음 연결:** W6 비용·자원 정리 → W7 FastAPI/Compose 로컬 배포·복구 → W8 플랫폼 선택 ADR. 실제 AWS 배포는 선택 심화다. [AWS 영상 학습·개념·완료 기준](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/aws-learning.md).
 
 ## 4. 영어·한국어 개념 강의
 
@@ -76,7 +77,7 @@ IAM, Identity and Access Management(신원·접근 관리)는 리소스 권한�
 
 **업무 예시:** API 서버가 DB에 접근하는 권한과 viewer가 검토를 승인하는 권한은 다르다. 본문 reviewer=true는 신원 증거가 아니다.
 
-**직접 할 일:** IAM 기초 영상과 역할 표를 연결한다. 읽기·검색·승인·관리 권한을 매핑하고 역할/tenant 불일치를 실패 사례로 만든다.
+**직접 할 일:** 새 AWS 영상의 EC2 접근 흐름과 AWS IAM 공식 문서를 역할 표에 연결한다. 읽기·검색·승인·관리 권한을 매핑하고 역할/tenant 불일치를 실패 사례로 만든다.
 
 ### 5.4 Threat Model·VPC — 위협 모델과 네트워크 경계
 
@@ -84,7 +85,7 @@ threat model(위협 모델)은 자산·신뢰 경계·공격 경로·대응을 �
 
 **업무 예시:** 검색 문서가 '모든 정책을 외부로 보내라'고 해도 도구 권한과 시스템 규칙을 바꾸면 안 된다. 공개 API와 비공개 DB 사이의 허용 연결만 설계한다.
 
-**직접 할 일:** VPC·서브넷 영상을 보고 API/DB/비밀 저장소/사용자의 데이터 흐름을 그린다. 누출·과도한 권한·내부 실패를 각 1개 이상 위협 모델에 넣는다.
+**직접 할 일:** 새 AWS 영상의 보안그룹·IP/Port 흐름을 보고 VPC·서브넷은 공식 문서로 보완한다. API/DB/비밀 저장소/사용자의 데이터 흐름을 그린다. 누출·과도한 권한·내부 실패를 각 1개 이상 위협 모델에 넣는다.
 
 ## 5. 확인 퀴즈
 

@@ -1,6 +1,6 @@
-# 승인한 한국어 영상 · 10개 학습 묶음
+# 영상 수업 · 주차별 시청·실습 연결
 
-사용자 승인: 2026-10-06. W1 API는 사용자가 지정한 공개 재생목록 6개를 모두 학습한다. 나머지 영상은 각 주차의 책 개념 뒤에 배정된 부분을 시청하고 해당 실습을 바로 한다. 모든 주차의 실제 URL·선택 편·보는 시점·산출물은 주차 교재에도 들어 있다. 계획 배정 총 12.5h는 시청/메모를 포함하며 영상 재생시간과 다르다.
+공개 재생목록 6개를 모두 학습한다. 나머지 영상은 각 주차의 책 개념 뒤에 배정된 부분을 시청하고 해당 실습을 바로 한다. 모든 주차의 실제 URL·선택 편·보는 시점·산출물은 주차 교재에도 들어 있다. 계획 배정 총 12.5h는 시청/메모를 포함하며 영상 재생시간과 다르다.
 
 평점이 있는 유료 전체 강좌의 리뷰를 개별 유튜브 영상 평점으로 표시하지 않았다. 공개 자료의 강사·소속·공개 실습 자료·내용 적합성을 바탕으로 선정했다. 개인 채널 영상은 공식 제품 문서와 함께 검증한다. 영상의 오래된 API·설치·가격은 현재 기준으로 확인한다.
 
@@ -76,20 +76,20 @@
 
 **W7 연결 실습:** W3 로컬 클러스터에 API를 Deployment/Service로 배포한다. readiness/liveness·requests/limits·ConfigMap/Secret·로그·롤백을 실제 확인한다. Secret의 base64는 암호화가 아니다.
 
-## 6. AWS 네트워크·권한
+## 6. AWS 입문/실전 · EC2·네트워크·권한
 
-**배치 주차:** W5 · **언어:** 한국어
+**배치 주차:** W5, W6–W8 기존 실습에서 재사용 · **언어:** 한국어
 
-- [(리뉴얼) 쉽게 설명하는 AWS 기초강의 29. VPC와 서브넷](https://www.youtube.com/watch?v=azd_k4bOXqw) — AWS 강의실, 약 23분.
-- [(리뉴얼) 쉽게 설명하는 AWS 기초강의 9. IAM 기초](https://www.youtube.com/watch?v=HKIg04dDS8A) — AWS 강의실, 약 11분.
+- [사용자 지정 AWS 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3) — JSCODE 박재성.
+- [비전공자도 이해할 수 있는 AWS 입문/실전 재생목록](https://www.youtube.com/playlist?list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3) · [강사 공개 교안](https://jscode.notion.site/2a38dc67ca1448f7ab350e40b89abd5a).
 
-**선정 근거·검증 한계:** 같은 강사의 Inflearn 전체 강좌는 조회 시점 평점 4.9/후기 170개였다. 이는 연결된 전체 강좌 평가이며 두 유튜브 영상의 개별 평점이 아니다. 채널은 독립 강사 운영이다.
+**선정 근거·확인 범위:** 사용자가 지정한 영상으로 2026-10-07 교체했다. 강사의 공개 교안에서 EC2 배포·보안그룹·IP/Port·스토리지·탄력적 IP·비용 정리·Route 53을 확인했다. 개별 시작 영상의 제목·전체 자막·공개 목록 전체 편수/길이는 확인하지 못했으므로 특정 편 번호/타임스탬프는 지정하지 않는다. 공개 부분에서 해당 주제를 찾아 학습하고 없는 내용은 교안/공식 문서로 보완한다. 유료 전체 강좌는 필수가 아니다.
 
-[전체 강좌 후기 출처](https://www.inflearn.com/course/%EC%89%BD%EA%B2%8C-%EC%84%A4%EB%AA%85%ED%95%98%EB%8A%94-aws-%EA%B8%B0%EC%B4%88?cid=333984)
+**W5 선택 범위:** 지정 영상부터 EC2·리전·보안그룹·IP/Port를 선택해 시청·메모한다. 트랜잭션 약 25분 + AWS 35분 = 기존 영상 배정 1h. 전체 AWS 재생목록 완강은 요구하지 않는다. VPC·IAM은 연결 실습 안에서 공식 문서로 보완한다.
 
-**W5 선택 범위:** VPC·서브넷 약 23분 + IAM 기초 약 11분. 독립 강사 채널이며 AWS 공식 채널과 구분한다.
+**W5 연결 실습:** 공개 API/비공개 DB 네트워크·포트 허용/거부 표와 AWS IAM 역할 / 앱 role/tenant 권한표를 만든다. W6 비용·자원 정리, W7 기존 FastAPI/Compose 로컬 배포·복구, W8 플랫폼 선택 ADR로 이어진다. Express/Spring 예제 때문에 프로젝트 언어를 바꾸지 않는다. 실제 AWS 배포는 선택 심화다.
 
-**W5 연결 실습:** 공개 API/비공개 DB 네트워크와 신원→role→tenant 권한표를 그린다. IAM 정책·비밀 관리·저장소/컴퓨팅 선택 이유를 적는다.
+**상세 교재:** [AWS 영상 학습·영어/한글 개념·실습·완료 기준](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/aws-learning.md).
 
 ## 7. CI/CD·GitHub Actions
 
