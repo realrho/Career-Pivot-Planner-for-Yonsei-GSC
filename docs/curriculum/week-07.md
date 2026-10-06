@@ -4,7 +4,7 @@
 
 **일정:** 2026-11-13–2026-11-19 (Asia/Seoul) · **총 계획:** 22h
 
-[Notion 주차](https://app.notion.com/p/3ebc6f4a2c7e81909714e0d4739b893f) · [SCRUM-12](https://realrho-1790798942092.atlassian.net/browse/SCRUM-12) · [GitHub #7](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/7)
+[Notion 주차](https://app.notion.com/p/3ebc6f4a2c7e81909714e0d4739b893f) · [GitHub #7](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/7)
 
 ## 1. 이번 주 목표와 책 읽기
 
@@ -26,7 +26,7 @@
 | 4 | 영상과 연결한 SA 실습 | 3.5h | Dockerfile·Compose, 로컬 Kubernetes 설정/배포 기록, CI workflow, 구조화 로그·트레이스, 백업/복구 runbook |
 | 5 | 설명·퀴즈·증거 검토 | 2h | 같은 버전으로 재현 기동하고 readiness/liveness를 구분한다. 로컬 배포·롤백·상태 확인과 DB 백업 복원 증거가 있으며 비밀 값이 Git/로그에 없다. |
 
-영상 배정은 주간 시간 안에 포함된 선택 시청·메모 시간이다. 영상마다 아래 시청 직후 실습을 이어서 수행한다. 순서는 진행 안내이며 Jira 네 작업은 읽기6h·개념 실습6h·영상/SA8h·검토2h로 시간을 집계한다.
+영상 배정은 주간 시간 안에 포함된 선택 시청·메모 시간이다. 영상마다 아래 시청 직후 실습을 이어서 수행한다. 순서는 진행 안내이며 주차 체크리스트 네 작업은 읽기6h·개념 실습6h·영상/SA8h·검토2h로 시간을 집계한다.
 
 ## 3. 이번 주에 볼 한국어 영상과 연결 실습
 
@@ -110,19 +110,19 @@ observability(관측 가능성)는 로그·지표·트레이스로 내부 실패
 
 **해설:** 복원 후 실제 상태·데이터 조회와 시간/손실 조건을 확인해야 한다.
 
-## 6. Jira 작업·수용 기준
+## 6. 주차 체크리스트·수용 기준
 
-- **SCRUM-38 · 책 10장 읽기·설계/개념 노트 (6h)**
-  - 선행: SCRUM-11.
+- **W7.1 · 책 10장 읽기·설계/개념 노트 (6h)**
+  - 선행: W6.
   - 수용 기준: 10.1–10.10 전체: 모니터링 스택 선택·OpenTelemetry 계측·시각화/알림·섀도/카나리·회귀 트레이스·자가 치유·피드백·분포 변화·지표 소유권. 9.4 배포 준비와 8.9 상태/영속성도 복습한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.
-- **SCRUM-39 · 책 개념을 적용한 프로젝트 실습 (6h)**
-  - 선행: SCRUM-38.
+- **W7.2 · 책 개념을 적용한 프로젝트 실습 (6h)**
+  - 선행: W7.1.
   - 수용 기준: Dockerfile과 Compose로 앱/DB를 재현 기동한다. 관측 필드·트레이스를 연결하고 DB 재시작/별도 백업 복원을 확인한다. 로컬 Kubernetes에서 API Deployment·Service·설정·probes·자원 제한·롤백을 실습한다. CI는 테스트·이미지 빌드 한 경로를 만든다. 산출물: 정상/실패 expected/actual·raw 결과.
-- **SCRUM-40 · 영상·SA 보충 실습 — 관측·Docker·Kubernetes·CI/CD·복구 (8h)**
-  - 선행: SCRUM-39.
+- **W7.3 · 영상·SA 보충 실습 — 관측·Docker·Kubernetes·CI/CD·복구 (8h)**
+  - 선행: W7.2.
   - 수용 기준: 승인 영상 배정 4.5h + 연결 실습 3.5h. Dockerfile·Compose, 로컬 Kubernetes 설정/배포 기록, CI workflow, 구조화 로그·트레이스, 백업/복구 runbook. 같은 버전으로 재현 기동하고 readiness/liveness를 구분한다. 로컬 배포·롤백·상태 확인과 DB 백업 복원 증거가 있으며 비밀 값이 Git/로그에 없다.
-- **SCRUM-41 · 퀴즈·본인 설명·증거·다음 주 준비 검토 (2h)**
-  - 선행: SCRUM-40.
+- **W7.4 · 퀴즈·본인 설명·증거·다음 주 준비 검토 (2h)**
+  - 선행: W7.3.
   - 수용 기준: 퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.
 
 ## 7. 공식 문서와 증거

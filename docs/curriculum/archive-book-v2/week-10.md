@@ -1,6 +1,6 @@
 # W10 제작 · MVP 검증 — 최종 평가·복구·포트폴리오 시연
 
-**기간:** 2026-12-04–2026-12-10 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ecc6f4a2c7e819b9b43f0b0f71f1323) · [Jira SCRUM-48](https://realrho-1790798942092.atlassian.net/browse/SCRUM-48) · [GitHub #10](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/10)
+**기간:** 2026-12-04–2026-12-10 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ecc6f4a2c7e819b9b43f0b0f71f1323) · [GitHub #10](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/10)
 
 **이번 주 통과 조건:** 재현 명령·버전·예산·측정 조건과 실패 사례가 합성 자료의 실행 증거로 추적된다. 안전 gate 통과 여부와 품질 목표 달성을 분리해 보고한다.
 
@@ -18,12 +18,12 @@
 
 ## 2. 실행 순서·시간·수용 기준
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+| 순서 | 작업 | 계획 시간 | 완료 기준 | 작업 ID |
 |---|---|---|---|---|
-| 1 | 50질문 평가·실패 분석·지연/비용 측정 | 5h | dev20/holdout30을 분리 보고하고 raw결과·측정조건·실제 공급자가격·재시도를 기록한다. | [SCRUM-53](https://realrho-1790798942092.atlassian.net/browse/SCRUM-53) |
-| 2 | 깨끗한 기동·재시작·백업 복원·CI 검증 | 6h | 새 환경 기동, DB복원 후 사례/감사 조회, 권한/필터/전이 회귀를 통과하고 복구시간을 기록한다. | [SCRUM-54](https://realrho-1790798942092.atlassian.net/browse/SCRUM-54) |
-| 3 | README·ADR·아키텍처·평가 보고서 정리 | 6h | 필수/선택범위와 구현/미구현·목표/실측을 구분. commit/run_id로 모든 핵심주장을 연결한다. | [SCRUM-55](https://realrho-1790798942092.atlassian.net/browse/SCRUM-55) |
-| 4 | 5분 데모·영어 설명·최종 수용 기준 확인 | 5h | 정상근거/보류/검토3경로를 시연하고 SA90초영어설명·한계/대안·재현명령을 검토한다. | [SCRUM-56](https://realrho-1790798942092.atlassian.net/browse/SCRUM-56) |
+| 1 | 50질문 평가·실패 분석·지연/비용 측정 | 5h | dev20/holdout30을 분리 보고하고 raw결과·측정조건·실제 공급자가격·재시도를 기록한다. | W10.1 |
+| 2 | 깨끗한 기동·재시작·백업 복원·CI 검증 | 6h | 새 환경 기동, DB복원 후 사례/감사 조회, 권한/필터/전이 회귀를 통과하고 복구시간을 기록한다. | W10.2 |
+| 3 | README·ADR·아키텍처·평가 보고서 정리 | 6h | 필수/선택범위와 구현/미구현·목표/실측을 구분. commit/run_id로 모든 핵심주장을 연결한다. | W10.3 |
+| 4 | 5분 데모·영어 설명·최종 수용 기준 확인 | 5h | 정상근거/보류/검토3경로를 시연하고 SA90초영어설명·한계/대안·재현명령을 검토한다. | W10.4 |
 
 ## 3. 상세 빌드 레시피 · 파일·입력·실패·검증
 
@@ -37,7 +37,7 @@ dev20과 동결 holdout30을 분리해 실행한다. 질문별 근거순위·답
 
 ### 3. 기술 문서·증거 정리 (6h)
 
-README 현재 구현/재현명령, 고객 FR/NFR, 논리/배포도, 모델/backend/workflow ADR, 평가/비용/복구 보고서, 알려진 한계를 정리한다. 숫자는 run_id/raw결과/commit으로 연결한다. 미실행GPU/클라우드/멀티모달은 다음 단계로 남긴다. Jira와 GitHub는 실제 수용 기준 충족 작업만 완료한다.
+README 현재 구현/재현명령, 고객 FR/NFR, 논리/배포도, 모델/backend/workflow ADR, 평가/비용/복구 보고서, 알려진 한계를 정리한다. 숫자는 run_id/raw결과/commit으로 연결한다. 미실행GPU/클라우드/멀티모달은 다음 단계로 남긴다. Notion과 GitHub는 실제 수용 기준 충족 작업만 완료한다.
 
 ### 4. 5분 시연과 최종 수용 (5h)
 

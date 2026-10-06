@@ -17,7 +17,7 @@ Command, run ID, sanitized logs/report:
 
 ## Affected weekly gate
 
-GitHub issue / Jira key / Notion chapter:
+GitHub issue / Notion chapter:
 
 ## Impact and next action
 

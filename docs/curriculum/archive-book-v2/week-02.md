@@ -1,6 +1,6 @@
 # W2 학습 · 학습 원리·GPU 효율과 SQL·평가 데이터 설계
 
-**기간:** 2026-10-09–2026-10-15 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e819fae0cd5cb69a99181) · [Jira SCRUM-7](https://realrho-1790798942092.atlassian.net/browse/SCRUM-7) · [GitHub #2](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/2)
+**기간:** 2026-10-09–2026-10-15 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e819fae0cd5cb69a99181) · [GitHub #2](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/2)
 
 **이번 주 통과 조건:** 학습 데이터와 평가 정답이 섞이지 않았음을 ID로 확인한다. SQL 문자열 일치와 실행 결과 일치의 차이, LoRA가 줄이는 비용과 남는 비용을 설명한다.
 
@@ -18,12 +18,12 @@
 
 ## 2. 실행 순서·시간·수용 기준
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+| 순서 | 작업 | 계획 시간 | 완료 기준 | 작업 ID |
 |---|---|---|---|---|
-| 1 | 책 4·5·6장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-18](https://realrho-1790798942092.atlassian.net/browse/SCRUM-18) |
-| 2 | 책 필수 실습·환경/결과 기록 | 6h | 6장 학습/평가 코드의 입출력을 표로 만들고 작은 SQLite 연습 DB에서 정답 SQL과 틀린 SQL의 결과를 비교한다. GPU가 있으면 5장 LoRA와 6장 짧은 학습 한 경로만 실행하고 실행 시간을 제한한다. GPU가 없으면 설정·메모리 계산·데이터/평가 파이프라인까지 필수로 하며 학습 실행은 미실행으로 남긴다. | [SCRUM-19](https://realrho-1790798942092.atlassian.net/browse/SCRUM-19) |
-| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 학습 데이터와 평가 정답이 섞이지 않았음을 ID로 확인한다. SQL 문자열 일치와 실행 결과 일치의 차이, LoRA가 줄이는 비용과 남는 비용을 설명한다. | [SCRUM-20](https://realrho-1790798942092.atlassian.net/browse/SCRUM-20) |
-| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 train/dev/holdout 분리 manifest, 읽기 전용 SQL 실습, 모델 선택 비교표를 버전/실행 상태와 함께 저장한다. | [SCRUM-21](https://realrho-1790798942092.atlassian.net/browse/SCRUM-21) |
+| 1 | 책 4·5·6장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | W2.1 |
+| 2 | 책 필수 실습·환경/결과 기록 | 6h | 6장 학습/평가 코드의 입출력을 표로 만들고 작은 SQLite 연습 DB에서 정답 SQL과 틀린 SQL의 결과를 비교한다. GPU가 있으면 5장 LoRA와 6장 짧은 학습 한 경로만 실행하고 실행 시간을 제한한다. GPU가 없으면 설정·메모리 계산·데이터/평가 파이프라인까지 필수로 하며 학습 실행은 미실행으로 남긴다. | W2.2 |
+| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 학습 데이터와 평가 정답이 섞이지 않았음을 ID로 확인한다. SQL 문자열 일치와 실행 결과 일치의 차이, LoRA가 줄이는 비용과 남는 비용을 설명한다. | W2.3 |
+| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 train/dev/holdout 분리 manifest, 읽기 전용 SQL 실습, 모델 선택 비교표를 버전/실행 상태와 함께 저장한다. | W2.4 |
 
 ## 3. SA 보충 강의 · 개념→이유→예제→실습
 

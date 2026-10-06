@@ -1,5 +1,5 @@
 {
-  "version": "agent-engineering-10-week-v3",
+  "version": "agent-engineering-10-week-v4",
   "prepared_on": "2026-10-06",
   "book": {
     "title": "AI 에이전트 엔지니어링",
@@ -16,21 +16,18 @@
   "video_groups": [
     {
       "id": 1,
-      "topic": "API and validation",
+      "topic": "API 전체 수업·입력 검증",
       "items": [
         {
-          "title": "Day1, 2-2. 그런 REST API로 괜찮은가",
-          "channel": "NAVER D2",
-          "url": "https://www.youtube.com/watch?v=RP_f5dMoHFc",
-          "scope": "REST design constraints; optional deeper conceptual talk"
-        },
-        {
-          "title": "파이썬에서 JSON 다루려면 Pydantic이지! - FastAPI 첫걸음 04",
+          "title": "FastAPI 첫걸음 — API 전체 재생목록(공개 기본편 6개)",
           "channel": "hatemogi",
-          "url": "https://www.youtube.com/watch?v=h1eYSzC2-pw",
-          "scope": "Pydantic input models; small review sample; v2 implementation must be checked against current official docs"
+          "url": "https://youtube.com/playlist?list=PL8kmk2VivDmQyPLmc4zF6yLEl-Rc6D9lg&si=iKuEUs7JNHJV-N7R",
+          "scope": "‘FastAPI 첫걸음’ 재생목록의 공개 기본편 6개를 목록 순서대로 모두 학습한다(약 65분). API 소개 → uv 환경 준비 → API 서버 만들기 → 경로 데코레이터·경로 함수 → Pydantic 입력 검증 → CRUD. 재생목록에 있는 환경 준비도 함께 따라 하되 별도의 Python·HTTP·SQL 기초 과정은 추가하지 않는다."
         }
-      ]
+      ],
+      "verified_on": "2026-10-06",
+      "public_video_count": 6,
+      "approximate_playback_minutes": 65
     },
     {
       "id": 2,
@@ -175,7 +172,7 @@
       ]
     }
   ],
-  "video_time_policy": "12.5h selected viewing/note-taking within study hours, not a sum of exact playback runtimes",
+  "video_time_policy": "W1 API는 공개 재생목록 6개 전체를 학습한다. 나머지는 주차별 배정 부분을 시청한다. W1 API 약65분과 Docker 입문 약42분 + 간단한 메모는 시청2h, 코드 따라 하기와 업무 적용은 SA 실습6h에 포함한다. 모든 영상 시간을 주22h에 중복해서 더하지 않는다.",
   "weeks": [
     {
       "week": 1,
@@ -237,34 +234,7 @@
       "start": "2026-10-02",
       "due": "2026-10-08",
       "notion_id": "3ebc6f4a-2c7e-817e-9b59-e2ed884085ed",
-      "jira": "SCRUM-6",
       "github_issue": 1,
-      "subtasks": [
-        {
-          "key": "SCRUM-14",
-          "title": "책 1·2·3장 읽기·설계/개념 노트",
-          "hours": 6,
-          "dependsOn": null
-        },
-        {
-          "key": "SCRUM-15",
-          "title": "책 개념을 적용한 프로젝트 실습",
-          "hours": 6,
-          "dependsOn": "SCRUM-14"
-        },
-        {
-          "key": "SCRUM-16",
-          "title": "영상·SA 보충 실습 — 에이전트 설계·UX와 API 계약·입력 검증",
-          "hours": 8,
-          "dependsOn": "SCRUM-15"
-        },
-        {
-          "key": "SCRUM-17",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
-          "hours": 2,
-          "dependsOn": "SCRUM-16"
-        }
-      ],
       "hours": 22,
       "chapterNames": [
         "1장 에이전트",
@@ -278,40 +248,40 @@
           "title": "책 1·2·3장 읽기·설계/개념 노트",
           "hours": 6,
           "ac": "1.1–1.11: 에이전트·워크플로·모델 선택과 조직 전략. 2.1–2.10: 도구·메모리·오케스트레이션·설계 트레이드오프와 평가. 3.1–3.6: 자율성·동기/비동기 경험·불확실성·실패·신뢰. 세 장의 모든 절을 읽고 고객의 업무와 연결한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
-          "jira": "SCRUM-14",
+          "id": "W1.1",
           "dependsOn": null
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
           "ac": "정책 질문 사례 3개를 대상으로 업무 단계·사용자 역할·성공/보류/검토 경로를 그린다. 모델 2개를 품질·지연·비용·데이터 조건으로 비교하되 구현은 한 경로를 선택한다. 접수와 완료를 구분한 화면·응답 예제를 작성한다. 산출물: 정상/실패 expected/actual·raw 결과.",
-          "jira": "SCRUM-15",
-          "dependsOn": "SCRUM-14"
+          "id": "W1.2",
+          "dependsOn": "W1.1"
         },
         {
           "title": "영상·SA 보충 실습 — 에이전트 설계·UX와 API 계약·입력 검증",
           "hours": 8,
-          "ac": "승인 영상 배정 2h + 연결 실습 6h. 요구사항 1쪽, 모델 선택표, 입력/결과 API 계약, 검증 실패 사례, Docker 입문 기록. 공백·잘못된 타입·길이 초과를 거부하고 서버가 검증한 신원과 본문 입력을 구분한다. 202 접수와 분석 완료를 설명하고 워크플로/에이전트 선택 이유를 말할 수 있다.",
-          "jira": "SCRUM-16",
-          "dependsOn": "SCRUM-15"
+          "ac": "API 재생목록 기본편 6개 전체 + Docker 입문 시청·메모 2h, 따라 하기와 연결 실습 6h. 각 영상의 예제를 직접 실행한 뒤 정책 질문 API로 바꿔 본다. 요청·응답 계약과 생성·조회·수정·삭제 경로를 정리하고, 정상 입력 1개와 공백·잘못된 타입·길이 초과·허용하지 않은 필드의 실패 4개를 검증한다. REST, Representational State Transfer(자원 표현을 통한 상태 전달), CRUD, Create·Read·Update·Delete(생성·조회·수정·삭제), JSON, JavaScript Object Notation(데이터 교환 형식)의 뜻을 자신의 말로 설명한다. 요구사항 1쪽·모델 선택표·입력/결과 계약·Docker 실행 기록을 저장한다.",
+          "id": "W1.3",
+          "dependsOn": "W1.2"
         },
         {
           "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.",
-          "jira": "SCRUM-17",
-          "dependsOn": "SCRUM-16"
+          "id": "W1.4",
+          "dependsOn": "W1.3"
         }
       ],
       "videoPlan": [
         {
           "r": 1,
           "select": [
-            1
+            0
           ],
-          "scope": "입력 검증 영상의 모델 선언·필수값·타입·오류 예제를 먼저 본다. Python 문법 복습은 제외한다. REST 강연은 계약표를 만든 뒤 선택 심화로 본다.",
+          "scope": "‘FastAPI 첫걸음’ 재생목록의 공개 기본편 6개를 목록 순서대로 모두 학습한다(약 65분). API 소개 → uv 환경 준비 → API 서버 만들기 → 경로 데코레이터·경로 함수 → Pydantic 입력 검증 → CRUD. 재생목록에 있는 환경 준비도 함께 따라 하되 별도의 Python·HTTP·SQL 기초 과정은 추가하지 않는다.",
           "after": "2장 도구와 API 계약 개념",
-          "practice": "정상 입력 1개와 공백·잘못된 타입·길이 초과·허용하지 않은 필드의 실패 사례를 자신의 API에 적용한다."
+          "practice": "각 영상의 예제를 직접 실행한 뒤 정책 질문 API로 바꿔 본다. 요청·응답 계약과 생성·조회·수정·삭제 경로를 정리하고, 정상 입력 1개와 공백·잘못된 타입·길이 초과·허용하지 않은 필드의 실패 4개를 검증한다. REST, Representational State Transfer(자원 표현을 통한 상태 전달), CRUD, Create·Read·Update·Delete(생성·조회·수정·삭제), JSON, JavaScript Object Notation(데이터 교환 형식)의 뜻을 자신의 말로 설명한다."
         },
         {
           "r": 4,
@@ -323,7 +293,7 @@
           "practice": "같은 이미지로 컨테이너를 재생성하고 포트·볼륨을 확인한다. 이미지 제작과 Compose는 W7에서 이어간다."
         }
       ],
-      "videoText": "### 영상 1. API and validation · 학습 묶음 1\n\n**보는 시점:** 2장 도구와 API 계약 개념 다음.\n\n- [파이썬에서 JSON 다루려면 Pydantic이지! - FastAPI 첫걸음 04](https://www.youtube.com/watch?v=h1eYSzC2-pw) — hatemogi, 한국어 수업.\n\n**볼 범위:** 입력 검증 영상의 모델 선언·필수값·타입·오류 예제를 먼저 본다. Python 문법 복습은 제외한다. REST 강연은 계약표를 만든 뒤 선택 심화로 본다.\n\n**시청 직후 실습:** 정상 입력 1개와 공백·잘못된 타입·길이 초과·허용하지 않은 필드의 실패 사례를 자신의 API에 적용한다.\n\n### 영상 2. Docker · 학습 묶음 4\n\n**보는 시점:** 실행 환경을 구분한 API 계약 다음.\n\n- [생활코딩 Docker 입구 수업](https://www.youtube.com/playlist?list=PLuHgQVnccGMDeMJsGq2O-55Ymtx0IdKWf) — 생활코딩, 한국어 수업.\n\n**볼 범위:** Docker 입구 수업 8편(약 42분): 이미지/컨테이너·명령·네트워크·마운트.\n\n**시청 직후 실습:** 같은 이미지로 컨테이너를 재생성하고 포트·볼륨을 확인한다. 이미지 제작과 Compose는 W7에서 이어간다.\n",
+      "videoText": "### 영상 1. API 전체 수업 · 학습 묶음 1\n\n**보는 시점:** 2장 도구와 API 계약 개념 다음.\n\n- [FastAPI 첫걸음 — API 전체 재생목록(공개 기본편 6개)](https://youtube.com/playlist?list=PL8kmk2VivDmQyPLmc4zF6yLEl-Rc6D9lg&si=iKuEUs7JNHJV-N7R) — hatemogi, 한국어 수업.\n\n**볼 범위:** ‘FastAPI 첫걸음’ 재생목록의 공개 기본편 6개를 목록 순서대로 모두 학습한다(약 65분). API 소개 → uv 환경 준비 → API 서버 만들기 → 경로 데코레이터·경로 함수 → Pydantic 입력 검증 → CRUD. 재생목록에 있는 환경 준비도 함께 따라 하되 별도의 Python·HTTP·SQL 기초 과정은 추가하지 않는다.\n\n**시청 직후 실습:** 각 영상의 예제를 직접 실행한 뒤 정책 질문 API로 바꿔 본다. 요청·응답 계약과 생성·조회·수정·삭제 경로를 정리하고, 정상 입력 1개와 공백·잘못된 타입·길이 초과·허용하지 않은 필드의 실패 4개를 검증한다. REST, Representational State Transfer(자원 표현을 통한 상태 전달), CRUD, Create·Read·Update·Delete(생성·조회·수정·삭제), JSON, JavaScript Object Notation(데이터 교환 형식)의 뜻을 자신의 말로 설명한다.\n\n**학습 기록:** 6개 영상 각각 시청·예제 실행을 체크하고 실행 명령·환경 버전·결과·남은 질문을 남긴다. 영상 시청과 메모는 Docker 입문 약 42분을 합쳐 2h, 따라 하기와 업무 API 적용은 아래 SA 실습 6h에 포함한다. 유료 심화 과정은 W1 필수 범위에 포함하지 않는다.\n\n### 영상 2. Docker · 학습 묶음 4\n\n**보는 시점:** 실행 환경을 구분한 API 계약 다음.\n\n- [생활코딩 Docker 입구 수업](https://www.youtube.com/playlist?list=PLuHgQVnccGMDeMJsGq2O-55Ymtx0IdKWf) — 생활코딩, 한국어 수업.\n\n**볼 범위:** Docker 입구 수업 8편(약 42분): 이미지/컨테이너·명령·네트워크·마운트.\n\n**시청 직후 실습:** 같은 이미지로 컨테이너를 재생성하고 포트·볼륨을 확인한다. 이미지 제작과 Compose는 W7에서 이어간다.\n",
       "sources": [
         [
           "API·입력 검증",
@@ -394,34 +364,7 @@
       "start": "2026-10-09",
       "due": "2026-10-15",
       "notion_id": "3ebc6f4a-2c7e-819f-ae0c-d5cb69a99181",
-      "jira": "SCRUM-7",
       "github_issue": 2,
-      "subtasks": [
-        {
-          "key": "SCRUM-18",
-          "title": "책 6장 읽기·설계/개념 노트",
-          "hours": 6,
-          "dependsOn": "SCRUM-6"
-        },
-        {
-          "key": "SCRUM-19",
-          "title": "책 개념을 적용한 프로젝트 실습",
-          "hours": 6,
-          "dependsOn": "SCRUM-18"
-        },
-        {
-          "key": "SCRUM-20",
-          "title": "영상·SA 보충 실습 — 지식·메모리·RAG와 정책·권한 필터",
-          "hours": 8,
-          "dependsOn": "SCRUM-19"
-        },
-        {
-          "key": "SCRUM-21",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
-          "hours": 2,
-          "dependsOn": "SCRUM-20"
-        }
-      ],
       "hours": 22,
       "chapterNames": [
         "6장 지식과 메모리"
@@ -433,29 +376,29 @@
           "title": "책 6장 읽기·설계/개념 노트",
           "hours": 6,
           "ac": "6.1–6.4 전체: 컨텍스트 윈도·전체 텍스트 검색, 시맨틱 검색·벡터 스토어·RAG·경험 메모리, 지식 그래프·GraphRAG·노트 작성. GraphRAG 구축은 개념과 선택 기준을 읽고 고급 구현은 선택한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
-          "jira": "SCRUM-18",
-          "dependsOn": "SCRUM-6"
+          "id": "W2.1",
+          "dependsOn": "W1"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
           "ac": "합성 정책 12–24개를 준비해 source_id·tenant_id·policy_version·allowed_roles를 붙인다. 한 임베딩 모델과 검색 backend로 분할→인덱싱→검색 한 경로를 실행한다. 질문 20개와 정답 근거를 개발 세트로 만든다. 산출물: 정상/실패 expected/actual·raw 결과.",
-          "jira": "SCRUM-19",
-          "dependsOn": "SCRUM-18"
+          "id": "W2.2",
+          "dependsOn": "W2.1"
         },
         {
           "title": "영상·SA 보충 실습 — 지식·메모리·RAG와 정책·권한 필터",
           "hours": 8,
           "ac": "승인 영상 배정 0h + 연결 실습 8h. 문서/청크 manifest, 실제 검색 경로, 정책·권한 필터, dev20 질문과 근거, 검색 실패 사례. 다른 tenant·비활성 버전·권한 밖 근거가 검색 결과와 응답에 섞이지 않는다. 문서·청크·인덱스 버전과 근거 ID가 연결된다.",
-          "jira": "SCRUM-20",
-          "dependsOn": "SCRUM-19"
+          "id": "W2.3",
+          "dependsOn": "W2.2"
         },
         {
           "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.",
-          "jira": "SCRUM-21",
-          "dependsOn": "SCRUM-20"
+          "id": "W2.4",
+          "dependsOn": "W2.3"
         }
       ],
       "videoPlan": [],
@@ -525,34 +468,7 @@
       "start": "2026-10-16",
       "due": "2026-10-22",
       "notion_id": "3ebc6f4a-2c7e-8116-b6d0-e972f595de78",
-      "jira": "SCRUM-8",
       "github_issue": 3,
-      "subtasks": [
-        {
-          "key": "SCRUM-22",
-          "title": "책 9장 읽기·설계/개념 노트",
-          "hours": 6,
-          "dependsOn": "SCRUM-7"
-        },
-        {
-          "key": "SCRUM-23",
-          "title": "책 개념을 적용한 프로젝트 실습",
-          "hours": 6,
-          "dependsOn": "SCRUM-22"
-        },
-        {
-          "key": "SCRUM-24",
-          "title": "영상·SA 보충 실습 — 평가 세트·근거 검증·부하 시험",
-          "hours": 8,
-          "dependsOn": "SCRUM-23"
-        },
-        {
-          "key": "SCRUM-25",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
-          "hours": 2,
-          "dependsOn": "SCRUM-24"
-        }
-      ],
       "hours": 22,
       "chapterNames": [
         "9장 검증 및 측정"
@@ -564,29 +480,29 @@
           "title": "책 9장 읽기·설계/개념 노트",
           "hours": 6,
           "ac": "9.1–9.5 전체: 개발 생명주기 평가, 평가 세트, 도구·계획·메모리·학습의 컴포넌트 평가, 엔드투엔드 평가, 환각·예기치 않은 입력, 배포 준비. 2.9 평가 전략도 다시 읽는다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
-          "jira": "SCRUM-22",
-          "dependsOn": "SCRUM-7"
+          "id": "W3.1",
+          "dependsOn": "W2"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
           "ac": "dev20과 최종 holdout30을 분리한다. 검색 성공·근거 일치·답변 가능 여부·보류·검토·권한을 평가 rubric으로 작성하고 원시 결과를 남긴다. 기준선의 품질·지연·비용을 별도 측정한다. 산출물: 정상/실패 expected/actual·raw 결과.",
-          "jira": "SCRUM-23",
-          "dependsOn": "SCRUM-22"
+          "id": "W3.2",
+          "dependsOn": "W3.1"
         },
         {
           "title": "영상·SA 보충 실습 — 평가 세트·근거 검증·부하 시험",
           "hours": 8,
           "ac": "승인 영상 배정 2.5h + 연결 실습 5.5h. 평가 rubric, dev20/holdout30 manifest, 평가 실행 포맷, 지연/오류 기준선, 부하 시험 시나리오. 평가 설정과 원시 결과가 추적되며 품질·응답시간·오류율을 분리해 보고한다. 최종 질문은 설정 선택에서 제외한다.",
-          "jira": "SCRUM-24",
-          "dependsOn": "SCRUM-23"
+          "id": "W3.3",
+          "dependsOn": "W3.2"
         },
         {
           "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.",
-          "jira": "SCRUM-25",
-          "dependsOn": "SCRUM-24"
+          "id": "W3.4",
+          "dependsOn": "W3.3"
         }
       ],
       "videoPlan": [
@@ -679,34 +595,7 @@
       "start": "2026-10-23",
       "due": "2026-10-29",
       "notion_id": "3ebc6f4a-2c7e-81b7-98f7-e962553f93f9",
-      "jira": "SCRUM-9",
       "github_issue": 4,
-      "subtasks": [
-        {
-          "key": "SCRUM-26",
-          "title": "책 4·5장 읽기·설계/개념 노트",
-          "hours": 6,
-          "dependsOn": "SCRUM-8"
-        },
-        {
-          "key": "SCRUM-27",
-          "title": "책 개념을 적용한 프로젝트 실습",
-          "hours": 6,
-          "dependsOn": "SCRUM-26"
-        },
-        {
-          "key": "SCRUM-28",
-          "title": "영상·SA 보충 실습 — 도구·오케스트레이션·비동기 처리",
-          "hours": 8,
-          "dependsOn": "SCRUM-27"
-        },
-        {
-          "key": "SCRUM-29",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
-          "hours": 2,
-          "dependsOn": "SCRUM-28"
-        }
-      ],
       "hours": 22,
       "chapterNames": [
         "4장 도구",
@@ -719,29 +608,29 @@
           "title": "책 4·5장 읽기·설계/개념 노트",
           "hours": 6,
           "ac": "4.1–4.4 전체: 로컬/API/플러그인/MCP/상태 유지 도구, 도구 개발과 사용 설정. 5.1–5.6 전체: 반사형·ReAct·계획 후 실행·분해·성찰·리서치 에이전트, 도구 선택·실행·토폴로지·컨텍스트 엔지니어링. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
-          "jira": "SCRUM-26",
-          "dependsOn": "SCRUM-8"
+          "id": "W4.1",
+          "dependsOn": "W3"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
           "ac": "허용 도구 2개로 제한된 그래프를 만든다. 입력·출력·권한·최대 실행 횟수·시간 예산을 선언하고 도구 실패·모델 잘못된 인수·재시도·취소를 확인한다. 외부 쓰기 작업은 검토 경계를 둔다. 산출물: 정상/실패 expected/actual·raw 결과.",
-          "jira": "SCRUM-27",
-          "dependsOn": "SCRUM-26"
+          "id": "W4.2",
+          "dependsOn": "W4.1"
         },
         {
           "title": "영상·SA 보충 실습 — 도구·오케스트레이션·비동기 처리",
           "hours": 8,
           "ac": "승인 영상 배정 1h + 연결 실습 7h. 도구 계약표, 제한된 실행 그래프, 시간/횟수 예산, 취소·재시도·중복 실행 정책과 실패 결과. 실행이 정해진 한도에서 끝나며 timeout/cancellation 이후 상태·자원 정리가 된다. 멱등성이 없는 쓰기를 자동 재실행하지 않는다.",
-          "jira": "SCRUM-28",
-          "dependsOn": "SCRUM-27"
+          "id": "W4.3",
+          "dependsOn": "W4.2"
         },
         {
           "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.",
-          "jira": "SCRUM-29",
-          "dependsOn": "SCRUM-28"
+          "id": "W4.4",
+          "dependsOn": "W4.3"
         }
       ],
       "videoPlan": [
@@ -822,34 +711,7 @@
       "start": "2026-10-30",
       "due": "2026-11-05",
       "notion_id": "3ebc6f4a-2c7e-817e-9825-cec827df9013",
-      "jira": "SCRUM-10",
       "github_issue": 5,
-      "subtasks": [
-        {
-          "key": "SCRUM-30",
-          "title": "책 8·12장 읽기·설계/개념 노트",
-          "hours": 6,
-          "dependsOn": "SCRUM-9"
-        },
-        {
-          "key": "SCRUM-31",
-          "title": "책 개념을 적용한 프로젝트 실습",
-          "hours": 6,
-          "dependsOn": "SCRUM-30"
-        },
-        {
-          "key": "SCRUM-32",
-          "title": "영상·SA 보충 실습 — 멀티 에이전트·영속 상태·트랜잭션·보안",
-          "hours": 8,
-          "dependsOn": "SCRUM-31"
-        },
-        {
-          "key": "SCRUM-33",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
-          "hours": 2,
-          "dependsOn": "SCRUM-32"
-        }
-      ],
       "hours": 22,
       "chapterNames": [
         "8장 단일 에이전트에서 멀티 에이전트로",
@@ -862,29 +724,29 @@
           "title": "책 8·12장 읽기·설계/개념 노트",
           "hours": 6,
           "ac": "8.1–8.10 전체: 에이전트 수·조율·A2A·메시지 브로커·액터·워크플로 엔진·상태/영속성. 12.1–12.6 전체: 에이전트 위험·공격·모델 보안·레드팀·MAESTRO·데이터 보호·보호 장치. 한 에이전트 기준선을 먼저 유지한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
-          "jira": "SCRUM-30",
-          "dependsOn": "SCRUM-9"
+          "id": "W5.1",
+          "dependsOn": "W4"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
           "ac": "PostgreSQL의 사례 상태·검토·감사를 한 트랜잭션으로 저장하고 실패·동시 갱신을 검증한다. 인증된 tenant/role로 검색·조회·검토를 제한한다. 도구 접근 위협 모델을 그리고 클라우드 IAM/VPC 설계를 작성한다. 산출물: 정상/실패 expected/actual·raw 결과.",
-          "jira": "SCRUM-31",
-          "dependsOn": "SCRUM-30"
+          "id": "W5.2",
+          "dependsOn": "W5.1"
         },
         {
           "title": "영상·SA 보충 실습 — 멀티 에이전트·영속 상태·트랜잭션·보안",
           "hours": 8,
           "ac": "승인 영상 배정 1h + 연결 실습 7h. 영속 상태·검토·감사 설계, 트랜잭션 실패 기록, 권한 매핑, 위협 모델, 큐·저장소·네트워크 선택표. 감사 저장 실패 시 업무 상태도 롤백되며 중복·동시 검토가 잘못 승인되지 않는다. 교차 tenant·viewer 승인·주입된 도구 호출을 거부한다.",
-          "jira": "SCRUM-32",
-          "dependsOn": "SCRUM-31"
+          "id": "W5.3",
+          "dependsOn": "W5.2"
         },
         {
           "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.",
-          "jira": "SCRUM-33",
-          "dependsOn": "SCRUM-32"
+          "id": "W5.4",
+          "dependsOn": "W5.3"
         }
       ],
       "videoPlan": [
@@ -979,34 +841,7 @@
       "start": "2026-11-06",
       "due": "2026-11-12",
       "notion_id": "3ebc6f4a-2c7e-8156-b65d-dfe5240f458e",
-      "jira": "SCRUM-11",
       "github_issue": 6,
-      "subtasks": [
-        {
-          "key": "SCRUM-34",
-          "title": "책 7·11장 읽기·설계/개념 노트",
-          "hours": 6,
-          "dependsOn": "SCRUM-10"
-        },
-        {
-          "key": "SCRUM-35",
-          "title": "책 개념을 적용한 프로젝트 실습",
-          "hours": 6,
-          "dependsOn": "SCRUM-34"
-        },
-        {
-          "key": "SCRUM-36",
-          "title": "영상·SA 보충 실습 — 학습·개선 루프·실험·비용·인프라 코드",
-          "hours": 8,
-          "dependsOn": "SCRUM-35"
-        },
-        {
-          "key": "SCRUM-37",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
-          "hours": 2,
-          "dependsOn": "SCRUM-36"
-        }
-      ],
       "hours": 22,
       "chapterNames": [
         "7장 에이전틱 시스템의 학습",
@@ -1019,29 +854,29 @@
           "title": "책 7·11장 읽기·설계/개념 노트",
           "hours": 6,
           "ac": "7.1–7.3 전체: 비모수적 예시·Reflexion·경험 학습, 파인튜닝·소형 모델·SFT·DPO·RLVR. 11.1–11.4 전체: 피드백 파이프라인·사람 리뷰·프롬프트/도구 개선·실험·지속 학습. 2.3·2.7의 모델 선택과 비용도 복습한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
-          "jira": "SCRUM-34",
-          "dependsOn": "SCRUM-10"
+          "id": "W6.1",
+          "dependsOn": "W5"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
           "ac": "dev 세트에서 프롬프트/검색/도구 중 변수 하나를 바꾸고 기준선과 비교한다. 개선 후보는 버전·품질·지연·실패·비용을 기록한다. 가상의 비용 모델과 실제 사용량을 분리한다. Terraform은 로컬 파일 리소스로 plan/state 차이를 확인한다. 산출물: 정상/실패 expected/actual·raw 결과.",
-          "jira": "SCRUM-35",
-          "dependsOn": "SCRUM-34"
+          "id": "W6.2",
+          "dependsOn": "W6.1"
         },
         {
           "title": "영상·SA 보충 실습 — 학습·개선 루프·실험·비용·인프라 코드",
           "hours": 8,
           "ac": "승인 영상 배정 1h + 연결 실습 7h. 실험 기록, 피드백 우선순위, 모델/운영 비용표, Terraform 계획·상태 기록, 개선 승인 조건. 최종 holdout을 튜닝에 사용하지 않으며 개선 이득과 추가 비용을 함께 설명한다. 파인튜닝 읽기와 실제 학습 실행을 구분한다.",
-          "jira": "SCRUM-36",
-          "dependsOn": "SCRUM-35"
+          "id": "W6.3",
+          "dependsOn": "W6.2"
         },
         {
           "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.",
-          "jira": "SCRUM-37",
-          "dependsOn": "SCRUM-36"
+          "id": "W6.4",
+          "dependsOn": "W6.3"
         }
       ],
       "videoPlan": [
@@ -1139,34 +974,7 @@
       "start": "2026-11-13",
       "due": "2026-11-19",
       "notion_id": "3ebc6f4a-2c7e-8190-9714-e0d4739b893f",
-      "jira": "SCRUM-12",
       "github_issue": 7,
-      "subtasks": [
-        {
-          "key": "SCRUM-38",
-          "title": "책 10장 읽기·설계/개념 노트",
-          "hours": 6,
-          "dependsOn": "SCRUM-11"
-        },
-        {
-          "key": "SCRUM-39",
-          "title": "책 개념을 적용한 프로젝트 실습",
-          "hours": 6,
-          "dependsOn": "SCRUM-38"
-        },
-        {
-          "key": "SCRUM-40",
-          "title": "영상·SA 보충 실습 — 관측·Docker·Kubernetes·CI/CD·복구",
-          "hours": 8,
-          "dependsOn": "SCRUM-39"
-        },
-        {
-          "key": "SCRUM-41",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
-          "hours": 2,
-          "dependsOn": "SCRUM-40"
-        }
-      ],
       "hours": 22,
       "chapterNames": [
         "10장 운영 환경 모니터링"
@@ -1178,29 +986,29 @@
           "title": "책 10장 읽기·설계/개념 노트",
           "hours": 6,
           "ac": "10.1–10.10 전체: 모니터링 스택 선택·OpenTelemetry 계측·시각화/알림·섀도/카나리·회귀 트레이스·자가 치유·피드백·분포 변화·지표 소유권. 9.4 배포 준비와 8.9 상태/영속성도 복습한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
-          "jira": "SCRUM-38",
-          "dependsOn": "SCRUM-11"
+          "id": "W7.1",
+          "dependsOn": "W6"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
           "ac": "Dockerfile과 Compose로 앱/DB를 재현 기동한다. 관측 필드·트레이스를 연결하고 DB 재시작/별도 백업 복원을 확인한다. 로컬 Kubernetes에서 API Deployment·Service·설정·probes·자원 제한·롤백을 실습한다. CI는 테스트·이미지 빌드 한 경로를 만든다. 산출물: 정상/실패 expected/actual·raw 결과.",
-          "jira": "SCRUM-39",
-          "dependsOn": "SCRUM-38"
+          "id": "W7.2",
+          "dependsOn": "W7.1"
         },
         {
           "title": "영상·SA 보충 실습 — 관측·Docker·Kubernetes·CI/CD·복구",
           "hours": 8,
           "ac": "승인 영상 배정 4.5h + 연결 실습 3.5h. Dockerfile·Compose, 로컬 Kubernetes 설정/배포 기록, CI workflow, 구조화 로그·트레이스, 백업/복구 runbook. 같은 버전으로 재현 기동하고 readiness/liveness를 구분한다. 로컬 배포·롤백·상태 확인과 DB 백업 복원 증거가 있으며 비밀 값이 Git/로그에 없다.",
-          "jira": "SCRUM-40",
-          "dependsOn": "SCRUM-39"
+          "id": "W7.3",
+          "dependsOn": "W7.2"
         },
         {
           "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.",
-          "jira": "SCRUM-41",
-          "dependsOn": "SCRUM-40"
+          "id": "W7.4",
+          "dependsOn": "W7.3"
         }
       ],
       "videoPlan": [
@@ -1318,34 +1126,7 @@
       "start": "2026-11-20",
       "due": "2026-11-26",
       "notion_id": "3ebc6f4a-2c7e-81aa-88be-ca3d312c0854",
-      "jira": "SCRUM-13",
       "github_issue": 8,
-      "subtasks": [
-        {
-          "key": "SCRUM-42",
-          "title": "책 13장 읽기·설계/개념 노트",
-          "hours": 6,
-          "dependsOn": "SCRUM-12"
-        },
-        {
-          "key": "SCRUM-43",
-          "title": "책 개념을 적용한 프로젝트 실습",
-          "hours": 6,
-          "dependsOn": "SCRUM-42"
-        },
-        {
-          "key": "SCRUM-44",
-          "title": "영상·SA 보충 실습 — 인간 협업·거버넌스·고객 제안·제작 준비",
-          "hours": 8,
-          "dependsOn": "SCRUM-43"
-        },
-        {
-          "key": "SCRUM-45",
-          "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
-          "hours": 2,
-          "dependsOn": "SCRUM-44"
-        }
-      ],
       "hours": 22,
       "chapterNames": [
         "13장 인간과 에이전트의 협업"
@@ -1357,29 +1138,29 @@
           "title": "책 13장 읽기·설계/개념 노트",
           "hours": 6,
           "ac": "13.1–13.4 전체: 인간 역할·자율성·이해관계자 도입, 협업 범위·공유 메모리 경계, 신뢰·책임·대응 절차·프라이버시/컴플라이언스. 2.7 트레이드오프와 3.4–3.5 불확실성·신뢰를 고객 제안으로 연결한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
-          "jira": "SCRUM-42",
-          "dependsOn": "SCRUM-12"
+          "id": "W8.1",
+          "dependsOn": "W7"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
           "ac": "고객 요구사항 인터뷰를 역할극으로 진행하고 성공 기준·책임·사람 검토 조건을 문서화한다. Compose/관리형 컨테이너/Kubernetes를 비용·운영 인력·확장·복구·통합 조건으로 비교한다. 실제 실행 증거가 있는 6개 준비 자산을 검토한다. 산출물: 정상/실패 expected/actual·raw 결과.",
-          "jira": "SCRUM-43",
-          "dependsOn": "SCRUM-42"
+          "id": "W8.2",
+          "dependsOn": "W8.1"
         },
         {
           "title": "영상·SA 보충 실습 — 인간 협업·거버넌스·고객 제안·제작 준비",
           "hours": 8,
           "ac": "승인 영상 배정 0.5h + 연결 실습 7.5h. 요구사항·성공 기준, 기술/제품 비교표, ADR, 권한·자율성 표, TCO 시나리오, W9 준비 체크리스트. API·실제 검색·영속 DB·권한/검토·재현 기동·평가 세트가 준비되어야 W9를 시작한다. 기술 선택·비용·미실행 범위를 고객에게 설명할 수 있다.",
-          "jira": "SCRUM-44",
-          "dependsOn": "SCRUM-43"
+          "id": "W8.3",
+          "dependsOn": "W8.2"
         },
         {
           "title": "퀴즈·본인 설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "퀴즈 3개를 자신의 말로 설명하고 정상/실패 증거와 다음 주 선행 조건을 검토한다.",
-          "jira": "SCRUM-45",
-          "dependsOn": "SCRUM-44"
+          "id": "W8.4",
+          "dependsOn": "W8.3"
         }
       ],
       "videoPlan": [
@@ -1416,66 +1197,39 @@
       "hours": 22,
       "chapterNames": [],
       "notionId": "3ecc6f4a-2c7e-8121-89a5-fad40b9b3f33",
-      "jira": "SCRUM-47",
       "tasks": [
         {
           "title": "범위·계약·환경 동결과 통합 입력 준비",
           "hours": 5,
           "ac": "W8 준비 gate 증거 확인. 모델/벡터backend/코퍼스/권한/상태/API계약을 동결하고 새 환경 기동한다.",
-          "jira": "SCRUM-49",
-          "dependsOn": "SCRUM-13"
+          "id": "W9.1",
+          "dependsOn": "W8"
         },
         {
           "title": "tenant·버전 검색과 실제 모델 근거 응답 통합",
           "hours": 6,
           "ac": "인용ID·의미평가·근거 없는 보류·교차tenant거부를 실제 경로로 검증한다.",
-          "jira": "SCRUM-50",
-          "dependsOn": "SCRUM-49"
+          "id": "W9.2",
+          "dependsOn": "W9.1"
         },
         {
           "title": "영속 상태·검토 권한·감사 원자성 통합",
           "hours": 6,
           "ac": "case/review/audit를 PostgreSQL로 저장. 동시/중복검토·권한거부·재시작조회·rollback을 검증한다.",
-          "jira": "SCRUM-51",
-          "dependsOn": "SCRUM-50"
+          "id": "W9.3",
+          "dependsOn": "W9.2"
         },
         {
           "title": "정상·보류·검토 통합 회귀와 장애 처리",
           "hours": 5,
           "ac": "세 종단경로의 expected/actual 결과, 모델 timeout·형식 오류·DB실패 처리와 실행 증거를 남긴다.",
-          "jira": "SCRUM-52",
-          "dependsOn": "SCRUM-51"
+          "id": "W9.4",
+          "dependsOn": "W9.3"
         }
       ],
       "githubIssue": 9,
       "notion_id": "3ecc6f4a-2c7e-8121-89a5-fad40b9b3f33",
       "github_issue": 9,
-      "subtasks": [
-        {
-          "key": "SCRUM-49",
-          "title": "범위·계약·환경 동결과 통합 입력 준비",
-          "hours": 5,
-          "dependsOn": "SCRUM-13"
-        },
-        {
-          "key": "SCRUM-50",
-          "title": "tenant·버전 검색과 실제 모델 근거 응답 통합",
-          "hours": 6,
-          "dependsOn": "SCRUM-49"
-        },
-        {
-          "key": "SCRUM-51",
-          "title": "영속 상태·검토 권한·감사 원자성 통합",
-          "hours": 6,
-          "dependsOn": "SCRUM-50"
-        },
-        {
-          "key": "SCRUM-52",
-          "title": "정상·보류·검토 통합 회귀와 장애 처리",
-          "hours": 5,
-          "dependsOn": "SCRUM-51"
-        }
-      ],
       "videos": [],
       "videoHours": 0,
       "videoPlan": [],
@@ -1497,71 +1251,49 @@
       "hours": 22,
       "chapterNames": [],
       "notionId": "3ecc6f4a-2c7e-819b-9b43-f0b0f71f1323",
-      "jira": "SCRUM-48",
       "githubIssue": 10,
       "tasks": [
         {
           "title": "50질문 평가·실패 분석·지연/비용 측정",
           "hours": 5,
           "ac": "dev20/holdout30을 분리 보고하고 raw결과·측정조건·실제 공급자가격·재시도를 기록한다.",
-          "jira": "SCRUM-53",
-          "dependsOn": "SCRUM-47"
+          "id": "W10.1",
+          "dependsOn": "W9"
         },
         {
           "title": "Compose·로컬 Kubernetes 기동·롤백·DB 복원·CI 검증",
           "hours": 6,
           "ac": "새 환경 기동, DB복원 후 사례/감사 조회, 권한/필터/전이 회귀를 통과하고 복구시간을 기록한다. W7에서 준비한 로컬 Kubernetes API 배포/롤백 증거를 재확인한다. 운영 HA 구축은 추가 과정이다.",
-          "jira": "SCRUM-54",
-          "dependsOn": "SCRUM-53"
+          "id": "W10.2",
+          "dependsOn": "W10.1"
         },
         {
           "title": "README·ADR·아키텍처·평가 보고서 정리",
           "hours": 6,
           "ac": "필수/선택범위와 구현/미구현·목표/실측을 구분. commit/run_id로 모든 핵심주장을 연결한다.",
-          "jira": "SCRUM-55",
-          "dependsOn": "SCRUM-54"
+          "id": "W10.3",
+          "dependsOn": "W10.2"
         },
         {
           "title": "5분 데모·영어 설명·최종 수용 기준 확인",
           "hours": 5,
           "ac": "정상근거/보류/검토3경로를 시연하고 SA90초영어설명·한계/대안·재현명령을 검토한다.",
-          "jira": "SCRUM-56",
-          "dependsOn": "SCRUM-55"
+          "id": "W10.4",
+          "dependsOn": "W10.3"
         }
       ],
       "notion_id": "3ecc6f4a-2c7e-819b-9b43-f0b0f71f1323",
       "github_issue": 10,
-      "subtasks": [
-        {
-          "key": "SCRUM-53",
-          "title": "50질문 평가·실패 분석·지연/비용 측정",
-          "hours": 5,
-          "dependsOn": "SCRUM-47"
-        },
-        {
-          "key": "SCRUM-54",
-          "title": "Compose·로컬 Kubernetes 기동·롤백·DB 복원·CI 검증",
-          "hours": 6,
-          "dependsOn": "SCRUM-53"
-        },
-        {
-          "key": "SCRUM-55",
-          "title": "README·ADR·아키텍처·평가 보고서 정리",
-          "hours": 6,
-          "dependsOn": "SCRUM-54"
-        },
-        {
-          "key": "SCRUM-56",
-          "title": "5분 데모·영어 설명·최종 수용 기준 확인",
-          "hours": 5,
-          "dependsOn": "SCRUM-55"
-        }
-      ],
       "videos": [],
       "videoHours": 0,
       "videoPlan": [],
       "videoText": "새 강의는 추가하지 않는다. W1–W8의 선택 영상·완료한 실습 기록을 필요한 문제에만 다시 참조한다.",
       "sources": []
     }
+  ],
+  "updated_on": "2026-10-06",
+  "tracking_systems": [
+    "Notion",
+    "GitHub"
   ]
 }

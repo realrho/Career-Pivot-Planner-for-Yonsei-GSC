@@ -9,7 +9,7 @@ This record covers the curriculum and workspace organization, not completion of 
 - Eight course chapters; four concept lessons each (32 total).
 - Three explained quiz questions each (24 total), eight lab/code sections and eight detailed implementation recipes.
 - Four ordered build tasks/week, 5/6/6/5h = 22h/week, 176h total planning assumption.
-- 32 Jira subtasks SCRUM-14–45, linked to the original eight weekly stories SCRUM-6–13.
+- 32 weekly checklist tasks, four per study week.
 - Seven native week-to-week Blocks links; W2 correctly shows blocked by W1 and blocks W3.
 - Existing Notion weekly pages read back without truncation or unknown blocks after the core update; concept/build/quiz sections present in all eight.
 - Existing Notion tracker and Internal Transfer rows retained; weekly implementation statuses not completed by documentation edits.

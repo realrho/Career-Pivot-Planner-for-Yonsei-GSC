@@ -1,6 +1,6 @@
 # W7 학습 · 멀티모달·에이전트와 배포·관측·복구
 
-**기간:** 2026-11-13–2026-11-19 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e81909714e0d4739b893f) · [Jira SCRUM-12](https://realrho-1790798942092.atlassian.net/browse/SCRUM-12) · [GitHub #7](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/7)
+**기간:** 2026-11-13–2026-11-19 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e81909714e0d4739b893f) · [GitHub #7](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/7)
 
 **이번 주 통과 조건:** 워크플로가 최대 횟수 안에 종료되고 검토가 자동 승인되지 않는다. 컨테이너 재시작 후 DB 자료를 조회하고 readiness/liveness 차이를 설명한다.
 
@@ -18,12 +18,12 @@
 
 ## 2. 실행 순서·시간·수용 기준
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+| 순서 | 작업 | 계획 시간 | 완료 기준 | 작업 ID |
 |---|---|---|---|---|
-| 1 | 책 14·15장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-38](https://realrho-1790798942092.atlassian.net/browse/SCRUM-38) |
-| 2 | 책 필수 실습·환경/결과 기록 | 6h | 15장 단일/RAG 에이전트 호출 구조를 추적하고 도구 하나에 최대 호출수·timeout·권한 조건을 붙인다. 14장 예제는 입력 이미지→표현/생성 경로를 설명하는 비교표를 만든다. GPU/유료이미지 생성은 선택으로 두고 원본 출처와 실행 상태를 적는다. | [SCRUM-39](https://realrho-1790798942092.atlassian.net/browse/SCRUM-39) |
-| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 워크플로가 최대 횟수 안에 종료되고 검토가 자동 승인되지 않는다. 컨테이너 재시작 후 DB자료를 조회하고 readiness/liveness 차이를 설명한다. | [SCRUM-40](https://realrho-1790798942092.atlassian.net/browse/SCRUM-40) |
-| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 제한된 workflow 계약, Compose기동/지속 볼륨·관측필드·복구runbook 초안를 버전/실행 상태와 함께 저장한다. | [SCRUM-41](https://realrho-1790798942092.atlassian.net/browse/SCRUM-41) |
+| 1 | 책 14·15장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | W7.1 |
+| 2 | 책 필수 실습·환경/결과 기록 | 6h | 15장 단일/RAG 에이전트 호출 구조를 추적하고 도구 하나에 최대 호출수·timeout·권한 조건을 붙인다. 14장 예제는 입력 이미지→표현/생성 경로를 설명하는 비교표를 만든다. GPU/유료이미지 생성은 선택으로 두고 원본 출처와 실행 상태를 적는다. | W7.2 |
+| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 워크플로가 최대 횟수 안에 종료되고 검토가 자동 승인되지 않는다. 컨테이너 재시작 후 DB자료를 조회하고 readiness/liveness 차이를 설명한다. | W7.3 |
+| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 제한된 workflow 계약, Compose기동/지속 볼륨·관측필드·복구runbook 초안를 버전/실행 상태와 함께 저장한다. | W7.4 |
 
 ## 3. SA 보충 강의 · 개념→이유→예제→실습
 

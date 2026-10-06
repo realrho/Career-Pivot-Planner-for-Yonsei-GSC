@@ -1,6 +1,6 @@
 # W6 학습 · LLMOps·평가와 보안·사람 검토 경계
 
-**기간:** 2026-11-06–2026-11-12 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e8156b65ddfe5240f458e) · [Jira SCRUM-11](https://realrho-1790798942092.atlassian.net/browse/SCRUM-11) · [GitHub #6](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/6)
+**기간:** 2026-11-06–2026-11-12 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e8156b65ddfe5240f458e) · [GitHub #6](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/6)
 
 **이번 주 통과 조건:** viewer의 승인·타tenant조회·주입된 도구 호출·잘못된근거를 거부한다. REVIEW_PENDING이 최종 승인으로 변하지 않음을 검증한다.
 
@@ -18,12 +18,12 @@
 
 ## 2. 실행 순서·시간·수용 기준
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+| 순서 | 작업 | 계획 시간 | 완료 기준 | 작업 ID |
 |---|---|---|---|---|
-| 1 | 책 13장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-34](https://realrho-1790798942092.atlassian.net/browse/SCRUM-34) |
-| 2 | 책 필수 실습·환경/결과 기록 | 6h | 책 평가 항목을 프로젝트 정답 가능/불가능·근거 일치·권한 유출·형식 오류로 바꿔 rubric을 작성한다. 20개 개발 질문에서 기준선 오류를 분류한다. 공급자 모델 호출이 없으면 결과를 fixture로 표기하고 실제 모델 기준선 완료를 보류한다. | [SCRUM-35](https://realrho-1790798942092.atlassian.net/browse/SCRUM-35) |
-| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | viewer의 승인·타tenant조회·주입된 도구 호출·잘못된근거를 거부한다. REVIEW_PENDING이 최종 승인으로 변하지 않음을 검증한다. | [SCRUM-36](https://realrho-1790798942092.atlassian.net/browse/SCRUM-36) |
-| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 RBAC 매핑·위협 모델, 출력 검증/검토 route, 사람 평가 rubric과 holdout30질문를 버전/실행 상태와 함께 저장한다. | [SCRUM-37](https://realrho-1790798942092.atlassian.net/browse/SCRUM-37) |
+| 1 | 책 13장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | W6.1 |
+| 2 | 책 필수 실습·환경/결과 기록 | 6h | 책 평가 항목을 프로젝트 정답 가능/불가능·근거 일치·권한 유출·형식 오류로 바꿔 rubric을 작성한다. 20개 개발 질문에서 기준선 오류를 분류한다. 공급자 모델 호출이 없으면 결과를 fixture로 표기하고 실제 모델 기준선 완료를 보류한다. | W6.2 |
+| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | viewer의 승인·타tenant조회·주입된 도구 호출·잘못된근거를 거부한다. REVIEW_PENDING이 최종 승인으로 변하지 않음을 검증한다. | W6.3 |
+| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 RBAC 매핑·위협 모델, 출력 검증/검토 route, 사람 평가 rubric과 holdout30질문를 버전/실행 상태와 함께 저장한다. | W6.4 |
 
 ## 3. SA 보충 강의 · 개념→이유→예제→실습
 

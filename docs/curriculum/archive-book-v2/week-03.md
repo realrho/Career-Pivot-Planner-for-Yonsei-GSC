@@ -1,6 +1,6 @@
 # W3 학습 · 추론·서빙과 네트워크·타임아웃·비용 계산
 
-**기간:** 2026-10-16–2026-10-22 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e8116b6d0e972f595de78) · [Jira SCRUM-8](https://realrho-1790798942092.atlassian.net/browse/SCRUM-8) · [GitHub #3](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/3)
+**기간:** 2026-10-16–2026-10-22 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e8116b6d0e972f595de78) · [GitHub #3](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/3)
 
 **이번 주 통과 조건:** 모델 응답 지연을 구간으로 나누고 429·timeout·4xx 처리 차이를 설명한다. 가상의 요금과 실제 청구를 구분한다.
 
@@ -18,12 +18,12 @@
 
 ## 2. 실행 순서·시간·수용 기준
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+| 순서 | 작업 | 계획 시간 | 완료 기준 | 작업 ID |
 |---|---|---|---|---|
-| 1 | 책 7·8장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-22](https://realrho-1790798942092.atlassian.net/browse/SCRUM-22) |
-| 2 | 책 필수 실습·환경/결과 기록 | 6h | 7장 KV 캐시 크기를 간단한 조건으로 계산한다. 공식 8장 vLLM 노트북의 서버/클라이언트 입력과 응답을 설명한다. 호환 GPU가 있으면 짧은 서빙 호출만 측정한다. 없으면 지연/비용 계산 fixture를 실행하고 vLLM 속도 향상을 측정했다는 주장을 하지 않는다. | [SCRUM-23](https://realrho-1790798942092.atlassian.net/browse/SCRUM-23) |
-| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 모델 응답 지연을 구간으로 나누고 429·timeout·4xx 처리 차이를 설명한다. 가상의 요금과 실제 청구를 구분한다. | [SCRUM-24](https://realrho-1790798942092.atlassian.net/browse/SCRUM-24) |
-| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 모델 호출 계약·timeout/retry 정책, 지연/비용 표, AWS 네트워크 설계 초안를 버전/실행 상태와 함께 저장한다. | [SCRUM-25](https://realrho-1790798942092.atlassian.net/browse/SCRUM-25) |
+| 1 | 책 7·8장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | W3.1 |
+| 2 | 책 필수 실습·환경/결과 기록 | 6h | 7장 KV 캐시 크기를 간단한 조건으로 계산한다. 공식 8장 vLLM 노트북의 서버/클라이언트 입력과 응답을 설명한다. 호환 GPU가 있으면 짧은 서빙 호출만 측정한다. 없으면 지연/비용 계산 fixture를 실행하고 vLLM 속도 향상을 측정했다는 주장을 하지 않는다. | W3.2 |
+| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 모델 응답 지연을 구간으로 나누고 429·timeout·4xx 처리 차이를 설명한다. 가상의 요금과 실제 청구를 구분한다. | W3.3 |
+| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 모델 호출 계약·timeout/retry 정책, 지연/비용 표, AWS 네트워크 설계 초안를 버전/실행 상태와 함께 저장한다. | W3.4 |
 
 ## 3. SA 보충 강의 · 개념→이유→예제→실습
 

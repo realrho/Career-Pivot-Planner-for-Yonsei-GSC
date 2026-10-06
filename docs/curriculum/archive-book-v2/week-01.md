@@ -1,6 +1,6 @@
 # W1 학습 · LLM 기초를 이해하고 Python·Git·API 계약 세우기
 
-**기간:** 2026-10-02–2026-10-08 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e817e9b59e2ed884085ed) · [Jira SCRUM-6](https://realrho-1790798942092.atlassian.net/browse/SCRUM-6) · [GitHub #1](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/1)
+**기간:** 2026-10-02–2026-10-08 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e817e9b59e2ed884085ed) · [GitHub #1](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/1)
 
 **이번 주 통과 조건:** 빈 입력·공백 입력을 거부하고 정상 입력을 동일하게 정규화한다. 타입 힌트와 실제 검증의 차이를 설명하며 202 접수와 분석 완료를 구분한다.
 
@@ -18,12 +18,12 @@
 
 ## 2. 실행 순서·시간·수용 기준
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+| 순서 | 작업 | 계획 시간 | 완료 기준 | 작업 ID |
 |---|---|---|---|---|
-| 1 | 책 1·2·3장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-14](https://realrho-1790798942092.atlassian.net/browse/SCRUM-14) |
-| 2 | 책 필수 실습·환경/결과 기록 | 6h | 공식 3장 노트북에서 토크나이저 예제와 작은 모델의 추론 한 경로를 실행한다. 문장 3개의 토큰 ID·길이·모델 revision을 저장한다. torch 학습 코드는 forward→loss→backward→optimizer 순서를 주석으로 설명한다. 전체 모델 학습·공개 업로드는 선택이다. | [SCRUM-15](https://realrho-1790798942092.atlassian.net/browse/SCRUM-15) |
-| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 빈 입력·공백 입력을 거부하고 정상 입력을 동일하게 정규화한다. 타입 힌트와 실제 검증의 차이를 설명하며 202 접수와 분석 완료를 구분한다. | [SCRUM-16](https://realrho-1790798942092.atlassian.net/browse/SCRUM-16) |
-| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 정규화/입력 검증 함수, 요청·응답 계약표, 오류 사례, 환경 잠금 기록를 버전/실행 상태와 함께 저장한다. | [SCRUM-17](https://realrho-1790798942092.atlassian.net/browse/SCRUM-17) |
+| 1 | 책 1·2·3장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | W1.1 |
+| 2 | 책 필수 실습·환경/결과 기록 | 6h | 공식 3장 노트북에서 토크나이저 예제와 작은 모델의 추론 한 경로를 실행한다. 문장 3개의 토큰 ID·길이·모델 revision을 저장한다. torch 학습 코드는 forward→loss→backward→optimizer 순서를 주석으로 설명한다. 전체 모델 학습·공개 업로드는 선택이다. | W1.2 |
+| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 빈 입력·공백 입력을 거부하고 정상 입력을 동일하게 정규화한다. 타입 힌트와 실제 검증의 차이를 설명하며 202 접수와 분석 완료를 구분한다. | W1.3 |
+| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 정규화/입력 검증 함수, 요청·응답 계약표, 오류 사례, 환경 잠금 기록를 버전/실행 상태와 함께 저장한다. | W1.4 |
 
 ## 3. SA 보충 강의 · 개념→이유→예제→실습
 

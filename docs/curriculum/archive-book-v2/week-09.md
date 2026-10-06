@@ -1,6 +1,6 @@
 # W9 제작 · MVP 통합 — 근거 응답·영속 상태·권한 있는 검토
 
-**기간:** 2026-11-27–2026-12-03 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ecc6f4a2c7e812189a5fad40b9b3f33) · [Jira SCRUM-47](https://realrho-1790798942092.atlassian.net/browse/SCRUM-47) · [GitHub #9](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/9)
+**기간:** 2026-11-27–2026-12-03 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ecc6f4a2c7e812189a5fad40b9b3f33) · [GitHub #9](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/9)
 
 **이번 주 통과 조건:** 정상 근거 응답·근거 없는 보류·고위험 검토가 실제 검색/모델/DB 경로에서 동작하고 재시작 후 조회된다. viewer와 다른 tenant의 검토를 거부한다.
 
@@ -18,12 +18,12 @@
 
 ## 2. 실행 순서·시간·수용 기준
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+| 순서 | 작업 | 계획 시간 | 완료 기준 | 작업 ID |
 |---|---|---|---|---|
-| 1 | 범위·계약·환경 동결과 통합 입력 준비 | 5h | W8 준비 gate 증거 확인. 모델/벡터backend/코퍼스/권한/상태/API계약을 동결하고 새 환경 기동한다. | [SCRUM-49](https://realrho-1790798942092.atlassian.net/browse/SCRUM-49) |
-| 2 | tenant·버전 검색과 실제 모델 근거 응답 통합 | 6h | 인용ID·의미평가·근거 없는 보류·교차tenant거부를 실제 경로로 검증한다. | [SCRUM-50](https://realrho-1790798942092.atlassian.net/browse/SCRUM-50) |
-| 3 | 영속 상태·검토 권한·감사 원자성 통합 | 6h | case/review/audit를 PostgreSQL로 저장. 동시/중복검토·권한거부·재시작조회·rollback을 검증한다. | [SCRUM-51](https://realrho-1790798942092.atlassian.net/browse/SCRUM-51) |
-| 4 | 정상·보류·검토 통합 회귀와 장애 처리 | 5h | 세 종단경로의 expected/actual 결과, 모델 timeout·형식 오류·DB실패 처리와 실행 증거를 남긴다. | [SCRUM-52](https://realrho-1790798942092.atlassian.net/browse/SCRUM-52) |
+| 1 | 범위·계약·환경 동결과 통합 입력 준비 | 5h | W8 준비 gate 증거 확인. 모델/벡터backend/코퍼스/권한/상태/API계약을 동결하고 새 환경 기동한다. | W9.1 |
+| 2 | tenant·버전 검색과 실제 모델 근거 응답 통합 | 6h | 인용ID·의미평가·근거 없는 보류·교차tenant거부를 실제 경로로 검증한다. | W9.2 |
+| 3 | 영속 상태·검토 권한·감사 원자성 통합 | 6h | case/review/audit를 PostgreSQL로 저장. 동시/중복검토·권한거부·재시작조회·rollback을 검증한다. | W9.3 |
+| 4 | 정상·보류·검토 통합 회귀와 장애 처리 | 5h | 세 종단경로의 expected/actual 결과, 모델 timeout·형식 오류·DB실패 처리와 실행 증거를 남긴다. | W9.4 |
 
 ## 3. 상세 빌드 레시피 · 파일·입력·실패·검증
 

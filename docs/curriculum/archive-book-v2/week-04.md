@@ -1,6 +1,6 @@
 # W4 학습 · RAG·하이브리드 검색과 근거·평가 계약
 
-**기간:** 2026-10-23–2026-10-29 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e81b798f7e962553f93f9) · [Jira SCRUM-9](https://realrho-1790798942092.atlassian.net/browse/SCRUM-9) · [GitHub #4](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/4)
+**기간:** 2026-10-23–2026-10-29 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e81b798f7e962553f93f9) · [GitHub #4](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/4)
 
 **이번 주 통과 조건:** 근거 ID·문서 버전·tenant가 모든 chunk에 있고 응답 인용 ID가 검색 결과에 속한다. 검색 품질과 답변 품질을 따로 보고한다.
 
@@ -18,12 +18,12 @@
 
 ## 2. 실행 순서·시간·수용 기준
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+| 순서 | 작업 | 계획 시간 | 완료 기준 | 작업 ID |
 |---|---|---|---|---|
-| 1 | 책 9·10장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-26](https://realrho-1790798942092.atlassian.net/browse/SCRUM-26) |
-| 2 | 책 필수 실습·환경/결과 기록 | 6h | 공식 9장 기본 RAG와 10장 의미/하이브리드 검색을 작은 텍스트 corpus로 실행한다. 공급자 접근이 없으면 검색까지 실행하고 생성은 fixture로 분리한다. 질문 10개에 대해 keyword/dense/hybrid 검색 결과와 gold 근거 포함 여부를 표로 비교한다. | [SCRUM-27](https://realrho-1790798942092.atlassian.net/browse/SCRUM-27) |
-| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 근거 ID·문서 버전·tenant가 모든 chunk에 있고 응답 인용 ID가 검색 결과에 속한다. 검색 품질과 답변 품질을 따로 보고한다. | [SCRUM-28](https://realrho-1790798942092.atlassian.net/browse/SCRUM-28) |
-| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 합성 문서12–24개, chunk manifest, 검색 결과 계약, 개발 질문20개를 버전/실행 상태와 함께 저장한다. | [SCRUM-29](https://realrho-1790798942092.atlassian.net/browse/SCRUM-29) |
+| 1 | 책 9·10장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | W4.1 |
+| 2 | 책 필수 실습·환경/결과 기록 | 6h | 공식 9장 기본 RAG와 10장 의미/하이브리드 검색을 작은 텍스트 corpus로 실행한다. 공급자 접근이 없으면 검색까지 실행하고 생성은 fixture로 분리한다. 질문 10개에 대해 keyword/dense/hybrid 검색 결과와 gold 근거 포함 여부를 표로 비교한다. | W4.2 |
+| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 근거 ID·문서 버전·tenant가 모든 chunk에 있고 응답 인용 ID가 검색 결과에 속한다. 검색 품질과 답변 품질을 따로 보고한다. | W4.3 |
+| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 합성 문서12–24개, chunk manifest, 검색 결과 계약, 개발 질문20개를 버전/실행 상태와 함께 저장한다. | W4.4 |
 
 ## 3. SA 보충 강의 · 개념→이유→예제→실습
 

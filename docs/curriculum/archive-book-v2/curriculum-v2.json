@@ -65,32 +65,31 @@
         "3장 허깅페이스 트랜스포머"
       ],
       "notionId": "3ebc6f4a-2c7e-817e-9b59-e2ed884085ed",
-      "jira": "SCRUM-6",
       "githubIssue": 1,
       "tasks": [
         {
           "title": "책 1·2·3장 읽기·개념 노트",
           "hours": 6,
           "ac": "배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다.",
-          "jira": "SCRUM-14"
+          "id": "W1.1"
         },
         {
           "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "ac": "공식 3장 노트북에서 토크나이저 예제와 작은 모델의 추론 한 경로를 실행한다. 문장 3개의 토큰 ID·길이·모델 revision을 저장한다. torch 학습 코드는 forward→loss→backward→optimizer 순서를 주석으로 설명한다. 전체 모델 학습·공개 업로드는 선택이다.",
-          "jira": "SCRUM-15"
+          "id": "W1.2"
         },
         {
           "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "ac": "빈 입력·공백 입력을 거부하고 정상 입력을 동일하게 정규화한다. 타입 힌트와 실제 검증의 차이를 설명하며 202 접수와 분석 완료를 구분한다.",
-          "jira": "SCRUM-16"
+          "id": "W1.3"
         },
         {
           "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "3개 퀴즈를 해설 없이 설명하고 정규화/입력 검증 함수, 요청·응답 계약표, 오류 사례, 환경 잠금 기록를 버전/실행 상태와 함께 저장한다.",
-          "jira": "SCRUM-17"
+          "id": "W1.4"
         }
       ],
       "code": "\"\"\"W1: 입력 계약을 검증하는 CPU/표준 라이브러리 실습.\"\"\"\ndef normalize_text(value: object, max_length: int = 2000) -> str:\n    \"\"\"공백을 제거하고 입력 계약을 검사한다.\n\n    Args:\n        value: 호출자가 전달한 원본 값.\n        max_length: 허용할 정규화 문자열의 최대 문자 수.\n    Returns:\n        앞뒤 공백이 제거된 비어 있지 않은 문자열.\n    Raises:\n        TypeError: 문자열이 아닌 입력인 경우.\n        ValueError: 길이 한도가 양수가 아니거나 입력 길이가 범위 밖인 경우.\n    \"\"\"\n    if max_length < 1:\n        raise ValueError(\"max_length must be positive\")\n    if not isinstance(value, str):\n        raise TypeError(\"text must be a string\")\n    normalized = value.strip()  # 정규화 후 검사해야 공백만 있는 입력도 거부한다.\n    if not 1 <= len(normalized) <= max_length:\n        raise ValueError(\"invalid text length\")\n    return normalized\n\nassert normalize_text(\"  환불 규정  \") == \"환불 규정\"\nfor invalid in [\"   \", None]:\n    try:\n        normalize_text(invalid)\n    except (TypeError, ValueError):\n        pass\n    else:\n        raise AssertionError(\"invalid input accepted\")\nprint(\"W1 input contract: passed\")\n",
@@ -157,32 +156,31 @@
         "6장 sLLM 학습하기"
       ],
       "notionId": "3ebc6f4a-2c7e-819f-ae0c-d5cb69a99181",
-      "jira": "SCRUM-7",
       "githubIssue": 2,
       "tasks": [
         {
           "title": "책 4·5·6장 읽기·개념 노트",
           "hours": 6,
           "ac": "배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다.",
-          "jira": "SCRUM-18"
+          "id": "W2.1"
         },
         {
           "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "ac": "6장 학습/평가 코드의 입출력을 표로 만들고 작은 SQLite 연습 DB에서 정답 SQL과 틀린 SQL의 결과를 비교한다. GPU가 있으면 5장 LoRA와 6장 짧은 학습 한 경로만 실행하고 실행 시간을 제한한다. GPU가 없으면 설정·메모리 계산·데이터/평가 파이프라인까지 필수로 하며 학습 실행은 미실행으로 남긴다.",
-          "jira": "SCRUM-19"
+          "id": "W2.2"
         },
         {
           "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "ac": "학습 데이터와 평가 정답이 섞이지 않았음을 ID로 확인한다. SQL 문자열 일치와 실행 결과 일치의 차이, LoRA가 줄이는 비용과 남는 비용을 설명한다.",
-          "jira": "SCRUM-20"
+          "id": "W2.3"
         },
         {
           "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "3개 퀴즈를 해설 없이 설명하고 train/dev/holdout 분리 manifest, 읽기 전용 SQL 실습, 모델 선택 비교표를 버전/실행 상태와 함께 저장한다.",
-          "jira": "SCRUM-21"
+          "id": "W2.4"
         }
       ],
       "code": "\"\"\"W2: 평가 분리의 ID 계약을 검사한다. 모델 학습은 수행하지 않는다.\"\"\"\ndef validate_splits(splits: dict[str, set[str]]) -> int:\n    \"\"\"세 데이터 분할에 중복 ID가 없는지 검사한다.\n\n    Args:\n        splits: train/dev/holdout 이름과 각 분할의 ID 집합.\n    Returns:\n        전체 고유 ID 개수.\n    Raises:\n        ValueError: 필수 분할이 없거나 비어 있거나 ID가 중복된 경우.\n    \"\"\"\n    if set(splits) != {\"train\", \"dev\", \"holdout\"}:\n        raise ValueError(\"three splits required\")\n    seen: set[str] = set()\n    for name, identifiers in splits.items():\n        if not identifiers or seen.intersection(identifiers):\n            raise ValueError(f\"empty or overlapping split: {name}\")\n        seen.update(identifiers)\n    return len(seen)\n\nassert validate_splits({\"train\": {\"a\"}, \"dev\": {\"b\"}, \"holdout\": {\"c\"}}) == 3\ntry:\n    validate_splits({\"train\": {\"a\"}, \"dev\": {\"a\"}, \"holdout\": {\"c\"}})\nexcept ValueError:\n    pass\nelse:\n    raise AssertionError(\"leakage accepted\")\n# ID 분리만으로 문서/시나리오 의미 중복까지 검증한 것은 아니다.\nprint(\"W2 split-ID contract: passed\")\n",
@@ -247,32 +245,31 @@
         "8장 sLLM 서빙하기"
       ],
       "notionId": "3ebc6f4a-2c7e-8116-b6d0-e972f595de78",
-      "jira": "SCRUM-8",
       "githubIssue": 3,
       "tasks": [
         {
           "title": "책 7·8장 읽기·개념 노트",
           "hours": 6,
           "ac": "배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다.",
-          "jira": "SCRUM-22"
+          "id": "W3.1"
         },
         {
           "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "ac": "7장 KV 캐시 크기를 간단한 조건으로 계산한다. 공식 8장 vLLM 노트북의 서버/클라이언트 입력과 응답을 설명한다. 호환 GPU가 있으면 짧은 서빙 호출만 측정한다. 없으면 지연/비용 계산 fixture를 실행하고 vLLM 속도 향상을 측정했다는 주장을 하지 않는다.",
-          "jira": "SCRUM-23"
+          "id": "W3.2"
         },
         {
           "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "ac": "모델 응답 지연을 구간으로 나누고 429·timeout·4xx 처리 차이를 설명한다. 가상의 요금과 실제 청구를 구분한다.",
-          "jira": "SCRUM-24"
+          "id": "W3.3"
         },
         {
           "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "3개 퀴즈를 해설 없이 설명하고 모델 호출 계약·timeout/retry 정책, 지연/비용 표, AWS 네트워크 설계 초안를 버전/실행 상태와 함께 저장한다.",
-          "jira": "SCRUM-25"
+          "id": "W3.4"
         }
       ],
       "code": "\"\"\"W3: 가상 단가로 토큰 비용을 계산한다. 실제 청구/성능 결과가 아니다.\"\"\"\nfrom decimal import Decimal\n\ndef token_cost(input_tokens: int, output_tokens: int,\n               input_per_million: Decimal, output_per_million: Decimal) -> Decimal:\n    \"\"\"입력/출력 토큰의 가상 사용료 합계를 계산한다.\n\n    Args:\n        input_tokens: 입력 토큰 개수.\n        output_tokens: 출력 토큰 개수.\n        input_per_million: 입력 백만 토큰당 가상 단가.\n        output_per_million: 출력 백만 토큰당 가상 단가.\n    Returns:\n        같은 통화 단위의 비용. 검색/재시도/저장 비용은 제외한다.\n    Raises:\n        ValueError: 개수 또는 단가가 음수인 경우.\n    \"\"\"\n    if min(input_tokens, output_tokens, input_per_million, output_per_million) < 0:\n        raise ValueError(\"negative usage or price\")\n    # 이진 부동소수점 반올림 영향을 줄이기 위해 Decimal로 계산한다.\n    million = Decimal(1_000_000)\n    return (Decimal(input_tokens) * input_per_million\n            + Decimal(output_tokens) * output_per_million) / million\n\nassert token_cost(2000, 300, Decimal(\"1\"), Decimal(\"4\")) == Decimal(\"0.0032\")\nprint(\"W3 fictional token cost:\", token_cost(2000, 300, Decimal(\"1\"), Decimal(\"4\")))\n",
@@ -337,32 +334,31 @@
         "10장 임베딩·의미/하이브리드 검색"
       ],
       "notionId": "3ebc6f4a-2c7e-81b7-98f7-e962553f93f9",
-      "jira": "SCRUM-9",
       "githubIssue": 4,
       "tasks": [
         {
           "title": "책 9·10장 읽기·개념 노트",
           "hours": 6,
           "ac": "배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다.",
-          "jira": "SCRUM-26"
+          "id": "W4.1"
         },
         {
           "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "ac": "공식 9장 기본 RAG와 10장 의미/하이브리드 검색을 작은 텍스트 corpus로 실행한다. 공급자 접근이 없으면 검색까지 실행하고 생성은 fixture로 분리한다. 질문 10개에 대해 keyword/dense/hybrid 검색 결과와 gold 근거 포함 여부를 표로 비교한다.",
-          "jira": "SCRUM-27"
+          "id": "W4.2"
         },
         {
           "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "ac": "근거 ID·문서 버전·tenant가 모든 chunk에 있고 응답 인용 ID가 검색 결과에 속한다. 검색 품질과 답변 품질을 따로 보고한다.",
-          "jira": "SCRUM-28"
+          "id": "W4.3"
         },
         {
           "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "3개 퀴즈를 해설 없이 설명하고 합성 문서12–24개, chunk manifest, 검색 결과 계약, 개발 질문20개를 버전/실행 상태와 함께 저장한다.",
-          "jira": "SCRUM-29"
+          "id": "W4.4"
         }
       ],
       "code": "\"\"\"W4: 다중 정답 검색의 Recall@k와 첫 정답 역순위를 계산한다.\"\"\"\ndef retrieval_metrics(ranked_ids: list[str], gold_ids: set[str], k: int) -> tuple[float, float]:\n    \"\"\"하나의 질문에 대한 검색 지표를 계산한다.\n\n    Args:\n        ranked_ids: 높은 순위부터 나열한 중복 없는 검색 ID.\n        gold_ids: 사람이 정한 정답 근거 ID 집합.\n        k: 평가할 상위 검색 개수.\n    Returns:\n        (Recall@k, 상위 k 안 첫 정답의 역순위). 정답 미검색이면 역순위 0.\n    Raises:\n        ValueError: k가 양수가 아니거나 gold가 없거나 검색 ID가 중복된 경우.\n    \"\"\"\n    if k < 1 or not gold_ids or len(set(ranked_ids)) != len(ranked_ids):\n        raise ValueError(\"invalid metric input\")\n    top_ids = ranked_ids[:k]\n    recall = len(set(top_ids) & gold_ids) / len(gold_ids)\n    # 질문별 역순위의 평균을 내면 MRR@k가 된다.\n    reciprocal_rank = next((1 / rank for rank, item in enumerate(top_ids, 1)\n                            if item in gold_ids), 0.0)\n    return recall, reciprocal_rank\n\nassert retrieval_metrics([\"x\", \"a\", \"y\"], {\"a\", \"b\"}, 3) == (0.5, 0.5)\nassert retrieval_metrics([\"x\"], {\"a\"}, 1) == (0.0, 0.0)\nprint(\"W4 retrieval arithmetic: passed\")\n",
@@ -427,32 +423,31 @@
         "12장 벡터 DB·RAG 확장"
       ],
       "notionId": "3ebc6f4a-2c7e-817e-9825-cec827df9013",
-      "jira": "SCRUM-10",
       "githubIssue": 5,
       "tasks": [
         {
           "title": "책 11·12장 읽기·개념 노트",
           "hours": 6,
           "ac": "배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다.",
-          "jira": "SCRUM-30"
+          "id": "W5.1"
         },
         {
           "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "ac": "기본 embedding+reranker 한 조합을 작은 corpus에 적용해 정확도/지연을 비교한다. Pinecone 공식 책 예제를 따라가거나 사용할 수 있는 로컬 벡터 backend 하나를 선택하고 차이를 ADR에 기록한다. 임베딩 미세 조정/GPU·다른 DB 추가·이미지 생성 전체 실행은 선택이다.",
-          "jira": "SCRUM-31"
+          "id": "W5.2"
         },
         {
           "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "ac": "다른 tenant/비활성 버전 근거가 나오지 않으며 DB 쓰기 실패 시 상태와 감사 기록이 함께 롤백된다. 재시작 후 조회 경로를 확인한다.",
-          "jira": "SCRUM-32"
+          "id": "W5.3"
         },
         {
           "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "3개 퀴즈를 해설 없이 설명하고 선택 벡터backend의 실제 검색 경로, PostgreSQL 사례/검토/감사 schema, 원자적 갱신 연습를 버전/실행 상태와 함께 저장한다.",
-          "jira": "SCRUM-33"
+          "id": "W5.4"
         }
       ],
       "code": "\"\"\"W5: SQLite 실패 주입으로 상태/감사의 원자성만 검증한다.\"\"\"\nimport sqlite3\n\ndef atomic_review(connection: sqlite3.Connection, fail_audit: bool = False) -> None:\n    \"\"\"상태와 감사 행을 한 트랜잭션으로 저장한다.\n\n    Args:\n        connection: 실습용 SQLite 연결.\n        fail_audit: 감사 기록 전에 오류를 주입할지 여부.\n    Returns:\n        None. 성공하면 두 변경을 커밋한다.\n    Raises:\n        RuntimeError: 실패 주입 시 발생하며 상태 변경도 롤백된다.\n        sqlite3.Error: SQL 실행이 실패한 경우.\n    \"\"\"\n    with connection:  # context manager는 예외 시 DB 변경을 롤백한다.\n        connection.execute(\"UPDATE cases SET status = ? WHERE id = ?\", (\"APPROVED\", 1))\n        if fail_audit:\n            raise RuntimeError(\"injected audit failure\")\n        connection.execute(\"INSERT INTO audit(case_id) VALUES (?)\", (1,))\n\nconnection = sqlite3.connect(\":memory:\")\nconnection.executescript(\"CREATE TABLE cases(id INTEGER PRIMARY KEY, status TEXT);\"\n                         \"CREATE TABLE audit(case_id INTEGER);\"\n                         \"INSERT INTO cases VALUES(1, 'REVIEW_PENDING');\")\ntry:\n    atomic_review(connection, fail_audit=True)\nexcept RuntimeError:\n    pass\nassert connection.execute(\"SELECT status FROM cases\").fetchone()[0] == \"REVIEW_PENDING\"\nassert connection.execute(\"SELECT count(*) FROM audit\").fetchone()[0] == 0\natomic_review(connection)\nassert connection.execute(\"SELECT count(*) FROM audit\").fetchone()[0] == 1\nconnection.close()\nprint(\"W5 SQLite atomicity: passed; PostgreSQL/concurrency not validated\")\n",
@@ -515,32 +510,31 @@
         "13장 LLM 운영하기"
       ],
       "notionId": "3ebc6f4a-2c7e-8156-b65d-dfe5240f458e",
-      "jira": "SCRUM-11",
       "githubIssue": 6,
       "tasks": [
         {
           "title": "책 13장 읽기·개념 노트",
           "hours": 6,
           "ac": "배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다.",
-          "jira": "SCRUM-34"
+          "id": "W6.1"
         },
         {
           "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "ac": "책 평가 항목을 프로젝트 정답 가능/불가능·근거 일치·권한 유출·형식 오류로 바꿔 rubric을 작성한다. 20개 개발 질문에서 기준선 오류를 분류한다. 공급자 모델 호출이 없으면 결과를 fixture로 표기하고 실제 모델 기준선 완료를 보류한다.",
-          "jira": "SCRUM-35"
+          "id": "W6.2"
         },
         {
           "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "ac": "viewer의 승인·타tenant조회·주입된 도구 호출·잘못된근거를 거부한다. REVIEW_PENDING이 최종 승인으로 변하지 않음을 검증한다.",
-          "jira": "SCRUM-36"
+          "id": "W6.3"
         },
         {
           "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "3개 퀴즈를 해설 없이 설명하고 RBAC 매핑·위협 모델, 출력 검증/검토 route, 사람 평가 rubric과 holdout30질문를 버전/실행 상태와 함께 저장한다.",
-          "jira": "SCRUM-37"
+          "id": "W6.4"
         }
       ],
       "code": "\"\"\"W6: 신뢰된 신원이라는 전제에서 권한/상태 전이를 검사한다.\"\"\"\ndef approve_review(role: str, actor_tenant: str, case_tenant: str, status: str) -> str:\n    \"\"\"검토자 역할과 tenant 및 상태 조건을 검사한다.\n\n    Args:\n        role: 서버가 검증한 주체의 역할.\n        actor_tenant: 서버가 검증한 주체의 tenant.\n        case_tenant: DB에 저장된 사례의 tenant.\n        status: 저장된 현재 상태.\n    Returns:\n        허용된 경우 APPROVED 문자열.\n    Raises:\n        PermissionError: 역할 또는 tenant 경계가 맞지 않는 경우.\n        ValueError: 검토 대기 상태가 아닌 경우.\n    \"\"\"\n    if role != \"reviewer\" or actor_tenant != case_tenant:\n        raise PermissionError(\"review not authorized\")\n    if status != \"REVIEW_PENDING\":\n        raise ValueError(\"invalid transition\")\n    return \"APPROVED\"\n\nassert approve_review(\"reviewer\", \"A\", \"A\", \"REVIEW_PENDING\") == \"APPROVED\"\nfor role, tenant, status in [(\"viewer\", \"A\", \"REVIEW_PENDING\"),\n                             (\"reviewer\", \"B\", \"REVIEW_PENDING\"),\n                             (\"reviewer\", \"A\", \"APPROVED\")]:\n    try:\n        approve_review(role, tenant, \"A\", status)\n    except (PermissionError, ValueError):\n        pass\n    else:\n        raise AssertionError(\"unsafe approval\")\n# 실제 인증, DB 저장, 동시 갱신은 이 순수 함수 실습의 검증 범위 밖이다.\nprint(\"W6 permission/state predicate: passed\")\n",
@@ -605,32 +599,31 @@
         "15장 LLM 에이전트"
       ],
       "notionId": "3ebc6f4a-2c7e-8190-9714-e0d4739b893f",
-      "jira": "SCRUM-12",
       "githubIssue": 7,
       "tasks": [
         {
           "title": "책 14·15장 읽기·개념 노트",
           "hours": 6,
           "ac": "배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다.",
-          "jira": "SCRUM-38"
+          "id": "W7.1"
         },
         {
           "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "ac": "15장 단일/RAG 에이전트 호출 구조를 추적하고 도구 하나에 최대 호출수·timeout·권한 조건을 붙인다. 14장 예제는 입력 이미지→표현/생성 경로를 설명하는 비교표를 만든다. GPU/유료이미지 생성은 선택으로 두고 원본 출처와 실행 상태를 적는다.",
-          "jira": "SCRUM-39"
+          "id": "W7.2"
         },
         {
           "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "ac": "워크플로가 최대 횟수 안에 종료되고 검토가 자동 승인되지 않는다. 컨테이너 재시작 후 DB자료를 조회하고 readiness/liveness 차이를 설명한다.",
-          "jira": "SCRUM-40"
+          "id": "W7.3"
         },
         {
           "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "3개 퀴즈를 해설 없이 설명하고 제한된 workflow 계약, Compose기동/지속 볼륨·관측필드·복구runbook 초안를 버전/실행 상태와 함께 저장한다.",
-          "jira": "SCRUM-41"
+          "id": "W7.4"
         }
       ],
       "code": "\"\"\"W7: 에이전트 도구 호출을 제한하는 순수 함수 실습.\"\"\"\ndef bounded_workflow(actions: list[str], max_steps: int = 3) -> str:\n    \"\"\"허용된 도구만 최대 단계 수 안에서 처리한다.\n\n    Args:\n        actions: 모델이 제안했다고 가정한 도구 이름의 fixture 목록.\n        max_steps: 허용할 최대 도구 개수.\n    Returns:\n        완료 시 COMPLETED, review 요청 시 REVIEW_PENDING.\n    Raises:\n        ValueError: 최대 단계가 양수가 아니거나 횟수 초과인 경우.\n        PermissionError: 허용 목록 밖의 도구인 경우.\n    \"\"\"\n    if max_steps < 1 or len(actions) > max_steps:\n        raise ValueError(\"step budget exceeded\")\n    for action in actions:\n        if action not in {\"retrieve\", \"validate\", \"request_review\"}:\n            raise PermissionError(\"tool not allowed\")\n        if action == \"request_review\":\n            return \"REVIEW_PENDING\"  # 검토 요청은 자동 승인과 다르다.\n    return \"COMPLETED\"\n\nassert bounded_workflow([\"retrieve\", \"validate\", \"request_review\"]) == \"REVIEW_PENDING\"\nfor actions in [[\"approve\"], [\"retrieve\"] * 4]:\n    try:\n        bounded_workflow(actions)\n    except (PermissionError, ValueError):\n        pass\n    else:\n        raise AssertionError(\"unbounded or unauthorized action\")\nprint(\"W7 workflow fixture: passed; real agent/deployment not validated\")\n",
@@ -669,7 +662,7 @@
           "8주 자산을 2주 MVP로 조립하기",
           "8주 실습은 공부 과정에서 작은 모듈을 검증하는 단계이며 W9–W10은 완성된 모듈의 통합·최종 평가·문서화에 집중한다. 프로젝트 2주를 새 기술 전부를 처음 배우고 만드는 기간으로 잡으면 일정이 불안정해진다. scope freeze(범위 동결)는 필수 행동·모델·backend·데이터·평가·배포 수준을 확정하는 절차다. 일정은 주 22시간 총 44시간 추정으로 상한을 둔다. 신규 GPU 학습·멀티모달·멀티에이전트·K8s HA·여러 공급자 벤치마크는 추가 과제로 분리한다.",
           "W8에 실제 검색이 없으면 W9 첫날부터 구축 시간이 추가되므로 2주 완성 조건을 충족하지 못한다. 계획을 연장하거나 한 backend로 축소하고 누락을 명시한다. gate를 문서 체크만으로 통과시키지 않는다.",
-          "준비 체크리스트를 실제 실행 출력과 연결해 검토한다. W9 통합 테스트 입력과 W10 최종 시연 3경로를 선정하고 준비 상태를 Jira에 남긴다."
+          "준비 체크리스트를 실제 실행 출력과 연결해 검토한다. W9 통합 테스트 입력과 W10 최종 시연 3경로를 선정하고 준비 상태를 GitHub 이슈에 남긴다."
         ]
       ],
       "quiz": [
@@ -682,7 +675,7 @@
           "재사용 실습 자산과 환경·평가가 준비되어 통합·검증 범위가 44시간 안에 들어오는 것이다."
         ],
         [
-          "학습 문서가 작성됐으면 Jira를 Done으로 바꿀까?",
+          "학습 문서가 작성됐으면 학습 상태를 Done으로 바꿀까?",
           "학습·실습 수용 기준에 본인 설명과 실행 증거가 있을 때 완료한다. 자료 작성은 사용자 학습 완료가 아니다."
         ]
       ],
@@ -693,32 +686,31 @@
         "16장 새로운 아키텍처"
       ],
       "notionId": "3ebc6f4a-2c7e-81aa-88be-ca3d312c0854",
-      "jira": "SCRUM-13",
       "githubIssue": 8,
       "tasks": [
         {
           "title": "책 16장 읽기·개념 노트",
           "hours": 6,
           "ac": "배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다.",
-          "jira": "SCRUM-42"
+          "id": "W8.1"
         },
         {
           "title": "책 필수 실습·환경/결과 기록",
           "hours": 6,
           "ac": "16장의 맘바 코드를 읽어 입력/상태/출력 흐름을 설명하고 필요 환경을 기록한다. 하드웨어가 지원되면 소규모예제만 실행한다. 모든 장의 읽기·필수 실습·선택 GPU실행 상태를 점검하고 W1–W7 재사용 자산을 새 환경에서 smoke check한다.",
-          "jira": "SCRUM-43"
+          "id": "W8.2"
         },
         {
           "title": "SA 보충 강의·재사용 실습 자산 만들기",
           "hours": 8,
           "ac": "API계약·실제 검색·영속 DB·권한/검토·기동·평가 질문이 준비되어야 W9제작2주를 시작한다. 미완료핵심자산이 있으면 주말추가가정 대신 일정/범위를 조정한다.",
-          "jira": "SCRUM-44"
+          "id": "W8.3"
         },
         {
           "title": "퀴즈·설명·증거·다음 주 준비 검토",
           "hours": 2,
           "ac": "3개 퀴즈를 해설 없이 설명하고 고객요구사항·ADR·아키텍처/권한/비용표·제작 준비 체크리스트·동결config를 버전/실행 상태와 함께 저장한다.",
-          "jira": "SCRUM-45"
+          "id": "W8.4"
         }
       ],
       "code": "\"\"\"W8: 실제 증거 유무를 직접 입력받는 제작 준비 체크 실습.\"\"\"\nREQUIRED_ASSETS = frozenset({\"api_contract\", \"real_retrieval\", \"persistent_db\",\n                             \"authorization_review\", \"reproducible_start\", \"evaluation_set\"})\n\ndef missing_assets(evidence: dict[str, bool]) -> list[str]:\n    \"\"\"필수 준비 항목 중 실행 증거가 없는 항목을 찾는다.\n\n    Args:\n        evidence: 실제 기록을 확인한 뒤 입력하는 자산별 준비 여부.\n    Returns:\n        누락된 항목의 정렬된 이름 목록.\n    Raises:\n        TypeError: 준비 여부가 bool이 아닌 경우.\n    \"\"\"\n    if any(not isinstance(value, bool) for value in evidence.values()):\n        raise TypeError(\"evidence flags must be boolean\")\n    # 자동 실행 검증기가 아니다. True를 쓰기 전에 연결된 실제 증거를 읽어야 한다.\n    return sorted(asset for asset in REQUIRED_ASSETS if evidence.get(asset) is not True)\n\nassert len(missing_assets({})) == 6\nassert missing_assets({asset: True for asset in REQUIRED_ASSETS}) == []\nprint(\"W8 readiness predicate: passed; actual project readiness not asserted\")\n",
@@ -739,31 +731,30 @@
       "hours": 22,
       "chapterNames": [],
       "notionId": "3ecc6f4a-2c7e-8121-89a5-fad40b9b3f33",
-      "jira": "SCRUM-47",
       "tasks": [
         {
           "title": "범위·계약·환경 동결과 통합 입력 준비",
           "hours": 5,
           "ac": "W8 준비 gate 증거 확인. 모델/벡터backend/코퍼스/권한/상태/API계약을 동결하고 새 환경 기동한다.",
-          "jira": "SCRUM-49"
+          "id": "W9.1"
         },
         {
           "title": "tenant·버전 검색과 실제 모델 근거 응답 통합",
           "hours": 6,
           "ac": "인용ID·의미평가·근거 없는 보류·교차tenant거부를 실제 경로로 검증한다.",
-          "jira": "SCRUM-50"
+          "id": "W9.2"
         },
         {
           "title": "영속 상태·검토 권한·감사 원자성 통합",
           "hours": 6,
           "ac": "case/review/audit를 PostgreSQL로 저장. 동시/중복검토·권한거부·재시작조회·rollback을 검증한다.",
-          "jira": "SCRUM-51"
+          "id": "W9.3"
         },
         {
           "title": "정상·보류·검토 통합 회귀와 장애 처리",
           "hours": 5,
           "ac": "세 종단경로의 expected/actual 결과, 모델 timeout·형식 오류·DB실패 처리와 실행 증거를 남긴다.",
-          "jira": "SCRUM-52"
+          "id": "W9.4"
         }
       ],
       "githubIssue": 9
@@ -783,32 +774,31 @@
       "hours": 22,
       "chapterNames": [],
       "notionId": "3ecc6f4a-2c7e-819b-9b43-f0b0f71f1323",
-      "jira": "SCRUM-48",
       "githubIssue": 10,
       "tasks": [
         {
           "title": "50질문 평가·실패 분석·지연/비용 측정",
           "hours": 5,
           "ac": "dev20/holdout30을 분리 보고하고 raw결과·측정조건·실제 공급자가격·재시도를 기록한다.",
-          "jira": "SCRUM-53"
+          "id": "W10.1"
         },
         {
           "title": "깨끗한 기동·재시작·백업 복원·CI 검증",
           "hours": 6,
           "ac": "새 환경 기동, DB복원 후 사례/감사 조회, 권한/필터/전이 회귀를 통과하고 복구시간을 기록한다.",
-          "jira": "SCRUM-54"
+          "id": "W10.2"
         },
         {
           "title": "README·ADR·아키텍처·평가 보고서 정리",
           "hours": 6,
           "ac": "필수/선택범위와 구현/미구현·목표/실측을 구분. commit/run_id로 모든 핵심주장을 연결한다.",
-          "jira": "SCRUM-55"
+          "id": "W10.3"
         },
         {
           "title": "5분 데모·영어 설명·최종 수용 기준 확인",
           "hours": 5,
           "ac": "정상근거/보류/검토3경로를 시연하고 SA90초영어설명·한계/대안·재현명령을 검토한다.",
-          "jira": "SCRUM-56"
+          "id": "W10.4"
         }
       ]
     }

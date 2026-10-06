@@ -14,7 +14,6 @@ Solution Architect learning: **8 weeks study + 2 weeks MVP integration**, based 
 - [Study method and environments](docs/getting-started-ko.md)
 - [MVP scope and architecture contracts](docs/project-blueprint.md)
 - [Notion learning hub](https://app.notion.com/p/3ebc6f4a2c7e81dca9d6f2cf630b9602)
-- [Jira epic SCRUM-5](https://realrho-1790798942092.atlassian.net/browse/SCRUM-5)
 
 ## Schedule and learning scope
 
@@ -22,7 +21,7 @@ Solution Architect learning: **8 weeks study + 2 weeks MVP integration**, based 
 
 | Week | Book / focus | Selected video groups | Course |
 |---|---|---|---|
-| W1 | 1·2·3장 · 에이전트 설계·UX와 API 계약·입력 검증 | 1·4 | [W1](docs/curriculum/week-01.md) |
+| W1 | 1·2·3장 · 에이전트 설계·UX와 API 계약·입력 검증 | API playlist: all 6 + Docker introduction | [W1](docs/curriculum/week-01.md) |
 | W2 | 6장 · 지식·메모리·RAG와 정책·권한 필터 | Practice / integration | [W2](docs/curriculum/week-02.md) |
 | W3 | 9장 · 평가 세트·근거 검증·부하 시험 | 9·5 | [W3](docs/curriculum/week-03.md) |
 | W4 | 4·5장 · 도구·오케스트레이션·비동기 처리 | 3 | [W4](docs/curriculum/week-04.md) |
@@ -33,7 +32,7 @@ Solution Architect learning: **8 weeks study + 2 weeks MVP integration**, based 
 | W9 | MVP · MVP 통합 — 근거 응답·영속 상태·권한 있는 검토 | Practice / integration | [W9](docs/curriculum/week-09.md) |
 | W10 | MVP · MVP 검증 — 최종 평가·복구·포트폴리오 시연 | Practice / integration | [W10](docs/curriculum/week-10.md) |
 
-Read6h + book-concept practice6h + selected video/SA practice8h + explanation/evidence review2h. Video allocation totals12.5h within the176h study budget. Each weekly document specifies exact URLs,when to watch,selected lessons and immediate practice. W8 readiness is required before the44-hour build estimate applies.
+Read6h + book-concept practice6h + selected video/SA practice8h + explanation/evidence review2h. Video allocation totals12.5h within the176h study budget. W1 completes all six public lessons in the [FastAPI playlist](https://youtube.com/playlist?list=PL8kmk2VivDmQyPLmc4zF6yLEl-Rc6D9lg&si=iKuEUs7JNHJV-N7R). Other weeks use the assigned lessons. Each weekly document specifies URLs,when to watch and immediate practice. Progress is tracked in Notion and GitHub weekly issues. W8 readiness is required before the44-hour build estimate applies.
 
 ## Run the current API scaffold
 
@@ -71,4 +70,4 @@ Evaluation: dev20 and frozen holdout30,reported separately. Keep raw outputs,con
 - docs/curriculum/archive-book-v2/: previous16-chapter plan snapshot
 - docs/templates/ and docs/evidence/: decision/experiment templates and execution evidence
 
-[Contributing](CONTRIBUTING.md): use codex/wNN-<topic>,link weekly issue/Jira,and complete only with actual acceptance evidence. Earlier v1 materials remain in [archive-v1.md](docs/curriculum/archive-v1.md).
+[Contributing](CONTRIBUTING.md): use codex/wNN-<topic>,link weekly issue,and complete only with actual acceptance evidence. Earlier v1 materials remain in [archive-v1.md](docs/curriculum/archive-v1.md).

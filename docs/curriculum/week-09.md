@@ -4,7 +4,7 @@
 
 **일정:** 2026-11-27–2026-12-03 (Asia/Seoul) · **총 계획:** 22h
 
-[Notion 주차](https://app.notion.com/p/3ecc6f4a2c7e812189a5fad40b9b3f33) · [SCRUM-47](https://realrho-1790798942092.atlassian.net/browse/SCRUM-47) · [GitHub #9](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/9)
+[Notion 주차](https://app.notion.com/p/3ecc6f4a2c7e812189a5fad40b9b3f33) · [GitHub #9](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/9)
 
 ## 1. 이번 주 목표와 책 읽기
 
@@ -25,7 +25,7 @@
 | 3 | 영속 상태·검토 권한·감사 원자성 통합 | 6h | case/review/audit를 PostgreSQL로 저장. 동시/중복검토·권한거부·재시작조회·rollback을 검증한다. |
 | 4 | 정상·보류·검토 통합 회귀와 장애 처리 | 5h | 세 종단경로의 expected/actual 결과, 모델 timeout·형식 오류·DB실패 처리와 실행 증거를 남긴다. |
 
-영상 배정은 주간 시간 안에 포함된 선택 시청·메모 시간이다. 제작 주차는 아래 Jira 네 작업의 5h·6h·6h·5h로 시간을 집계한다. 새 강의를 추가하지 않고 앞 주차 실습 자산을 연결한다.
+영상 배정은 주간 시간 안에 포함된 선택 시청·메모 시간이다. 제작 주차는 아래 주차 체크리스트 네 작업의 5h·6h·6h·5h로 시간을 집계한다. 새 강의를 추가하지 않고 앞 주차 실습 자산을 연결한다.
 
 ## 3. 이번 주에 볼 한국어 영상과 연결 실습
 
@@ -35,19 +35,19 @@
 
 W8 준비 자산을 확인한 뒤 입력→검증된 신원→활성 정책 검색→모델→형식/근거 검증→응답/보류/검토→원자적 저장→조회 경로를 연결한다. timeout·잘못된 인용·권한 위반·동시 검토를 주입한다.
 
-## 5. Jira 작업·수용 기준
+## 5. 주차 체크리스트·수용 기준
 
-- **SCRUM-49 · 범위·계약·환경 동결과 통합 입력 준비 (5h)**
-  - 선행: SCRUM-13.
+- **W9.1 · 범위·계약·환경 동결과 통합 입력 준비 (5h)**
+  - 선행: W8.
   - 수용 기준: W8 준비 gate 증거 확인. 모델/벡터backend/코퍼스/권한/상태/API계약을 동결하고 새 환경 기동한다.
-- **SCRUM-50 · tenant·버전 검색과 실제 모델 근거 응답 통합 (6h)**
-  - 선행: SCRUM-49.
+- **W9.2 · tenant·버전 검색과 실제 모델 근거 응답 통합 (6h)**
+  - 선행: W9.1.
   - 수용 기준: 인용ID·의미평가·근거 없는 보류·교차tenant거부를 실제 경로로 검증한다.
-- **SCRUM-51 · 영속 상태·검토 권한·감사 원자성 통합 (6h)**
-  - 선행: SCRUM-50.
+- **W9.3 · 영속 상태·검토 권한·감사 원자성 통합 (6h)**
+  - 선행: W9.2.
   - 수용 기준: case/review/audit를 PostgreSQL로 저장. 동시/중복검토·권한거부·재시작조회·rollback을 검증한다.
-- **SCRUM-52 · 정상·보류·검토 통합 회귀와 장애 처리 (5h)**
-  - 선행: SCRUM-51.
+- **W9.4 · 정상·보류·검토 통합 회귀와 장애 처리 (5h)**
+  - 선행: W9.3.
   - 수용 기준: 세 종단경로의 expected/actual 결과, 모델 timeout·형식 오류·DB실패 처리와 실행 증거를 남긴다.
 
 ## 6. 공식 문서와 증거

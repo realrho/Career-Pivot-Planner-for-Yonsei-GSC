@@ -1,6 +1,6 @@
 # Weekly evidence template
 
-Week / Jira / GitHub issue / Notion:
+Week / GitHub issue / Notion:
 Status: Not Started / In Progress / Blocked / Done
 
 ## Acceptance criteria

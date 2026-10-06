@@ -1,6 +1,6 @@
 # W5 학습 · 검색 고도화·벡터 DB와 영속성·트랜잭션
 
-**기간:** 2026-10-30–2026-11-05 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e817e9825cec827df9013) · [Jira SCRUM-10](https://realrho-1790798942092.atlassian.net/browse/SCRUM-10) · [GitHub #5](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/5)
+**기간:** 2026-10-30–2026-11-05 (Asia/Seoul) · **계획:** 22h · [Notion](https://app.notion.com/p/3ebc6f4a2c7e817e9825cec827df9013) · [GitHub #5](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/issues/5)
 
 **이번 주 통과 조건:** 다른 tenant/비활성 버전 근거가 나오지 않으며 DB 쓰기 실패 시 상태와 감사 기록이 함께 롤백된다. 재시작 후 조회 경로를 확인한다.
 
@@ -18,12 +18,12 @@
 
 ## 2. 실행 순서·시간·수용 기준
 
-| 순서 | 작업 | 계획 시간 | 완료 기준 | Jira |
+| 순서 | 작업 | 계획 시간 | 완료 기준 | 작업 ID |
 |---|---|---|---|---|
-| 1 | 책 11·12장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | [SCRUM-30](https://realrho-1790798942092.atlassian.net/browse/SCRUM-30) |
-| 2 | 책 필수 실습·환경/결과 기록 | 6h | 기본 embedding+reranker 한 조합을 작은 corpus에 적용해 정확도/지연을 비교한다. Pinecone 공식 책 예제를 따라가거나 사용할 수 있는 로컬 벡터 backend 하나를 선택하고 차이를 ADR에 기록한다. 임베딩 미세 조정/GPU·다른 DB 추가·이미지 생성 전체 실행은 선택이다. | [SCRUM-31](https://realrho-1790798942092.atlassian.net/browse/SCRUM-31) |
-| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 다른 tenant/비활성 버전 근거가 나오지 않으며 DB 쓰기 실패 시 상태와 감사 기록이 함께 롤백된다. 재시작 후 조회 경로를 확인한다. | [SCRUM-32](https://realrho-1790798942092.atlassian.net/browse/SCRUM-32) |
-| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 선택 벡터backend의 실제 검색 경로, PostgreSQL 사례/검토/감사 schema, 원자적 갱신 연습를 버전/실행 상태와 함께 저장한다. | [SCRUM-33](https://realrho-1790798942092.atlassian.net/browse/SCRUM-33) |
+| 1 | 책 11·12장 읽기·개념 노트 | 6h | 배정된 모든 절을 읽고 개념 관계·비교·질문을 자신의 말로 기록한다. | W5.1 |
+| 2 | 책 필수 실습·환경/결과 기록 | 6h | 기본 embedding+reranker 한 조합을 작은 corpus에 적용해 정확도/지연을 비교한다. Pinecone 공식 책 예제를 따라가거나 사용할 수 있는 로컬 벡터 backend 하나를 선택하고 차이를 ADR에 기록한다. 임베딩 미세 조정/GPU·다른 DB 추가·이미지 생성 전체 실행은 선택이다. | W5.2 |
+| 3 | SA 보충 강의·재사용 실습 자산 만들기 | 8h | 다른 tenant/비활성 버전 근거가 나오지 않으며 DB 쓰기 실패 시 상태와 감사 기록이 함께 롤백된다. 재시작 후 조회 경로를 확인한다. | W5.3 |
+| 4 | 퀴즈·설명·증거·다음 주 준비 검토 | 2h | 3개 퀴즈를 해설 없이 설명하고 선택 벡터backend의 실제 검색 경로, PostgreSQL 사례/검토/감사 schema, 원자적 갱신 연습를 버전/실행 상태와 함께 저장한다. | W5.4 |
 
 ## 3. SA 보충 강의 · 개념→이유→예제→실습
 

@@ -12,16 +12,16 @@ Docker와 Kubernetes는 로컬 실행 실습까지 필수다. 실제 클라우�
 
 | 주차·기존 일정 | 책과 학습 주제 | 영상 배정 | 교재·진행 |
 |---|---|---|---|
-| W1 · 2026-10-02–2026-10-08 | 1·2·3장 · 에이전트 설계·UX와 API 계약·입력 검증 | 묶음 1·4 / 2h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-01.md) · [SCRUM-6](https://realrho-1790798942092.atlassian.net/browse/SCRUM-6) |
-| W2 · 2026-10-09–2026-10-15 | 6장 · 지식·메모리·RAG와 정책·권한 필터 | 실습 집중 | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-02.md) · [SCRUM-7](https://realrho-1790798942092.atlassian.net/browse/SCRUM-7) |
-| W3 · 2026-10-16–2026-10-22 | 9장 · 평가 세트·근거 검증·부하 시험 | 묶음 9·5 / 2.5h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-03.md) · [SCRUM-8](https://realrho-1790798942092.atlassian.net/browse/SCRUM-8) |
-| W4 · 2026-10-23–2026-10-29 | 4·5장 · 도구·오케스트레이션·비동기 처리 | 묶음 3 / 1h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-04.md) · [SCRUM-9](https://realrho-1790798942092.atlassian.net/browse/SCRUM-9) |
-| W5 · 2026-10-30–2026-11-05 | 8·12장 · 멀티 에이전트·영속 상태·트랜잭션·보안 | 묶음 2·6 / 1h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-05.md) · [SCRUM-10](https://realrho-1790798942092.atlassian.net/browse/SCRUM-10) |
-| W6 · 2026-11-06–2026-11-12 | 7·11장 · 학습·개선 루프·실험·비용·인프라 코드 | 묶음 8·10 / 1h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-06.md) · [SCRUM-11](https://realrho-1790798942092.atlassian.net/browse/SCRUM-11) |
-| W7 · 2026-11-13–2026-11-19 | 10장 · 관측·Docker·Kubernetes·CI/CD·복구 | 묶음 4·5·7 / 4.5h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-07.md) · [SCRUM-12](https://realrho-1790798942092.atlassian.net/browse/SCRUM-12) |
-| W8 · 2026-11-20–2026-11-26 | 13장 · 인간 협업·거버넌스·고객 제안·제작 준비 | 묶음 10 / 0.5h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-08.md) · [SCRUM-13](https://realrho-1790798942092.atlassian.net/browse/SCRUM-13) |
-| W9 · 2026-11-27–2026-12-03 | 제작 · MVP 통합 — 근거 응답·영속 상태·권한 있는 검토 | 실습 집중 | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-09.md) · [SCRUM-47](https://realrho-1790798942092.atlassian.net/browse/SCRUM-47) |
-| W10 · 2026-12-04–2026-12-10 | 제작 · MVP 검증 — 최종 평가·복구·포트폴리오 시연 | 실습 집중 | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-10.md) · [SCRUM-48](https://realrho-1790798942092.atlassian.net/browse/SCRUM-48) |
+| W1 · 2026-10-02–2026-10-08 | 1·2·3장 · 에이전트 설계·UX와 API 계약·입력 검증 | API 전체 6개 + Docker 입문 / 2h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-01.md) |
+| W2 · 2026-10-09–2026-10-15 | 6장 · 지식·메모리·RAG와 정책·권한 필터 | 실습 집중 | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-02.md) |
+| W3 · 2026-10-16–2026-10-22 | 9장 · 평가 세트·근거 검증·부하 시험 | 묶음 9·5 / 2.5h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-03.md) |
+| W4 · 2026-10-23–2026-10-29 | 4·5장 · 도구·오케스트레이션·비동기 처리 | 묶음 3 / 1h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-04.md) |
+| W5 · 2026-10-30–2026-11-05 | 8·12장 · 멀티 에이전트·영속 상태·트랜잭션·보안 | 묶음 2·6 / 1h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-05.md) |
+| W6 · 2026-11-06–2026-11-12 | 7·11장 · 학습·개선 루프·실험·비용·인프라 코드 | 묶음 8·10 / 1h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-06.md) |
+| W7 · 2026-11-13–2026-11-19 | 10장 · 관측·Docker·Kubernetes·CI/CD·복구 | 묶음 4·5·7 / 4.5h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-07.md) |
+| W8 · 2026-11-20–2026-11-26 | 13장 · 인간 협업·거버넌스·고객 제안·제작 준비 | 묶음 10 / 0.5h | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-08.md) |
+| W9 · 2026-11-27–2026-12-03 | 제작 · MVP 통합 — 근거 응답·영속 상태·권한 있는 검토 | 실습 집중 | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-09.md) |
+| W10 · 2026-12-04–2026-12-10 | 제작 · MVP 검증 — 최종 평가·복구·포트폴리오 시연 | 실습 집중 | [주차 교재](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/curriculum/week-10.md) |
 
 ## 주 22h 학습 방법
 
