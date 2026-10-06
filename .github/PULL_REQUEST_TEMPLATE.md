@@ -19,7 +19,7 @@ Describe the concrete trigger, previous behavior and new behavior.
 - [ ] Public/synthetic data only; no secrets or confidential material.
 - [ ] Fixture/CPU/real model/cloud/GPU evidence clearly distinguished.
 - [ ] Relevant normal, failure, permission or recovery paths checked.
-- [ ] Weekly GitHub 이슈의 AC checked; unfinished work remains Planned/Blocked.
+- [ ] Weekly GitHub issue acceptance criteria checked; unfinished work remains Planned/Blocked.
 - [ ] Architecture/ADR/runbook updated when behavior or trade-offs change.
 
 Remaining limitations:
