@@ -24,7 +24,7 @@ Solution Architect learning: **8 weeks study + 2 weeks MVP integration**, based 
 
 [Fast Campus: Computer Science course](https://fastcampus.co.kr/dev_online_computer)
 
-AWS 주교재는 [사용자 지정 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3)과 연결 재생목록으로 교체했다(2026-10-07). W5 EC2·보안그룹 → W6 비용/정리 → W7 기존 FastAPI/Compose 배포 개념 → W8 선택 ADR로 연결한다. IAM/VPC는 공식 문서로 보완한다. 실제 AWS 배포는 선택 심화이며 주 22h와 8+2주 일정은 유지한다.
+AWS 주교재는 [사용자 지정 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3)과 연결 재생목록으로 교체했다(2026-10-07). W5 EC2·보안그룹(security group) → W6 비용/정리 → W7 기존 FastAPI/Compose 배포(deployment) 개념 → W8 선택 ADR로 연결한다. IAM/VPC는 공식 문서로 보완한다. 실제 AWS 배포는 선택 심화이며 주 22h와 8+2주 일정은 유지한다.
 
 ## Schedule and learning scope
 
@@ -32,16 +32,16 @@ AWS 주교재는 [사용자 지정 시작 영상](https://www.youtube.com/watch?
 
 | Week | Book / focus | Selected video groups | Course |
 |---|---|---|---|
-| W1 | 1·2·3장 · 에이전트 설계·UX와 API 계약·입력 검증 | API playlist: all 6 + Docker introduction | [W1](docs/curriculum/week-01.md) |
-| W2 | 6장 · 지식·메모리·RAG와 정책·권한 필터 | Practice / integration | [W2](docs/curriculum/week-02.md) |
-| W3 | 9장 · 평가 세트·근거 검증·부하 시험 | 9·5 | [W3](docs/curriculum/week-03.md) |
-| W4 | 4·5장 · 도구·오케스트레이션·비동기 처리 | 3 | [W4](docs/curriculum/week-04.md) |
-| W5 | 8·12장 · 멀티 에이전트·영속 상태·트랜잭션·보안 | 2·6 | [W5](docs/curriculum/week-05.md) |
+| W1 | 1·2·3장 · 에이전트(agent) 설계·UX와 API 계약(API contract)·입력 검증(input validation) | API playlist: all 6 + Docker introduction | [W1](docs/curriculum/week-01.md) |
+| W2 | 6장 · 지식·메모리·RAG와 정책·권한(permissions) 필터 | Practice / integration | [W2](docs/curriculum/week-02.md) |
+| W3 | 9장 · 평가 세트(evaluation set)·근거 검증(grounding validation)·부하 시험(load testing) | 9·5 | [W3](docs/curriculum/week-03.md) |
+| W4 | 4·5장 · 도구·오케스트레이션(orchestration)·비동기 처리(async processing) | 3 | [W4](docs/curriculum/week-04.md) |
+| W5 | 8·12장 · 멀티 에이전트(multi-agent)·영속 상태(persistent state)·트랜잭션(transaction)·보안(security) | 2·6 | [W5](docs/curriculum/week-05.md) |
 | W6 | 7·11장 · 학습·개선 루프·실험·비용·인프라 코드 | 8·10 | [W6](docs/curriculum/week-06.md) |
-| W7 | 10장 · 관측·Docker·Kubernetes·CI/CD·복구 | 4·5·7 | [W7](docs/curriculum/week-07.md) |
-| W8 | 13장 · 인간 협업·거버넌스·고객 제안·제작 준비 | 10 | [W8](docs/curriculum/week-08.md) |
-| W9 | MVP · MVP 통합 — 근거 응답·영속 상태·권한 있는 검토 | Practice / integration | [W9](docs/curriculum/week-09.md) |
-| W10 | MVP · MVP 검증 — 최종 평가·복구·포트폴리오 시연 | Practice / integration | [W10](docs/curriculum/week-10.md) |
+| W7 | 10장 · 관측·Docker·Kubernetes·CI/CD·복구(recovery) | 4·5·7 | [W7](docs/curriculum/week-07.md) |
+| W8 | 13장 · 인간 협업(human-agent collaboration)·거버넌스(governance)·고객 제안·제작 준비 | 10 | [W8](docs/curriculum/week-08.md) |
+| W9 | MVP · MVP 통합 — 근거 응답(grounded response)·영속 상태·권한 있는 검토 | Practice / integration | [W9](docs/curriculum/week-09.md) |
+| W10 | MVP · MVP 검증 — 최종 평가(evaluation)·복구·포트(port)폴리오 시연 | Practice / integration | [W10](docs/curriculum/week-10.md) |
 
 Read6h + book-concept practice6h + selected video/SA practice8h + explanation/evidence review2h. Video allocation totals12.5h within the176h study budget. W1 completes all six public lessons in the [FastAPI playlist](https://youtube.com/playlist?list=PL8kmk2VivDmQyPLmc4zF6yLEl-Rc6D9lg&si=iKuEUs7JNHJV-N7R). Other weeks use the assigned lessons. Each weekly document specifies URLs,when to watch and immediate practice. Progress is tracked in Notion and GitHub weekly issues. W8 readiness is required before the44-hour build estimate applies.
 

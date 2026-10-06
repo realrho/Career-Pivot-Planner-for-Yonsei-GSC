@@ -1,5 +1,52 @@
 # 영어·한글 기술 용어 사전
 
+## 한국어·영어 실무 용어 읽는 법
+
+한국어로 적힌 핵심 기술·실무 용어는 **한국어(현업 English 표현)**으로 읽는다. 같은 소절에서는 첫 등장에 영어를 병기하고 이후 반복은 간결하게 유지한다. 팀마다 한국어·음역·영어를 섞어 쓰므로 아래 표현은 공통 이해를 위한 대응표이며 모든 회사의 말투가 같다는 뜻은 아니다.
+
+이미 영어로 쓰인 Docker, Kubernetes, FastAPI, tenant, role, workflow, run_id, readiness/liveness, dev20/holdout30 등은 원문 그대로 사용한다. 코드·명령·API 경로·설정 키·URL도 그대로 유지한다. 약어의 전체 이름과 뜻은 기존 사전에서 확인하고, 교재 목차와 책/영상의 공식 제목은 원문을 보존한다.
+
+## 학습 표현 → 현업 표현 → 회의에서 쓰는 문장
+
+| 한국어 학습 표현 | 현업 English 표현 | 말할 때 쓰는 표현·업무 예시 | 뜻·구분 |
+|---|---|---|---|
+| 요구사항 | requirements | 이 requirements를 고객과 확정하자. | 필요한 동작과 제약을 합의한다. |
+| 비기능 요구사항 | non-functional requirements, NFR | NFR에 P95와 비용 상한을 넣자. | 성능·신뢰성·보안·운영 제약이다. |
+| 수용 기준 | acceptance criteria, AC | 이 AC를 통과해야 작업을 완료한다. | 완료를 관찰·검증할 조건이다. |
+| 설계 결정 기록 | architecture decision record, ADR | 이 선택의 이유를 ADR에 남기자. | 요구·대안·선택·결과를 기록한다. |
+| 트레이드오프 | trade-off | 지연과 비용의 trade-off를 설명하자. | 하나의 이점을 얻으며 다른 제약을 감수한다. |
+| 입력 검증 | input validation | input validation에서 잘못된 필드를 거부하자. | 입력 타입·형식·허용 범위를 확인한다. |
+| 인증 | authentication, AuthN | 인증된 사용자 신원을 확인했나? | 누가 요청했는지 확인한다. |
+| 인가·권한 판단 | authorization, AuthZ | 이 role이 승인할 수 있는지 인가하자. | 그 신원이 특정 행동을 해도 되는지 판단한다. |
+| 조직 경계 | tenant boundary | 다른 tenant 데이터가 검색되면 안 된다. | 조직/고객별 데이터·권한 격리 경계다. |
+| 최소 권한 | least privilege | 서비스 role을 least privilege로 줄이자. | 필요한 행동·자원만 허용한다. |
+| 멱등성 | idempotency | 재시도해도 중복 승인되지 않게 idempotent하게 만들자. | 같은 요청 반복의 업무 효과가 중복되지 않는다. |
+| 동시성 | concurrency | 두 검토자가 동시에 승인하는 concurrency 사례를 보자. | 작업이 겹쳐 진행될 때 상태 충돌을 고려한다. |
+| 원자성 | atomicity | 상태 변경과 감사 저장을 atomic하게 처리하자. | 관련 변경이 모두 성공하거나 모두 실패한다. |
+| 트랜잭션 | transaction | 이 두 DB 변경은 한 transaction이다. | 함께 처리할 데이터 변경의 경계다. |
+| 영속성 | persistence | 재시작 후에도 상태가 남는 persistence를 검증하자. | 데이터를 프로세스 수명 밖에 저장한다. |
+| 지속성 | durability | commit이 성공한 기록의 durability를 보자. | 완료된 트랜잭션의 변경이 보존되는 성질이다. |
+| 롤백 | rollback | 새 버전 오류가 나면 rollback하자. | DB 롤백과 배포 버전 롤백은 대상과 절차가 다르다. |
+| 비동기 처리 | async processing | 이 경로는 async로 처리한다. | 기다리는 동안 다른 작업이 진행될 수 있다. 병렬 실행·작업 내구성을 자동 보장하지 않는다. |
+| 재시도·제한 시간 | retry / timeout | timeout과 retry 예산을 정하자. | 재실행과 대기/실행 종료 한도다. |
+| 검색 증강 생성 | retrieval-augmented generation, RAG | RAG 검색에 tenant 필터를 적용하자. | 검색 근거를 모델 입력에 결합한다. |
+| 임베딩·청크 | embedding / chunk | chunk별 embedding을 저장하자. | 의미의 벡터 표현 / 검색·인용용 문서 단위다. |
+| 하이브리드 검색·순위 재정렬 | hybrid search / reranking | hybrid search 뒤에 reranking을 비교하자. | 검색 방식을 조합 / 후보의 순서를 다시 계산한다. |
+| 답변 보류 | abstention / abstain | 근거가 부족하면 abstain한다. | 모델 장애와 업무상 답변 보류를 분리한다. |
+| 사람 검토 | human review | 고위험 사례를 human review로 보내자. | 검토자는 서버에서 확인한 권한으로 결정한다. |
+| 부하 시험·처리량 | load testing / throughput | load test로 throughput과 오류율을 보자. | 정해진 부하를 주고 단위 시간 처리량을 측정한다. |
+| 지연 | latency | 검색과 모델 구간 latency를 분리하자. | 요청 처리의 지연을 조건·단위와 함께 측정한다. |
+| 관측 가능성 | observability | logs, metrics, traces를 연결하자. | 내부 상태와 실패를 실행 신호로 설명할 수 있는 정도다. |
+| 배포 | deployment | 이 이미지 버전으로 deployment하자. | 버전·설정을 환경에 배치하고 동작을 확인한다. |
+| 준비·생존 상태 검사 | readiness probe / liveness probe | readiness 실패와 liveness 실패를 구분하자. | 요청 수신 가능 여부 / 재시작 판단이다. |
+| 보안그룹·서브넷 | security group / subnet | DB security group에 API 경로만 허용하자. | 허용 트래픽 규칙 / 네트워크 주소 구획이다. |
+| 백업·복원·복구 | backup / restore / recovery | backup에서 restore한 뒤 실제 조회까지 recovery를 확인하자. | 사본 생성 / 데이터 되돌림 / 서비스 정상화다. |
+| 지속적 전달·지속적 배포 | continuous delivery / continuous deployment | CD가 승인 후 전달인지 자동 배포인지 명시하자. | 운영 반영 승인 방식에 따라 구분한다. |
+| 총 소유 비용 | total cost of ownership, TCO | TCO에 운영과 검토 인력도 포함하자. | 도입·운영·전환에 드는 전체 비용이다. |
+
+표현/의미 확인: [AWS 인증·인가](https://docs.aws.amazon.com/IAM/latest/UserGuide/intro-structure.html) · [PostgreSQL 트랜잭션](https://www.postgresql.org/docs/current/tutorial-transactions.html) · [OpenTelemetry signals](https://opentelemetry.io/docs/concepts/signals/) · [AWS security groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html). 회의 문장은 이 프로젝트에 맞춰 작성한 예시다.
+
+
 약어는 영어 확장·한글 의미·실제 역할로 읽는다. 제품 이름과 알고리즘 이름에 근거 없는 풀네임을 만들지 않는다. 축약 표기는 문맥에 따라 달라질 수 있다. 각 주차 강의에는 이 용어가 필요한 이유와 실패 예시를 넣었다. 기존 모델 용어는 참고로 보존하며 Python·HTTP·SQL 기초 학습 과제로 배정하지 않는다. 2026-10-06 『AI 에이전트 엔지니어링』 및 SA 보완 용어를 추가했다.
 
 ## 기초·모델

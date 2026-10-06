@@ -22,7 +22,7 @@
           "title": "FastAPI 첫걸음 — API 전체 재생목록(공개 기본편 6개)",
           "channel": "hatemogi",
           "url": "https://youtube.com/playlist?list=PL8kmk2VivDmQyPLmc4zF6yLEl-Rc6D9lg&si=iKuEUs7JNHJV-N7R",
-          "scope": "‘FastAPI 첫걸음’ 재생목록의 공개 기본편 6개를 목록 순서대로 모두 학습한다(약 65분). API 소개 → uv 환경 준비 → API 서버 만들기 → 경로 데코레이터·경로 함수 → Pydantic 입력 검증 → CRUD. 재생목록에 있는 환경 준비도 함께 따라 하되 별도의 Python·HTTP·SQL 기초 과정은 추가하지 않는다."
+          "scope": "‘FastAPI 첫걸음’ 재생목록의 공개 기본편 6개를 목록 순서대로 모두 학습한다(약 65분). API 소개 → uv 환경 준비 → API 서버 만들기 → 경로 데코레이터·경로 함수 → Pydantic 입력 검증(input validation) → CRUD. 재생목록에 있는 환경 준비도 함께 따라 하되 별도의 Python·HTTP·SQL 기초 과정은 추가하지 않는다."
         }
       ],
       "verified_on": "2026-10-06",
@@ -101,7 +101,7 @@
           "channel": "JSCODE 박재성",
           "url": "https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3",
           "playlistUrl": "https://www.youtube.com/playlist?list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3",
-          "scope": "EC2·리전·보안그룹·IP/Port 선택 시청·메모 35분. 전체 완강 시간이 아님."
+          "scope": "EC2·리전(region)·보안그룹(security group)·IP/Port 선택 시청·메모 35분. 전체 완강 시간이 아님."
         }
       ],
       "selected_on": "2026-10-07",
@@ -179,10 +179,10 @@
         2,
         3
       ],
-      "book": "1.1–1.11: 에이전트·워크플로·모델 선택과 조직 전략. 2.1–2.10: 도구·메모리·오케스트레이션·설계 트레이드오프와 평가. 3.1–3.6: 자율성·동기/비동기 경험·불확실성·실패·신뢰. 세 장의 모든 절을 읽고 고객의 업무와 연결한다.",
-      "bookLab": "정책 질문 사례 3개를 대상으로 업무 단계·사용자 역할·성공/보류/검토 경로를 그린다. 모델 2개를 품질·지연·비용·데이터 조건으로 비교하되 구현은 한 경로를 선택한다. 접수와 완료를 구분한 화면·응답 예제를 작성한다.",
-      "assets": "요구사항 1쪽, 모델 선택표, 입력/결과 API 계약, 검증 실패 사례, Docker 입문 기록",
-      "gate": "공백·잘못된 타입·길이 초과를 거부하고 서버가 검증한 신원과 본문 입력을 구분한다. 202 접수와 분석 완료를 설명하고 워크플로/에이전트 선택 이유를 말할 수 있다.",
+      "book": "1.1–1.11: 에이전트(agent)·워크플로(workflow)·모델 선택과 조직 전략. 2.1–2.10: 도구·메모리·오케스트레이션(orchestration)·설계 트레이드오프(trade-off)와 평가(evaluation). 3.1–3.6: 자율성·동기/비동기 경험·불확실성·실패·신뢰. 세 장의 모든 절을 읽고 고객의 업무와 연결한다.",
+      "bookLab": "정책 질문 사례 3개를 대상으로 업무 단계·사용자 역할·성공/보류/검토 경로를 그린다. 모델 2개를 품질·지연(latency)·비용·데이터 조건으로 비교하되 구현은 한 경로를 선택한다. 접수와 완료를 구분한 화면·응답 예제를 작성한다.",
+      "assets": "요구사항(requirements) 1쪽, 모델 선택표, 입력/결과 API 계약(API contract), 검증 실패 사례, Docker 입문 기록",
+      "gate": "공백·잘못된 타입·길이 초과를 거부하고 서버가 검증한 신원과 본문 입력을 구분한다. 202 접수와 분석 완료를 설명하고 워크플로(workflow)/에이전트(agent) 선택 이유를 말할 수 있다.",
       "videos": [
         1,
         4
@@ -190,38 +190,38 @@
       "videoHours": 2,
       "lessons": [
         [
-          "Agent·Workflow·UX — 에이전트·워크플로·사용자 경험",
-          "AI, Artificial Intelligence(인공지능)를 이용한 agent(에이전트)는 목표를 위해 모델이 다음 행동이나 도구를 선택하는 시스템이다. workflow(워크플로)는 정해 둔 단계와 분기를 따라간다. LLM, Large Language Model(대규모 언어 모델)이 들어간다고 모든 프로그램이 에이전트가 되는 것은 아니다. 선택 자유도가 커지면 예상하지 못한 행동·지연·비용도 늘어나므로 고객 업무가 필요로 하는 자율성부터 정한다. UX, User Experience(사용자 경험)는 완료 결과뿐 아니라 진행 상태·실패·사용자 개입을 포함한다.",
-          "정책 검색→근거 검증→응답/보류/검토는 제한된 워크플로로 시작한다. 모델이 임의로 승인 버튼을 누르는 권한은 주지 않는다. 사용자가 기다리는 화면에는 접수·처리 중·검토 대기를 서로 다르게 표시한다.",
-          "고객 역할·행동·실패·성공 기준을 적고 워크플로와 에이전트 중 선택 이유를 3문장으로 설명한다."
+          "Agent·Workflow·UX — 에이전트(agent)·워크플로(workflow)·사용자 경험",
+          "AI, Artificial Intelligence(인공지능)를 이용한 agent(에이전트)는 목표를 위해 모델이 다음 행동이나 도구를 선택하는 시스템이다. workflow(워크플로)는 정해 둔 단계와 분기를 따라간다. LLM, Large Language Model(대규모 언어 모델)이 들어간다고 모든 프로그램이 에이전트(agent)가 되는 것은 아니다. 선택 자유도가 커지면 예상하지 못한 행동·지연(latency)·비용도 늘어나므로 고객 업무가 필요로 하는 자율성부터 정한다. UX, User Experience(사용자 경험)는 완료 결과뿐 아니라 진행 상태·실패·사용자 개입을 포함한다.",
+          "정책 검색→근거 검증(grounding validation)→응답/보류/검토는 제한된 워크플로(workflow)로 시작한다. 모델이 임의로 승인 버튼을 누르는 권한(permissions)은 주지 않는다. 사용자가 기다리는 화면에는 접수·처리 중·검토 대기를 서로 다르게 표시한다.",
+          "고객 역할·행동·실패·성공 기준을 적고 워크플로(workflow)와 에이전트(agent) 중 선택 이유를 3문장으로 설명한다."
         ],
         [
           "API Contract — 입력·출력 계약",
-          "API, Application Programming Interface(응용 프로그램 인터페이스)는 호출자와 서비스가 합의한 사용 규칙이다. contract(계약)는 필드·타입·필수 여부·실패 의미·상태 전이를 포함한다. OpenAPI는 API 설명을 기계가 읽을 수 있게 표현하는 명세 이름이다. API 기초 통신 문법을 다시 배우는 대신, 입력과 결과가 어느 단계에서 유효한지 정의한다. 작업 ID를 반환하는 접수와 근거를 포함한 완료 결과는 다른 약속이다.",
+          "API, Application Programming Interface(응용 프로그램 인터페이스)는 호출자와 서비스가 합의한 사용 규칙이다. contract(계약)는 필드·타입·필수 여부·실패 의미·상태 전이(state transition)를 포함한다. OpenAPI는 API 설명을 기계가 읽을 수 있게 표현하는 명세 이름이다. API 기초 통신 문법을 다시 배우는 대신, 입력과 결과가 어느 단계에서 유효한지 정의한다. 작업 ID를 반환하는 접수와 근거를 포함한 완료 결과는 다른 약속이다.",
           "POST /cases/analyze가 case_id와 RECEIVED를 반환했다면 접수만 확인된 것이다. GET 조회에는 tenant 경계가 적용되어야 하며 request_id(요청 추적 ID)와 case_id(업무 사례 ID)를 구분한다.",
-          "요청·접수·완료·오류 예제와 허용 상태 전이표를 docs/contracts.md의 예정 산출물로 만든다. 삭제/재시도 시 계약도 적는다."
+          "요청·접수·완료·오류 예제와 허용 상태 전이(state transition)표를 docs/contracts.md의 예정 산출물(deliverables)로 만든다. 삭제/재시도(retry) 시 계약도 적는다."
         ],
         [
-          "Input Validation — 입력 검증과 신뢰 경계",
-          "input validation(입력 검증)은 외부 값을 업무 로직에 전달하기 전에 계약과 맞는지 확인하는 과정이다. schema(스키마)는 값의 구조와 제약이다. Pydantic·FastAPI는 제품 이름이며 타입 선언만으로 모든 업무 규칙이 해결되는 것은 아니다. 공백 제거 같은 normalization(정규화)을 먼저 하고 길이를 검사해야 공백만 있는 입력을 잡는다. 클라이언트가 보낸 tenant나 reviewer 값은 권한 증거가 아니다. 인증된 서버 컨텍스트에서 권한을 얻는다.",
+          "Input Validation — 입력 검증(input validation)과 신뢰 경계(trust boundary)",
+          "input validation(입력 검증)은 외부 값을 업무 로직에 전달하기 전에 계약과 맞는지 확인하는 과정이다. schema(스키마)는 값의 구조와 제약이다. Pydantic·FastAPI는 제품 이름이며 타입 선언만으로 모든 업무 규칙이 해결되는 것은 아니다. 공백 제거 같은 normalization(정규화)을 먼저 하고 길이를 검사해야 공백만 있는 입력을 잡는다. 클라이언트가 보낸 tenant나 reviewer 값은 권한(permissions) 증거가 아니다. 인증(authentication)된 서버 컨텍스트(context)에서 권한을 얻는다.",
           "'   '·문자열 아닌 값·한도 초과를 거부한다. 정상 입력에는 검증된 객체만 서비스에 전달한다. 필드가 valid해도 다른 고객사의 문서 접근은 authorization(인가) 검사에서 거부한다.",
           "Pydantic v2 공식 문서와 비교하며 정상 1개·실패 4개를 검증한다. 엄격한 타입/자동 변환 선택 이유와 오류 응답을 기록한다."
         ],
         [
-          "Container·Image — 컨테이너와 실행 환경",
-          "Docker는 컨테이너를 만들고 실행하는 도구 이름이다. image(이미지)는 실행에 필요한 파일·의존성·명령을 담는 배포 단위이고 container(컨테이너)는 이미지를 실행한 인스턴스다. 앱과 데이터의 생명주기는 달라야 한다. volume(볼륨)은 컨테이너 밖에 데이터를 유지하는 저장 경로이며 백업과 동일하지 않다. 태그 이름만으로 동일 환경을 보장하지 못하므로 검증한 이미지 버전·digest(내용 식별값)를 기록한다.",
-          "API 컨테이너를 없앴다가 다시 만들 수 있어도 DB 데이터까지 없어지면 안 된다. 로컬 포트와 컨테이너 포트를 매핑하고 외부 노출 범위를 확인한다.",
-          "영상 4의 입문 8편을 보고 이미지 pull·컨테이너 run·파일 마운트를 합성 자료로 확인한다. Dockerfile·Compose 제작은 W7에서 이어간다."
+          "Container·Image — 컨테이너(container)와 실행 환경",
+          "Docker는 컨테이너(container)를 만들고 실행하는 도구 이름이다. image(이미지)는 실행에 필요한 파일·의존성·명령을 담는 배포(deployment) 단위이고 container(컨테이너)는 이미지를 실행한 인스턴스다. 앱과 데이터의 생명주기는 달라야 한다. volume(볼륨)은 컨테이너 밖에 데이터를 유지하는 저장 경로이며 백업(backup)과 동일하지 않다. 태그 이름만으로 동일 환경을 보장하지 못하므로 검증한 이미지 버전·digest(내용 식별값)를 기록한다.",
+          "API 컨테이너(container)를 없앴다가 다시 만들 수 있어도 DB 데이터까지 없어지면 안 된다. 로컬 포트(port)와 컨테이너 포트를 매핑하고 외부 노출 범위를 확인한다.",
+          "영상 4의 입문 8편을 보고 이미지 pull·컨테이너(container) run·파일 마운트를 합성 자료로 확인한다. Dockerfile·Compose 제작은 W7에서 이어간다."
         ]
       ],
       "quiz": [
         [
-          "에이전트가 워크플로보다 항상 좋은가?",
-          "업무가 정해진 순서와 명확한 검토 경계를 요구하면 워크플로가 더 단순하고 예측 가능하다. 자율성은 필요와 검증 증거에 맞춰 선택한다."
+          "에이전트(agent)가 워크플로(workflow)보다 항상 좋은가?",
+          "업무가 정해진 순서와 명확한 검토 경계를 요구하면 워크플로(workflow)가 더 단순하고 예측 가능하다. 자율성은 필요와 검증 증거에 맞춰 선택한다."
         ],
         [
           "본문 tenant 필드가 올바른 문자열이면 접근을 허용해도 되는가?",
-          "구조 검증과 인가는 다르다. 서버가 검증한 신원의 tenant/role과 대조해야 한다."
+          "구조 검증과 인가(authorization)는 다르다. 서버가 검증한 신원의 tenant/role과 대조해야 한다."
         ],
         [
           "202와 case_id를 받았으면 AI 분석이 끝났는가?",
@@ -244,21 +244,21 @@
         {
           "title": "책 1·2·3장 읽기·설계/개념 노트",
           "hours": 6,
-          "ac": "1.1–1.11: 에이전트·워크플로·모델 선택과 조직 전략. 2.1–2.10: 도구·메모리·오케스트레이션·설계 트레이드오프와 평가. 3.1–3.6: 자율성·동기/비동기 경험·불확실성·실패·신뢰. 세 장의 모든 절을 읽고 고객의 업무와 연결한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
+          "ac": "1.1–1.11: 에이전트(agent)·워크플로(workflow)·모델 선택과 조직 전략. 2.1–2.10: 도구·메모리·오케스트레이션(orchestration)·설계 트레이드오프(trade-off)와 평가(evaluation). 3.1–3.6: 자율성·동기/비동기 경험·불확실성·실패·신뢰. 세 장의 모든 절을 읽고 고객의 업무와 연결한다. 산출물(deliverables): 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
           "id": "W1.1",
           "dependsOn": null
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
-          "ac": "정책 질문 사례 3개를 대상으로 업무 단계·사용자 역할·성공/보류/검토 경로를 그린다. 모델 2개를 품질·지연·비용·데이터 조건으로 비교하되 구현은 한 경로를 선택한다. 접수와 완료를 구분한 화면·응답 예제를 작성한다. 산출물: 정상/실패 expected/actual·raw 결과.",
+          "ac": "정책 질문 사례 3개를 대상으로 업무 단계·사용자 역할·성공/보류/검토 경로를 그린다. 모델 2개를 품질·지연(latency)·비용·데이터 조건으로 비교하되 구현은 한 경로를 선택한다. 접수와 완료를 구분한 화면·응답 예제를 작성한다. 산출물(deliverables): 정상/실패 expected/actual·raw 결과.",
           "id": "W1.2",
           "dependsOn": "W1.1"
         },
         {
           "title": "영상·SA 보충 실습 — 에이전트 설계·UX와 API 계약·입력 검증",
           "hours": 8,
-          "ac": "API 재생목록 기본편 6개 전체 + Docker 입문 시청·메모 2h, 따라 하기와 연결 실습 6h. 각 영상의 예제를 직접 실행한 뒤 정책 질문 API로 바꿔 본다. 요청·응답 계약과 생성·조회·수정·삭제 경로를 정리하고, 정상 입력 1개와 공백·잘못된 타입·길이 초과·허용하지 않은 필드의 실패 4개를 검증한다. REST, Representational State Transfer(자원 표현을 통한 상태 전달), CRUD, Create·Read·Update·Delete(생성·조회·수정·삭제), JSON, JavaScript Object Notation(데이터 교환 형식)의 뜻을 자신의 말로 설명한다. 요구사항 1쪽·모델 선택표·입력/결과 계약·Docker 실행 기록을 저장한다.",
+          "ac": "API 재생목록 기본편 6개 전체 + Docker 입문 시청·메모 2h, 따라 하기와 연결 실습 6h. 각 영상의 예제를 직접 실행한 뒤 정책 질문 API로 바꿔 본다. 요청·응답 계약과 생성·조회·수정·삭제 경로를 정리하고, 정상 입력 1개와 공백·잘못된 타입·길이 초과·허용하지 않은 필드의 실패 4개를 검증한다. REST, Representational State Transfer(자원 표현을 통한 상태 전달), CRUD, Create·Read·Update·Delete(생성·조회·수정·삭제), JSON, JavaScript Object Notation(데이터 교환 형식)의 뜻을 자신의 말로 설명한다. 요구사항(requirements) 1쪽·모델 선택표·입력/결과 계약·Docker 실행 기록을 저장한다.",
           "id": "W1.3",
           "dependsOn": "W1.2"
         },
@@ -276,7 +276,7 @@
           "select": [
             0
           ],
-          "scope": "‘FastAPI 첫걸음’ 재생목록의 공개 기본편 6개를 목록 순서대로 모두 학습한다(약 65분). API 소개 → uv 환경 준비 → API 서버 만들기 → 경로 데코레이터·경로 함수 → Pydantic 입력 검증 → CRUD. 재생목록에 있는 환경 준비도 함께 따라 하되 별도의 Python·HTTP·SQL 기초 과정은 추가하지 않는다.",
+          "scope": "‘FastAPI 첫걸음’ 재생목록의 공개 기본편 6개를 목록 순서대로 모두 학습한다(약 65분). API 소개 → uv 환경 준비 → API 서버 만들기 → 경로 데코레이터·경로 함수 → Pydantic 입력 검증(input validation) → CRUD. 재생목록에 있는 환경 준비도 함께 따라 하되 별도의 Python·HTTP·SQL 기초 과정은 추가하지 않는다.",
           "after": "2장 도구와 API 계약 개념",
           "practice": "각 영상의 예제를 직접 실행한 뒤 정책 질문 API로 바꿔 본다. 요청·응답 계약과 생성·조회·수정·삭제 경로를 정리하고, 정상 입력 1개와 공백·잘못된 타입·길이 초과·허용하지 않은 필드의 실패 4개를 검증한다. REST, Representational State Transfer(자원 표현을 통한 상태 전달), CRUD, Create·Read·Update·Delete(생성·조회·수정·삭제), JSON, JavaScript Object Notation(데이터 교환 형식)의 뜻을 자신의 말로 설명한다."
         },
@@ -285,12 +285,12 @@
           "select": [
             0
           ],
-          "scope": "Docker 입구 수업 8편(약 42분): 이미지/컨테이너·명령·네트워크·마운트.",
+          "scope": "Docker 입구 수업 8편(약 42분): 이미지/컨테이너(container)·명령·네트워크(network)·마운트.",
           "after": "실행 환경을 구분한 API 계약",
-          "practice": "같은 이미지로 컨테이너를 재생성하고 포트·볼륨을 확인한다. 이미지 제작과 Compose는 W7에서 이어간다."
+          "practice": "같은 이미지로 컨테이너(container)를 재생성하고 포트(port)·볼륨(volume)을 확인한다. 이미지 제작과 Compose는 W7에서 이어간다."
         }
       ],
-      "videoText": "### 영상 1. API 전체 수업 · 학습 묶음 1\n\n**보는 시점:** 2장 도구와 API 계약 개념 다음.\n\n- [FastAPI 첫걸음 — API 전체 재생목록(공개 기본편 6개)](https://youtube.com/playlist?list=PL8kmk2VivDmQyPLmc4zF6yLEl-Rc6D9lg&si=iKuEUs7JNHJV-N7R) — hatemogi, 한국어 수업.\n\n**볼 범위:** ‘FastAPI 첫걸음’ 재생목록의 공개 기본편 6개를 목록 순서대로 모두 학습한다(약 65분). API 소개 → uv 환경 준비 → API 서버 만들기 → 경로 데코레이터·경로 함수 → Pydantic 입력 검증 → CRUD. 재생목록에 있는 환경 준비도 함께 따라 하되 별도의 Python·HTTP·SQL 기초 과정은 추가하지 않는다.\n\n**시청 직후 실습:** 각 영상의 예제를 직접 실행한 뒤 정책 질문 API로 바꿔 본다. 요청·응답 계약과 생성·조회·수정·삭제 경로를 정리하고, 정상 입력 1개와 공백·잘못된 타입·길이 초과·허용하지 않은 필드의 실패 4개를 검증한다. REST, Representational State Transfer(자원 표현을 통한 상태 전달), CRUD, Create·Read·Update·Delete(생성·조회·수정·삭제), JSON, JavaScript Object Notation(데이터 교환 형식)의 뜻을 자신의 말로 설명한다.\n\n**학습 기록:** 6개 영상 각각 시청·예제 실행을 체크하고 실행 명령·환경 버전·결과·남은 질문을 남긴다. 영상 시청과 메모는 Docker 입문 약 42분을 합쳐 2h, 따라 하기와 업무 API 적용은 아래 SA 실습 6h에 포함한다. 유료 심화 과정은 W1 필수 범위에 포함하지 않는다.\n\n### 영상 2. Docker · 학습 묶음 4\n\n**보는 시점:** 실행 환경을 구분한 API 계약 다음.\n\n- [생활코딩 Docker 입구 수업](https://www.youtube.com/playlist?list=PLuHgQVnccGMDeMJsGq2O-55Ymtx0IdKWf) — 생활코딩, 한국어 수업.\n\n**볼 범위:** Docker 입구 수업 8편(약 42분): 이미지/컨테이너·명령·네트워크·마운트.\n\n**시청 직후 실습:** 같은 이미지로 컨테이너를 재생성하고 포트·볼륨을 확인한다. 이미지 제작과 Compose는 W7에서 이어간다.\n",
+      "videoText": "### 영상 1. API 전체 수업 · 학습 묶음 1\n\n**보는 시점:** 2장 도구와 API 계약(API contract) 개념 다음.\n\n- [FastAPI 첫걸음 — API 전체 재생목록(공개 기본편 6개)](https://youtube.com/playlist?list=PL8kmk2VivDmQyPLmc4zF6yLEl-Rc6D9lg&si=iKuEUs7JNHJV-N7R) — hatemogi, 한국어 수업.\n\n**볼 범위:** ‘FastAPI 첫걸음’ 재생목록의 공개 기본편 6개를 목록 순서대로 모두 학습한다(약 65분). API 소개 → uv 환경 준비 → API 서버 만들기 → 경로 데코레이터·경로 함수 → Pydantic 입력 검증(input validation) → CRUD. 재생목록에 있는 환경 준비도 함께 따라 하되 별도의 Python·HTTP·SQL 기초 과정은 추가하지 않는다.\n\n**시청 직후 실습:** 각 영상의 예제를 직접 실행한 뒤 정책 질문 API로 바꿔 본다. 요청·응답 계약과 생성·조회·수정·삭제 경로를 정리하고, 정상 입력 1개와 공백·잘못된 타입·길이 초과·허용하지 않은 필드의 실패 4개를 검증한다. REST, Representational State Transfer(자원 표현을 통한 상태 전달), CRUD, Create·Read·Update·Delete(생성·조회·수정·삭제), JSON, JavaScript Object Notation(데이터 교환 형식)의 뜻을 자신의 말로 설명한다.\n\n**학습 기록:** 6개 영상 각각 시청·예제 실행을 체크하고 실행 명령·환경 버전·결과·남은 질문을 남긴다. 영상 시청과 메모는 Docker 입문 약 42분을 합쳐 2h, 따라 하기와 업무 API 적용은 아래 SA 실습 6h에 포함한다. 유료 심화 과정은 W1 필수 범위에 포함하지 않는다.\n\n### 영상 2. Docker · 학습 묶음 4\n\n**보는 시점:** 실행 환경을 구분한 API 계약(API contract) 다음.\n\n- [생활코딩 Docker 입구 수업](https://www.youtube.com/playlist?list=PLuHgQVnccGMDeMJsGq2O-55Ymtx0IdKWf) — 생활코딩, 한국어 수업.\n\n**볼 범위:** Docker 입구 수업 8편(약 42분): 이미지/컨테이너(container)·명령·네트워크(network)·마운트.\n\n**시청 직후 실습:** 같은 이미지로 컨테이너를 재생성하고 포트(port)·볼륨(volume)을 확인한다. 이미지 제작과 Compose는 W7에서 이어간다.\n",
       "sources": [
         [
           "API·입력 검증",
@@ -312,45 +312,45 @@
       "chapters": [
         6
       ],
-      "book": "6.1–6.4 전체: 컨텍스트 윈도·전체 텍스트 검색, 시맨틱 검색·벡터 스토어·RAG·경험 메모리, 지식 그래프·GraphRAG·노트 작성. GraphRAG 구축은 개념과 선택 기준을 읽고 고급 구현은 선택한다.",
-      "bookLab": "합성 정책 12–24개를 준비해 source_id·tenant_id·policy_version·allowed_roles를 붙인다. 한 임베딩 모델과 검색 backend로 분할→인덱싱→검색 한 경로를 실행한다. 질문 20개와 정답 근거를 개발 세트로 만든다.",
-      "assets": "문서/청크 manifest, 실제 검색 경로, 정책·권한 필터, dev20 질문과 근거, 검색 실패 사례",
-      "gate": "다른 tenant·비활성 버전·권한 밖 근거가 검색 결과와 응답에 섞이지 않는다. 문서·청크·인덱스 버전과 근거 ID가 연결된다.",
+      "book": "6.1–6.4 전체: 컨텍스트(context) 윈도·전체 텍스트 검색, 시맨틱 검색·벡터 스토어·RAG·경험 메모리, 지식 그래프·GraphRAG·노트 작성. GraphRAG 구축은 개념과 선택 기준을 읽고 고급 구현은 선택한다.",
+      "bookLab": "합성 정책 12–24개를 준비해 source_id·tenant_id·policy_version·allowed_roles를 붙인다. 한 임베딩(embedding) 모델과 검색 backend로 분할→인덱싱→검색 한 경로를 실행한다. 질문 20개와 정답 근거를 개발 세트로 만든다.",
+      "assets": "문서/청크(chunk) manifest, 실제 검색 경로, 정책·권한(permissions) 필터, dev20 질문과 근거, 검색 실패 사례",
+      "gate": "다른 tenant·비활성 버전·권한(permissions) 밖 근거가 검색 결과와 응답에 섞이지 않는다. 문서·청크(chunk)·인덱스(index) 버전과 근거 ID가 연결된다.",
       "videos": [],
       "videoHours": 0,
       "lessons": [
         [
-          "RAG·Chunking — 검색 증강 생성과 문서 분할",
+          "RAG·Chunking — 검색 증강 생성(retrieval-augmented generation, RAG)과 문서 분할",
           "RAG, Retrieval-Augmented Generation(검색 증강 생성)은 모델에 검색한 근거를 제공해 답하도록 하는 방식이다. chunking(문서 분할)은 검색 단위를 만드는 작업이다. 너무 작으면 예외 조항이 떨어지고 너무 크면 불필요한 내용과 비용이 늘어난다. overlap(겹침)은 경계의 문맥을 일부 보존하지만 문서 구조와 표·절 제목을 대신하지 못한다.",
-          "환불 원칙과 예외를 서로 다른 청크에 넣으면 원칙만 검색해 잘못 답할 수 있다. 문서 제목·절·버전·청크 위치를 함께 보관한다.",
+          "환불 원칙과 예외를 서로 다른 청크(chunk)에 넣으면 원칙만 검색해 잘못 답할 수 있다. 문서 제목·절·버전·청크 위치를 함께 보관한다.",
           "두 분할 설정을 dev20으로 비교하고 근거 누락 사례를 기록한다. 최종 holdout 정답으로 설정을 고르지 않는다."
         ],
         [
-          "Embedding·Hybrid Search — 임베딩·하이브리드 검색",
+          "Embedding·Hybrid Search — 임베딩(embedding)·하이브리드 검색(hybrid search)",
           "embedding(임베딩)은 텍스트를 비교 가능한 숫자 벡터로 나타낸 것이다. semantic search(의미 검색)는 벡터 유사성을 사용하고 lexical search(어휘 검색)는 단어·코드 일치를 찾는다. hybrid search(하이브리드 검색)는 두 경로를 결합한다. 비슷한 문장이 검색돼도 실제 정책의 적용 대상·날짜·예외가 맞는지는 따로 검사해야 한다.",
           "'P-103 환불'처럼 정확한 정책 번호는 어휘 검색이 유리할 수 있다. embedding 점수는 답이 참일 확률이 아니다.",
           "한 backend에서 의미/어휘 검색 결과를 비교한다. 재정렬 추가는 기준선보다 이득이 있는 경우에만 선택한다."
         ],
         [
-          "Tenant·Version Filter — 고객사·정책 버전·권한 경계",
-          "tenant(테넌트)는 고객사처럼 데이터를 격리할 단위다. metadata filter(메타데이터 필터)는 tenant·활성 버전·사용자 역할 조건을 검색에 적용한다. 검색 뒤 화면에서만 숨기면 모델에 이미 다른 고객사의 근거가 전달될 수 있다. 인덱싱과 검색 단계 모두 권한 경계를 설계하고 최종 결과를 다시 확인한다.",
+          "Tenant·Version Filter — 고객사·정책 버전·권한(permissions) 경계",
+          "tenant(테넌트)는 고객사처럼 데이터를 격리할 단위다. metadata filter(메타데이터 필터)는 tenant·활성 버전·사용자 역할 조건을 검색에 적용한다. 검색 뒤 화면에서만 숨기면 모델에 이미 다른 고객사의 근거가 전달될 수 있다. 인덱싱과 검색 단계 모두 권한(permissions) 경계를 설계하고 최종 결과를 다시 확인한다.",
           "tenant-a의 질문이 tenant-b 문서를 받아오거나 이전 환불 버전으로 답하면 유사도가 높아도 실패다. 요청 본문의 tenant 값을 신뢰하지 않는다.",
-          "교차 tenant·이전 버전·권한 없는 문서 사례를 만들고 retrieval 결과와 모델 입력에서 모두 제외됨을 확인한다."
+          "교차 tenant·이전 버전·권한(permissions) 없는 문서 사례를 만들고 retrieval 결과와 모델 입력에서 모두 제외됨을 확인한다."
         ],
         [
           "Memory·GraphRAG — 메모리와 지식 그래프 선택",
-          "context window(컨텍스트 윈도)는 한 호출에서 모델이 참고할 입력 범위다. short-term memory(단기 메모리)는 현재 작업 상태, long-term memory(장기 메모리)는 작업 간 저장된 정보를 뜻한다. GraphRAG는 graph(그래프)의 관계 정보를 검색에 활용하는 방식이며 단순 벡터 검색보다 항상 좋지는 않다. 관계 구축·최신화·권한 검사와 운영 비용을 함께 고려한다.",
+          "context window(컨텍스트 윈도)는 한 호출에서 모델이 참고할 입력 범위다. short-term memory(단기 메모리)는 현재 작업 상태, long-term memory(장기 메모리)는 작업 간 저장된 정보를 뜻한다. GraphRAG는 graph(그래프)의 관계 정보를 검색에 활용하는 방식이며 단순 벡터 검색(vector search)보다 항상 좋지는 않다. 관계 구축·최신화·권한(permissions) 검사와 운영 비용을 함께 고려한다.",
           "고객별 메모리가 섞이면 이후 대화까지 다른 고객사의 정보를 노출할 수 있다. '최근 요약'에는 원문 출처·버전과 만료 조건이 필요하다.",
-          "단기 상태/장기 지식/감사 기록을 다른 저장 목적에 배정한다. GraphRAG 도입 여부를 데이터 관계와 평가 이득으로 설명한다."
+          "단기 상태/장기 지식/감사 기록(audit log)을 다른 저장 목적에 배정한다. GraphRAG 도입 여부를 데이터 관계와 평가(evaluation) 이득으로 설명한다."
         ]
       ],
       "quiz": [
         [
           "벡터 유사도가 높으면 정책 답변도 맞는가?",
-          "정책 버전·적용 대상·예외·권한과 답변의 의미 일치를 별도로 확인한다."
+          "정책 버전·적용 대상·예외·권한(permissions)과 답변의 의미 일치를 별도로 확인한다."
         ],
         [
-          "권한 필터는 응답 화면에서만 적용해도 되는가?",
+          "권한(permissions) 필터는 응답 화면에서만 적용해도 되는가?",
           "검색과 모델 입력 이전에 적용하고 최종 결과에서도 검사해야 한다."
         ],
         [
@@ -372,21 +372,21 @@
         {
           "title": "책 6장 읽기·설계/개념 노트",
           "hours": 6,
-          "ac": "6.1–6.4 전체: 컨텍스트 윈도·전체 텍스트 검색, 시맨틱 검색·벡터 스토어·RAG·경험 메모리, 지식 그래프·GraphRAG·노트 작성. GraphRAG 구축은 개념과 선택 기준을 읽고 고급 구현은 선택한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
+          "ac": "6.1–6.4 전체: 컨텍스트(context) 윈도·전체 텍스트 검색, 시맨틱 검색·벡터 스토어·RAG·경험 메모리, 지식 그래프·GraphRAG·노트 작성. GraphRAG 구축은 개념과 선택 기준을 읽고 고급 구현은 선택한다. 산출물(deliverables): 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
           "id": "W2.1",
           "dependsOn": "W1"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
-          "ac": "합성 정책 12–24개를 준비해 source_id·tenant_id·policy_version·allowed_roles를 붙인다. 한 임베딩 모델과 검색 backend로 분할→인덱싱→검색 한 경로를 실행한다. 질문 20개와 정답 근거를 개발 세트로 만든다. 산출물: 정상/실패 expected/actual·raw 결과.",
+          "ac": "합성 정책 12–24개를 준비해 source_id·tenant_id·policy_version·allowed_roles를 붙인다. 한 임베딩(embedding) 모델과 검색 backend로 분할→인덱싱→검색 한 경로를 실행한다. 질문 20개와 정답 근거를 개발 세트로 만든다. 산출물(deliverables): 정상/실패 expected/actual·raw 결과.",
           "id": "W2.2",
           "dependsOn": "W2.1"
         },
         {
           "title": "영상·SA 보충 실습 — 지식·메모리·RAG와 정책·권한 필터",
           "hours": 8,
-          "ac": "승인 영상 배정 0h + 연결 실습 8h. 문서/청크 manifest, 실제 검색 경로, 정책·권한 필터, dev20 질문과 근거, 검색 실패 사례. 다른 tenant·비활성 버전·권한 밖 근거가 검색 결과와 응답에 섞이지 않는다. 문서·청크·인덱스 버전과 근거 ID가 연결된다.",
+          "ac": "승인 영상 배정 0h + 연결 실습 8h. 문서/청크(chunk) manifest, 실제 검색 경로, 정책·권한(permissions) 필터, dev20 질문과 근거, 검색 실패 사례. 다른 tenant·비활성 버전·권한 밖 근거가 검색 결과와 응답에 섞이지 않는다. 문서·청크·인덱스(index) 버전과 근거 ID가 연결된다.",
           "id": "W2.3",
           "dependsOn": "W2.2"
         },
@@ -413,10 +413,10 @@
       "chapters": [
         9
       ],
-      "book": "9.1–9.5 전체: 개발 생명주기 평가, 평가 세트, 도구·계획·메모리·학습의 컴포넌트 평가, 엔드투엔드 평가, 환각·예기치 않은 입력, 배포 준비. 2.9 평가 전략도 다시 읽는다.",
-      "bookLab": "dev20과 최종 holdout30을 분리한다. 검색 성공·근거 일치·답변 가능 여부·보류·검토·권한을 평가 rubric으로 작성하고 원시 결과를 남긴다. 기준선의 품질·지연·비용을 별도 측정한다.",
-      "assets": "평가 rubric, dev20/holdout30 manifest, 평가 실행 포맷, 지연/오류 기준선, 부하 시험 시나리오",
-      "gate": "평가 설정과 원시 결과가 추적되며 품질·응답시간·오류율을 분리해 보고한다. 최종 질문은 설정 선택에서 제외한다.",
+      "book": "9.1–9.5 전체: 개발 생명주기 평가(evaluation), 평가 세트(evaluation set), 도구·계획·메모리·학습의 컴포넌트(component) 평가, 엔드투엔드 평가, 환각(hallucination)·예기치 않은 입력, 배포(deployment) 준비. 2.9 평가 전략도 다시 읽는다.",
+      "bookLab": "dev20과 최종 holdout30을 분리한다. 검색 성공·근거 일치·답변 가능 여부·보류·검토·권한(permissions)을 평가 rubric(evaluation rubric)으로 작성하고 원시 결과를 남긴다. 기준선의 품질·지연(latency)·비용을 별도 측정한다.",
+      "assets": "평가 rubric(evaluation rubric), dev20/holdout30 manifest, 평가(evaluation) 실행 포맷, 지연(latency)/오류 기준선, 부하 시험(load testing) 시나리오",
+      "gate": "평가(evaluation) 설정과 원시 결과가 추적되며 품질·응답시간(response time)·오류율(error rate)을 분리해 보고한다. 최종 질문은 설정 선택에서 제외한다.",
       "videos": [
         9,
         5
@@ -424,42 +424,42 @@
       "videoHours": 2.5,
       "lessons": [
         [
-          "Evaluation Dataset — 평가 세트와 누수 방지",
-          "evaluation(평가)은 원하는 행동을 대표 사례와 기준으로 확인하는 과정이다. dev set(개발 세트)은 설정 선택에 쓰고 holdout set(보류 평가 세트)은 최종 결과를 확인할 때 사용한다. ID만 달라도 같은 문서나 사실상 같은 질문이면 leakage(평가 누수)가 생길 수 있다. 데이터·정답 근거·평가 설정의 버전을 같이 고정한다.",
+          "Evaluation Dataset — 평가 세트(evaluation set)와 누수 방지",
+          "evaluation(평가)은 원하는 행동을 대표 사례와 기준으로 확인하는 과정이다. dev set(개발 세트)은 설정 선택에 쓰고 holdout set(보류 평가 세트)은 최종 결과를 확인할 때 사용한다. ID만 달라도 같은 문서나 사실상 같은 질문이면 leakage(평가 누수)가 생길 수 있다. 데이터·정답 근거·평가(evaluation) 설정의 버전을 같이 고정한다.",
           "dev20으로 문서 분할을 골랐다면 최종30은 별도로 보관한다. 50개 전체 점수로 개발과 최종 결과를 섞어 보여 주지 않는다.",
           "질문 ID·문서 출처·의미 중복을 검사한다. 정답 근거와 답변 가능 여부를 함께 기록하고 holdout manifest를 동결한다."
         ],
         [
           "Retrieval·Answer Quality — 검색과 답변 품질",
-          "Recall@k(상위 k개 검색의 정답 근거 포함률)는 검색 단계, MRR, Mean Reciprocal Rank(평균 역순위)는 첫 정답 근거의 순위를 평가한다. 인용 ID가 존재하는지는 구조 검사이며 근거가 답을 뒷받침하는지는 의미 검사다. LLM-as-a-judge(모델을 이용한 평가)는 보조 수단이고 사람의 rubric·불일치 검토가 필요하다.",
-          "없는 근거 ID, 맞는 ID로 잘못 설명한 답, 근거 없는 질문의 답변 보류를 서로 다른 실패로 분류한다.",
-          "검색·형식·근거 의미·보류/검토 항목을 분리한 평가표와 5개 실패 사례를 만든다."
+          "Recall@k(상위 k개 검색의 정답 근거 포함률)는 검색 단계, MRR, Mean Reciprocal Rank(평균 역순위)는 첫 정답 근거의 순위를 평가(evaluation)한다. 인용 ID가 존재하는지는 구조 검사이며 근거가 답을 뒷받침하는지는 의미 검사다. LLM-as-a-judge(모델을 이용한 평가)는 보조 수단이고 사람의 rubric·불일치 검토가 필요하다.",
+          "없는 근거 ID, 맞는 ID로 잘못 설명한 답, 근거 없는 질문의 답변 보류(abstention)를 서로 다른 실패로 분류한다.",
+          "검색·형식·근거 의미·보류/검토 항목을 분리한 평가(evaluation)표와 5개 실패 사례를 만든다."
         ],
         [
-          "Load Test·Latency — 부하 시험과 응답시간",
-          "load test(부하 시험)는 요청량과 동시성이 늘 때 품질·오류·지연이 어떻게 변하는지 확인한다. throughput(처리량)과 latency(지연시간)는 다른 지표다. P95는 95백분위 응답시간이며 평균만 보면 느린 요청을 놓칠 수 있다. k6는 부하 생성 도구 이름이다. 실제 모델 호출 비용과 외부 서비스 제한도 시험 조건에 포함한다.",
-          "동시성을 높여도 성공 요청이 늘지 않고 오류만 증가하면 서버 수 추가만으로 해결되지 않을 수 있다. timeout을 성공한 보류로 세지 않는다.",
-          "영상 9의 처리량·지연·병목·시험 흐름 편을 보고 로컬 API 기준선을 측정한다. 고비용 모델은 낮은 부하·고정 예산으로 별도 측정한다."
+          "Load Test·Latency — 부하 시험(load testing)과 응답시간(response time)",
+          "load test(부하 시험)는 요청량과 동시성(concurrency)이 늘 때 품질·오류·지연(latency)이 어떻게 변하는지 확인한다. throughput(처리량)과 latency(지연시간)는 다른 지표다. P95는 95백분위 응답시간(response time)이며 평균만 보면 느린 요청을 놓칠 수 있다. k6는 부하 생성 도구 이름이다. 실제 모델 호출 비용과 외부 서비스 제한도 시험 조건에 포함한다.",
+          "동시성(concurrency)을 높여도 성공 요청이 늘지 않고 오류만 증가하면 서버 수 추가만으로 해결되지 않을 수 있다. timeout을 성공한 보류로 세지 않는다.",
+          "영상 9의 처리량(throughput)·지연(latency)·병목(bottleneck)·시험 흐름 편을 보고 로컬 API 기준선을 측정한다. 고비용 모델은 낮은 부하·고정 예산으로 별도 측정한다."
         ],
         [
           "Kubernetes Architecture — 클러스터와 선언된 상태",
-          "K8s는 Kubernetes의 K와 s 사이 8글자를 숫자로 표시한 이름이다. control plane(제어 영역)은 원하는 상태를 관리하고 node(노드)는 Pod를 실행한다. Pod는 컨테이너 실행의 기본 단위이며 Deployment는 복제 수와 업데이트를 관리한다. YAML은 설정 표현 형식이지 서버에 실제 배포된 상태의 증거는 아니다.",
+          "K8s는 Kubernetes의 K와 s 사이 8글자를 숫자로 표시한 이름이다. control plane(제어 영역)은 원하는 상태를 관리하고 node(노드)는 Pod를 실행한다. Pod는 컨테이너(container) 실행의 기본 단위이며 Deployment는 복제 수와 업데이트를 관리한다. YAML은 설정 표현 형식이지 서버에 실제 배포(deployment)된 상태의 증거는 아니다.",
           "'replicas: 2' 파일을 쓴 것과 Ready Pod가 2개 실행된 것은 다르다. 실제 클러스터 상태와 설정을 비교한다.",
-          "따배쿠 1·3-2·4-1을 먼저 본다. 최신 공식 로컬 환경 안내로 kubectl 조회·Pod 상태를 확인하고 W7 배포 전에 구조를 설명한다."
+          "따배쿠 1·3-2·4-1을 먼저 본다. 최신 공식 로컬 환경 안내로 kubectl 조회·Pod 상태를 확인하고 W7 배포(deployment) 전에 구조를 설명한다."
         ]
       ],
       "quiz": [
         [
-          "모든 50문제로 설정을 고르고 같은 점수를 최종 평가로 보고해도 되는가?",
+          "모든 50문제로 설정을 고르고 같은 점수를 최종 평가(evaluation)로 보고해도 되는가?",
           "개발/최종 세트를 나누고 최종 세트는 선택에 쓰지 않는다. 중복과 누수도 검사한다."
         ],
         [
-          "올바른 인용 ID가 있으면 근거 검증이 끝나는가?",
+          "올바른 인용 ID가 있으면 근거 검증(grounding validation)이 끝나는가?",
           "ID 검사와 답의 의미가 근거와 일치하는지 검사는 별도다."
         ],
         [
-          "평균 응답시간만 비교하면 충분한가?",
-          "P95·오류율·성공률·동시성·요청 구성·비용을 함께 봐야 한다."
+          "평균 응답시간(response time)만 비교하면 충분한가?",
+          "P95·오류율(error rate)·성공률·동시성(concurrency)·요청 구성·비용을 함께 봐야 한다."
         ]
       ],
       "start": "2026-10-16",
@@ -476,21 +476,21 @@
         {
           "title": "책 9장 읽기·설계/개념 노트",
           "hours": 6,
-          "ac": "9.1–9.5 전체: 개발 생명주기 평가, 평가 세트, 도구·계획·메모리·학습의 컴포넌트 평가, 엔드투엔드 평가, 환각·예기치 않은 입력, 배포 준비. 2.9 평가 전략도 다시 읽는다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
+          "ac": "9.1–9.5 전체: 개발 생명주기 평가(evaluation), 평가 세트(evaluation set), 도구·계획·메모리·학습의 컴포넌트(component) 평가, 엔드투엔드 평가, 환각(hallucination)·예기치 않은 입력, 배포(deployment) 준비. 2.9 평가 전략도 다시 읽는다. 산출물(deliverables): 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
           "id": "W3.1",
           "dependsOn": "W2"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
-          "ac": "dev20과 최종 holdout30을 분리한다. 검색 성공·근거 일치·답변 가능 여부·보류·검토·권한을 평가 rubric으로 작성하고 원시 결과를 남긴다. 기준선의 품질·지연·비용을 별도 측정한다. 산출물: 정상/실패 expected/actual·raw 결과.",
+          "ac": "dev20과 최종 holdout30을 분리한다. 검색 성공·근거 일치·답변 가능 여부·보류·검토·권한(permissions)을 평가 rubric(evaluation rubric)으로 작성하고 원시 결과를 남긴다. 기준선의 품질·지연(latency)·비용을 별도 측정한다. 산출물(deliverables): 정상/실패 expected/actual·raw 결과.",
           "id": "W3.2",
           "dependsOn": "W3.1"
         },
         {
           "title": "영상·SA 보충 실습 — 평가 세트·근거 검증·부하 시험",
           "hours": 8,
-          "ac": "승인 영상 배정 2.5h + 연결 실습 5.5h. 평가 rubric, dev20/holdout30 manifest, 평가 실행 포맷, 지연/오류 기준선, 부하 시험 시나리오. 평가 설정과 원시 결과가 추적되며 품질·응답시간·오류율을 분리해 보고한다. 최종 질문은 설정 선택에서 제외한다.",
+          "ac": "승인 영상 배정 2.5h + 연결 실습 5.5h. 평가 rubric(evaluation rubric), dev20/holdout30 manifest, 평가(evaluation) 실행 포맷, 지연(latency)/오류 기준선, 부하 시험(load testing) 시나리오. 평가 설정과 원시 결과가 추적되며 품질·응답시간(response time)·오류율(error rate)을 분리해 보고한다. 최종 질문은 설정 선택에서 제외한다.",
           "id": "W3.3",
           "dependsOn": "W3.2"
         },
@@ -508,9 +508,9 @@
           "select": [
             0
           ],
-          "scope": "공개 목록 1.3 처리량, 1.4 k6 선택, 1.7 테스트 실습, 2.1·2.2 병목 분석. 서버 준비는 기존 로컬 API로 대체한다.",
+          "scope": "공개 목록 1.3 처리량(throughput), 1.4 k6 선택, 1.7 테스트 실습, 2.1·2.2 병목(bottleneck) 분석. 서버 준비는 기존 로컬 API로 대체한다.",
           "after": "9장 컴포넌트/E2E 평가와 평가 세트 분리",
-          "practice": "k6로 기존 /health와 유효 접수 경로를 측정한다. 입력·동시성·시간을 고정하고 P50/P95·오류율을 기록한다. AI 분석 지연으로 오인하지 않는다."
+          "practice": "k6로 기존 /health와 유효 접수 경로를 측정한다. 입력·동시성(concurrency)·시간을 고정하고 P50/P95·오류율(error rate)을 기록한다. AI 분석 지연(latency)으로 오인하지 않는다."
         },
         {
           "r": 5,
@@ -522,7 +522,7 @@
           "practice": "kind 또는 minikube 중 하나로 로컬 클러스터를 만들고 kubectl get/describe/logs와 샘플 Pod 상태를 확인한다. W7 Deployment 실습의 선행 준비다."
         }
       ],
-      "videoText": "### 영상 1. Load testing k6 · 학습 묶음 9\n\n**보는 시점:** 9장 컴포넌트/E2E 평가와 평가 세트 분리 다음.\n\n- [[인프런] 대규모 트래픽 처리를 위한 부하 테스트 입문/실전 — 공개 영상](https://www.youtube.com/playlist?list=PLtUgHNmvcs6qAqWz-UhH-_ploSbK2eHwG) — JSCODE, 한국어 수업.\n\n**볼 범위:** 공개 목록 1.3 처리량, 1.4 k6 선택, 1.7 테스트 실습, 2.1·2.2 병목 분석. 서버 준비는 기존 로컬 API로 대체한다.\n\n**시청 직후 실습:** k6로 기존 /health와 유효 접수 경로를 측정한다. 입력·동시성·시간을 고정하고 P50/P95·오류율을 기록한다. AI 분석 지연으로 오인하지 않는다.\n\n### 영상 2. Kubernetes · 학습 묶음 5\n\n**보는 시점:** 성능 측정에서 실행 환경을 기록하는 이유 다음.\n\n- [[따배쿠] 쿠버네티스 시리즈](https://www.youtube.com/playlist?list=PLApuRlvrZKohaBHvXAOhUD-RxD0uQ3z0c) — TTABAE-LEARN, 한국어 수업.\n\n**볼 범위:** 따배쿠 1편 소개, 3-2 kubectl, 4-1 아키텍처/Pod를 골라 본다. 오래된 설치 절차는 현재 공식 로컬 가이드로 대체한다.\n\n**시청 직후 실습:** kind 또는 minikube 중 하나로 로컬 클러스터를 만들고 kubectl get/describe/logs와 샘플 Pod 상태를 확인한다. W7 Deployment 실습의 선행 준비다.\n",
+      "videoText": "### 영상 1. Load testing k6 · 학습 묶음 9\n\n**보는 시점:** 9장 컴포넌트(component)/E2E 평가(evaluation)와 평가 세트(evaluation set) 분리 다음.\n\n- [[인프런] 대규모 트래픽 처리를 위한 부하 테스트 입문/실전 — 공개 영상](https://www.youtube.com/playlist?list=PLtUgHNmvcs6qAqWz-UhH-_ploSbK2eHwG) — JSCODE, 한국어 수업.\n\n**볼 범위:** 공개 목록 1.3 처리량(throughput), 1.4 k6 선택, 1.7 테스트 실습, 2.1·2.2 병목(bottleneck) 분석. 서버 준비는 기존 로컬 API로 대체한다.\n\n**시청 직후 실습:** k6로 기존 /health와 유효 접수 경로를 측정한다. 입력·동시성(concurrency)·시간을 고정하고 P50/P95·오류율(error rate)을 기록한다. AI 분석 지연(latency)으로 오인하지 않는다.\n\n### 영상 2. Kubernetes · 학습 묶음 5\n\n**보는 시점:** 성능 측정에서 실행 환경을 기록하는 이유 다음.\n\n- [[따배쿠] 쿠버네티스 시리즈](https://www.youtube.com/playlist?list=PLApuRlvrZKohaBHvXAOhUD-RxD0uQ3z0c) — TTABAE-LEARN, 한국어 수업.\n\n**볼 범위:** 따배쿠 1편 소개, 3-2 kubectl, 4-1 아키텍처/Pod를 골라 본다. 오래된 설치 절차는 현재 공식 로컬 가이드로 대체한다.\n\n**시청 직후 실습:** kind 또는 minikube 중 하나로 로컬 클러스터를 만들고 kubectl get/describe/logs와 샘플 Pod 상태를 확인한다. W7 Deployment 실습의 선행 준비다.\n",
       "sources": [
         [
           "Kubernetes 로컬 기초",
@@ -541,10 +541,10 @@
         4,
         5
       ],
-      "book": "4.1–4.4 전체: 로컬/API/플러그인/MCP/상태 유지 도구, 도구 개발과 사용 설정. 5.1–5.6 전체: 반사형·ReAct·계획 후 실행·분해·성찰·리서치 에이전트, 도구 선택·실행·토폴로지·컨텍스트 엔지니어링.",
-      "bookLab": "허용 도구 2개로 제한된 그래프를 만든다. 입력·출력·권한·최대 실행 횟수·시간 예산을 선언하고 도구 실패·모델 잘못된 인수·재시도·취소를 확인한다. 외부 쓰기 작업은 검토 경계를 둔다.",
-      "assets": "도구 계약표, 제한된 실행 그래프, 시간/횟수 예산, 취소·재시도·중복 실행 정책과 실패 결과",
-      "gate": "실행이 정해진 한도에서 끝나며 timeout/cancellation 이후 상태·자원 정리가 된다. 멱등성이 없는 쓰기를 자동 재실행하지 않는다.",
+      "book": "4.1–4.4 전체: 로컬/API/플러그인/MCP/상태 유지 도구, 도구 개발과 사용 설정. 5.1–5.6 전체: 반사형·ReAct·계획 후 실행·분해·성찰·리서치 에이전트(agent), 도구 선택·실행·토폴로지·컨텍스트(context) 엔지니어링.",
+      "bookLab": "허용 도구 2개로 제한된 그래프를 만든다. 입력·출력·권한(permissions)·최대 실행 횟수·시간 예산을 선언하고 도구 실패·모델 잘못된 인수·재시도(retry)·취소를 확인한다. 외부 쓰기 작업은 검토 경계를 둔다.",
+      "assets": "도구 계약표, 제한된 실행 그래프, 시간/횟수 예산, 취소·재시도(retry)·중복 실행 정책과 실패 결과",
+      "gate": "실행이 정해진 한도에서 끝나며 timeout/cancellation 이후 상태·자원 정리(resource cleanup)가 된다. 멱등성(idempotency)이 없는 쓰기를 자동 재실행하지 않는다.",
       "videos": [
         3
       ],
@@ -552,41 +552,41 @@
       "lessons": [
         [
           "Tool Contract·MCP — 도구 계약과 연결 규약",
-          "tool(도구)은 모델이 호출할 수 있는 명시적 기능이다. MCP, Model Context Protocol(모델 컨텍스트 프로토콜)은 도구·자원 연결을 표준화하는 규약이다. 표준 인터페이스가 있다고 도구 호출의 권한과 안전성이 자동으로 보장되지는 않는다. 허용 기능·입력/출력·인증 컨텍스트·부작용·실패 의미를 도구 계약에 적는다.",
-          "정책 검색은 읽기 도구, 검토 결정은 쓰기 도구다. 두 도구에 같은 권한을 주지 않고 서버에서 역할과 tenant를 확인한다.",
-          "도구별 계약·권한·side effect(부작용) 표를 만들고 허용되지 않은 호출·인수·tenant를 거부한다."
+          "tool(도구)은 모델이 호출할 수 있는 명시적 기능이다. MCP, Model Context Protocol(모델 컨텍스트 프로토콜)은 도구·자원 연결을 표준화하는 규약이다. 표준 인터페이스(interface)가 있다고 도구 호출의 권한(permissions)과 안전성이 자동으로 보장되지는 않는다. 허용 기능·입력/출력·인증(authentication) 컨텍스트(context)·부작용·실패 의미를 도구 계약에 적는다.",
+          "정책 검색은 읽기 도구, 검토 결정은 쓰기 도구다. 두 도구에 같은 권한(permissions)을 주지 않고 서버에서 역할과 tenant를 확인한다.",
+          "도구별 계약·권한(permissions)·side effect(부작용) 표를 만들고 허용되지 않은 호출·인수·tenant를 거부한다."
         ],
         [
           "ReAct·Plan-and-Execute — 추론과 실행 경로",
-          "ReAct는 Reasoning and Acting(추론과 행동)을 결합한 명칭이다. plan-and-execute(계획 후 실행)는 계획을 세우고 단계를 수행하는 구조다. reflection(성찰)과 추가 에이전트는 호출 횟수·지연·비용을 늘릴 수 있다. orchestration(오케스트레이션)은 단계·분기·실패·중단을 조율하는 시스템이며 모델의 판단과 실행 제어를 구분해야 한다.",
+          "ReAct는 Reasoning and Acting(추론과 행동)을 결합한 명칭이다. plan-and-execute(계획 후 실행)는 계획을 세우고 단계를 수행하는 구조다. reflection(성찰)과 추가 에이전트(agent)는 호출 횟수·지연(latency)·비용을 늘릴 수 있다. orchestration(오케스트레이션)은 단계·분기·실패·중단을 조율하는 시스템이며 모델의 판단과 실행 제어를 구분해야 한다.",
           "같은 실패를 반복해도 모델이 스스로 멈춘다고 가정하지 않는다. max_steps·허용 도구·전체 시간 예산을 실행 코드가 강제한다.",
           "한 그래프를 정상·도구 실패·무한 반복 유도 입력으로 실행하고 종료 이유·각 도구 호출을 기록한다."
         ],
         [
-          "Async·Cancellation — 비동기 처리·취소",
-          "asynchronous processing(비동기 처리)은 대기 중 다른 작업을 진행할 수 있게 하는 실행 방식이다. async/await 표기만으로 모든 작업이 병렬화되거나 내구성이 생기지 않는다. timeout(시간 초과)과 cancellation(취소)은 자원 정리·상태 갱신·후속 행동까지 포함해 처리한다. 실행 중 외부 쓰기가 이미 성공했을 가능성도 있어 단순 재시도가 위험하다.",
+          "Async·Cancellation — 비동기 처리(async processing)·취소",
+          "asynchronous processing(비동기 처리)은 대기 중 다른 작업을 진행할 수 있게 하는 실행 방식이다. async/await 표기만으로 모든 작업이 병렬화되거나 내구성이 생기지 않는다. timeout(시간 초과)과 cancellation(취소)은 자원 정리(resource cleanup)·상태 갱신·후속 행동까지 포함해 처리한다. 실행 중 외부 쓰기가 이미 성공했을 가능성도 있어 단순 재시도(retry)가 위험하다.",
           "모델 호출을 취소했어도 DB 연결이나 도구 작업이 계속 남으면 다음 요청에 영향을 준다. 중단 이유와 완료 여부 불확실성을 저장한다.",
-          "Real-world asyncio의 취소·시간 초과 부분을 보고 현재 FastAPI 공식 문서로 코드를 확인한다. 지연·취소를 주입해 연결 정리와 상태를 검사한다."
+          "Real-world asyncio의 취소·시간 초과 부분을 보고 현재 FastAPI 공식 문서로 코드를 확인한다. 지연(latency)·취소를 주입해 연결 정리와 상태를 검사한다."
         ],
         [
-          "Idempotency·Retry — 멱등성과 재시도",
-          "idempotency(멱등성)는 같은 요청을 반복해도 의도한 업무 효과가 한 번인 성질이다. idempotency key(멱등 키)는 같은 업무 요청을 식별하고 중복 실행을 방지하는 값이다. retry(재시도)는 일시 실패에만 횟수·시간 한도를 두고 backoff(대기 간격 증가)와 jitter(분산된 무작위 지연)를 적용한다. 입력 오류·권한 거부는 그대로 재시도해도 해결되지 않는다.",
-          "검토 승인이 저장됐지만 응답이 끊겼을 수 있다. 재요청에서 같은 결정·감사가 두 번 생기지 않아야 한다.",
-          "재시도 가능/불가 표와 중복 요청 사례를 만든다. 성공 여부가 불확실한 외부 쓰기는 조회·조정 경로를 먼저 설계한다."
+          "Idempotency·Retry — 멱등성(idempotency)과 재시도(retry)",
+          "idempotency(멱등성)는 같은 요청을 반복해도 의도한 업무 효과가 한 번인 성질이다. idempotency key(멱등 키)는 같은 업무 요청을 식별하고 중복 실행을 방지하는 값이다. retry(재시도)는 일시 실패에만 횟수·시간 한도를 두고 backoff(대기 간격 증가)와 jitter(분산된 무작위 지연)를 적용한다. 입력 오류·권한(permissions) 거부는 그대로 재시도(retry)해도 해결되지 않는다.",
+          "검토 승인이 저장됐지만 응답이 끊겼을 수 있다. 재요청에서 같은 결정·감사(audit)가 두 번 생기지 않아야 한다.",
+          "재시도(retry) 가능/불가 표와 중복 요청 사례를 만든다. 성공 여부가 불확실한 외부 쓰기는 조회·조정 경로를 먼저 설계한다."
         ]
       ],
       "quiz": [
         [
-          "MCP를 쓰면 권한 확인이 필요 없는가?",
-          "규약과 인가는 별도다. 서버에서 허용 도구·사용자·tenant·쓰기 권한을 검사한다."
+          "MCP를 쓰면 권한(permissions) 확인이 필요 없는가?",
+          "규약과 인가(authorization)는 별도다. 서버에서 허용 도구·사용자·tenant·쓰기 권한(permissions)을 검사한다."
         ],
         [
-          "async 함수로 바꾸면 재시작 후 작업도 복원되는가?",
+          "async 함수로 바꾸면 재시작 후 작업도 복원(restore)되는가?",
           "비동기 실행과 지속 상태/내구성은 다르다. 작업 기록·재개·중복 방지 경로가 필요하다."
         ],
         [
-          "실패한 쓰기 요청은 모두 재시도해도 되는가?",
-          "외부 효과가 이미 발생했을 수 있으므로 멱등성과 결과 확인·조정 정책이 필요하다."
+          "실패한 쓰기 요청은 모두 재시도(retry)해도 되는가?",
+          "외부 효과가 이미 발생했을 수 있으므로 멱등성(idempotency)과 결과 확인·조정 정책이 필요하다."
         ]
       ],
       "start": "2026-10-23",
@@ -604,21 +604,21 @@
         {
           "title": "책 4·5장 읽기·설계/개념 노트",
           "hours": 6,
-          "ac": "4.1–4.4 전체: 로컬/API/플러그인/MCP/상태 유지 도구, 도구 개발과 사용 설정. 5.1–5.6 전체: 반사형·ReAct·계획 후 실행·분해·성찰·리서치 에이전트, 도구 선택·실행·토폴로지·컨텍스트 엔지니어링. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
+          "ac": "4.1–4.4 전체: 로컬/API/플러그인/MCP/상태 유지 도구, 도구 개발과 사용 설정. 5.1–5.6 전체: 반사형·ReAct·계획 후 실행·분해·성찰·리서치 에이전트(agent), 도구 선택·실행·토폴로지·컨텍스트(context) 엔지니어링. 산출물(deliverables): 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
           "id": "W4.1",
           "dependsOn": "W3"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
-          "ac": "허용 도구 2개로 제한된 그래프를 만든다. 입력·출력·권한·최대 실행 횟수·시간 예산을 선언하고 도구 실패·모델 잘못된 인수·재시도·취소를 확인한다. 외부 쓰기 작업은 검토 경계를 둔다. 산출물: 정상/실패 expected/actual·raw 결과.",
+          "ac": "허용 도구 2개로 제한된 그래프를 만든다. 입력·출력·권한(permissions)·최대 실행 횟수·시간 예산을 선언하고 도구 실패·모델 잘못된 인수·재시도(retry)·취소를 확인한다. 외부 쓰기 작업은 검토 경계를 둔다. 산출물(deliverables): 정상/실패 expected/actual·raw 결과.",
           "id": "W4.2",
           "dependsOn": "W4.1"
         },
         {
           "title": "영상·SA 보충 실습 — 도구·오케스트레이션·비동기 처리",
           "hours": 8,
-          "ac": "승인 영상 배정 1h + 연결 실습 7h. 도구 계약표, 제한된 실행 그래프, 시간/횟수 예산, 취소·재시도·중복 실행 정책과 실패 결과. 실행이 정해진 한도에서 끝나며 timeout/cancellation 이후 상태·자원 정리가 된다. 멱등성이 없는 쓰기를 자동 재실행하지 않는다.",
+          "ac": "승인 영상 배정 1h + 연결 실습 7h. 도구 계약표, 제한된 실행 그래프, 시간/횟수 예산, 취소·재시도(retry)·중복 실행 정책과 실패 결과. 실행이 정해진 한도에서 끝나며 timeout/cancellation 이후 상태·자원 정리(resource cleanup)가 된다. 멱등성(idempotency)이 없는 쓰기를 자동 재실행하지 않는다.",
           "id": "W4.3",
           "dependsOn": "W4.2"
         },
@@ -636,12 +636,12 @@
           "select": [
             0
           ],
-          "scope": "발표 슬라이드와 함께 이벤트 루프·blocking 호출·취소·타임아웃 관련 부분을 본다. 2019 코드/API는 현재 공식 문서와 비교한다.",
+          "scope": "발표 슬라이드와 함께 이벤트 루프(event loop)·blocking 호출·취소·타임아웃(timeout) 관련 부분을 본다. 2019 코드/API는 현재 공식 문서와 비교한다.",
           "after": "5장 병렬 도구 실행과 상태 전이",
-          "practice": "느린 도구·예외·취소를 주입해 종료 한도, 자원 정리, 중복 실행 여부를 검증한다."
+          "practice": "느린 도구·예외·취소를 주입해 종료 한도, 자원 정리(resource cleanup), 중복 실행 여부를 검증한다."
         }
       ],
-      "videoText": "### 영상 1. Async failures · 학습 묶음 3\n\n**보는 시점:** 5장 병렬 도구 실행과 상태 전이 다음.\n\n- [Real-world asyncio - 김준기 - PyCon.KR 2019](https://www.youtube.com/watch?v=QaiczQzJAmA) — PyCon Korea, 한국어 수업.\n\n**볼 범위:** 발표 슬라이드와 함께 이벤트 루프·blocking 호출·취소·타임아웃 관련 부분을 본다. 2019 코드/API는 현재 공식 문서와 비교한다.\n\n**시청 직후 실습:** 느린 도구·예외·취소를 주입해 종료 한도, 자원 정리, 중복 실행 여부를 검증한다.\n",
+      "videoText": "### 영상 1. Async failures · 학습 묶음 3\n\n**보는 시점:** 5장 병렬 도구 실행과 상태 전이(state transition) 다음.\n\n- [Real-world asyncio - 김준기 - PyCon.KR 2019](https://www.youtube.com/watch?v=QaiczQzJAmA) — PyCon Korea, 한국어 수업.\n\n**볼 범위:** 발표 슬라이드와 함께 이벤트 루프(event loop)·blocking 호출·취소·타임아웃(timeout) 관련 부분을 본다. 2019 코드/API는 현재 공식 문서와 비교한다.\n\n**시청 직후 실습:** 느린 도구·예외·취소를 주입해 종료 한도, 자원 정리(resource cleanup), 중복 실행 여부를 검증한다.\n",
       "sources": [
         [
           "비동기",
@@ -656,10 +656,10 @@
         8,
         12
       ],
-      "book": "8.1–8.10 전체: 에이전트 수·조율·A2A·메시지 브로커·액터·워크플로 엔진·상태/영속성. 12.1–12.6 전체: 에이전트 위험·공격·모델 보안·레드팀·MAESTRO·데이터 보호·보호 장치. 한 에이전트 기준선을 먼저 유지한다.",
-      "bookLab": "PostgreSQL의 사례 상태·검토·감사를 한 트랜잭션으로 저장하고 실패·동시 갱신을 검증한다. 인증된 tenant/role로 검색·조회·검토를 제한한다. 도구 접근 위협 모델을 그리고 클라우드 IAM/VPC 설계를 작성한다.",
-      "assets": "영속 상태·검토·감사 설계, 트랜잭션 실패 기록, 권한 매핑, 위협 모델, 큐·저장소·네트워크 선택표",
-      "gate": "감사 저장 실패 시 업무 상태도 롤백되며 중복·동시 검토가 잘못 승인되지 않는다. 교차 tenant·viewer 승인·주입된 도구 호출을 거부한다.",
+      "book": "8.1–8.10 전체: 에이전트(agent) 수·조율·A2A·메시지 브로커(message broker)·액터(actor)·워크플로 엔진(workflow engine)·상태/영속성(persistence). 12.1–12.6 전체: 에이전트 위험·공격·모델 보안(security)·레드팀(red teaming)·MAESTRO·데이터 보호·보호 장치. 한 에이전트 기준선을 먼저 유지한다.",
+      "bookLab": "PostgreSQL의 사례 상태·검토·감사(audit)를 한 트랜잭션(transaction)으로 저장하고 실패·동시 갱신을 검증한다. 인증(authentication)된 tenant/role로 검색·조회·검토를 제한한다. 도구 접근 위협 모델(threat model)을 그리고 클라우드 IAM/VPC 설계를 작성한다.",
+      "assets": "영속 상태(persistent state)·검토·감사(audit) 설계, 트랜잭션(transaction) 실패 기록, 권한(permissions) 매핑, 위협 모델(threat model), 큐·저장소·네트워크(network) 선택표",
+      "gate": "감사(audit) 저장 실패 시 업무 상태도 롤백(rollback)되며 중복·동시 검토가 잘못 승인되지 않는다. 교차 tenant·viewer 승인·주입된 도구 호출을 거부한다.",
       "videos": [
         2,
         6
@@ -667,42 +667,42 @@
       "videoHours": 1,
       "lessons": [
         [
-          "Transaction·ACID — 트랜잭션과 일관된 갱신",
-          "transaction(트랜잭션)은 함께 성공하거나 함께 실패해야 하는 업무 변경의 경계다. ACID는 Atomicity(원자성), Consistency(일관성), Isolation(격리성), Durability(지속성)이다. 격리 수준·조건부 갱신·제약은 동시 요청의 결과에 영향을 준다. 한 DB의 원자성이 외부 API나 메시지 발행까지 자동으로 확장되지는 않는다.",
-          "검토 결정과 감사 기록을 한 트랜잭션으로 저장한다. 감사 삽입 실패가 나면 사례 상태만 승인으로 남아서는 안 된다. 오래된 case_version으로 결정하면 충돌을 반환한다.",
+          "Transaction·ACID — 트랜잭션(transaction)과 일관된 갱신",
+          "transaction(트랜잭션)은 함께 성공하거나 함께 실패해야 하는 업무 변경의 경계다. ACID는 Atomicity(원자성), Consistency(일관성), Isolation(격리성), Durability(지속성)이다. 격리 수준(isolation level)·조건부 갱신(conditional update)·제약은 동시 요청의 결과에 영향을 준다. 한 DB의 원자성(atomicity)이 외부 API나 메시지 발행까지 자동으로 확장되지는 않는다.",
+          "검토 결정과 감사 기록(audit log)을 한 트랜잭션(transaction)으로 저장한다. 감사(audit) 삽입 실패가 나면 사례 상태만 승인으로 남아서는 안 된다. 오래된 case_version으로 결정하면 충돌을 반환한다.",
           "쉬운코드 영상에서 개념·ACID를 보고 SQL/Java 문법 기초는 생략한다. 실제 PostgreSQL에서 실패 주입·동시 검토·재시작 후 조회를 검증한다."
         ],
         [
-          "Queue·Cache·Outbox — 큐·캐시·발행 기록",
-          "message broker(메시지 브로커)는 작업이나 이벤트 전달을 중개한다. worker(워커)는 전달된 작업을 수행한다. Redis는 캐시 등에 쓰이는 저장소 제품이고 SQS·RabbitMQ·Kafka는 서로 다른 운영·전달 모델을 가진 제품이다. 모든 제품을 구현하지 않고 지속성·순서·중복·지연·운영 부담으로 하나를 선택한다. outbox(발행 기록 패턴)는 DB 변경과 발행할 이벤트를 함께 기록한 뒤 전달을 수행하는 방식이다.",
-          "접수 상태만 DB에 저장하고 메시지 전송이 실패하면 작업이 사라질 수 있다. 중복 전달도 고려해 워커의 업무 효과를 멱등하게 만든다.",
-          "내구성 요구와 로컬 시연 범위를 적고 DB 작업 기록/브로커 중 하나를 선택한다. 캐시 키에 tenant·정책 버전을 넣고 만료·무효화를 설명한다."
+          "Queue·Cache·Outbox — 큐·캐시(cache)·발행 기록",
+          "message broker(메시지 브로커)는 작업이나 이벤트(event) 전달을 중개한다. worker(워커)는 전달된 작업을 수행한다. Redis는 캐시(cache) 등에 쓰이는 저장소 제품이고 SQS·RabbitMQ·Kafka는 서로 다른 운영·전달 모델을 가진 제품이다. 모든 제품을 구현하지 않고 지속성(durability)·순서·중복·지연(latency)·운영 부담으로 하나를 선택한다. outbox(발행 기록 패턴)는 DB 변경과 발행할 이벤트를 함께 기록한 뒤 전달을 수행하는 방식이다.",
+          "접수 상태만 DB에 저장하고 메시지 전송이 실패하면 작업이 사라질 수 있다. 중복 전달도 고려해 워커의 업무 효과를 멱등하게(idempotently) 만든다.",
+          "내구성 요구와 로컬 시연 범위를 적고 DB 작업 기록/브로커 중 하나를 선택한다. 캐시(cache) 키에 tenant·정책 버전을 넣고 만료·무효화를 설명한다."
         ],
         [
-          "Identity·IAM·RBAC — 신원과 권한",
-          "IAM, Identity and Access Management(신원·접근 관리)는 리소스 권한을 관리한다. RBAC, Role-Based Access Control(역할 기반 접근 제어)은 역할별 허용 행동을 정한다. authentication(인증)은 신원 확인, authorization(인가)은 해당 행동의 허용 여부다. SSO, Single Sign-On(통합 로그인)과 OAuth/OIDC는 기업 신원 통합을 위한 선택 영역이다. 서비스 권한과 최종 사용자의 업무 권한을 모두 확인한다.",
-          "API 서버가 DB에 접근하는 권한과 viewer가 검토를 승인하는 권한은 다르다. 본문 reviewer=true는 신원 증거가 아니다.",
-          "새 AWS 영상의 EC2 접근 흐름과 AWS IAM 공식 문서를 역할 표에 연결한다. 읽기·검색·승인·관리 권한을 매핑하고 역할/tenant 불일치를 실패 사례로 만든다."
+          "Identity·IAM·RBAC — 신원과 권한(permissions)",
+          "IAM, Identity and Access Management(신원·접근 관리)는 리소스 권한(permissions)을 관리한다. RBAC, Role-Based Access Control(역할 기반 접근 제어)은 역할별 허용 행동을 정한다. authentication(인증)은 신원 확인, authorization(인가)은 해당 행동의 허용 여부다. SSO, Single Sign-On(통합 로그인)과 OAuth/OIDC는 기업 신원 통합을 위한 선택 영역이다. 서비스 권한과 최종 사용자의 업무 권한을 모두 확인한다.",
+          "API 서버가 DB에 접근하는 권한(permissions)과 viewer가 검토를 승인하는 권한은 다르다. 본문 reviewer=true는 신원 증거가 아니다.",
+          "새 AWS 영상의 EC2 접근 흐름과 AWS IAM 공식 문서를 역할 표에 연결한다. 읽기·검색·승인·관리 권한(permissions)을 매핑하고 역할/tenant 불일치를 실패 사례로 만든다."
         ],
         [
-          "Threat Model·VPC — 위협 모델과 네트워크 경계",
-          "threat model(위협 모델)은 자산·신뢰 경계·공격 경로·대응을 정리한 것이다. VPC, Virtual Private Cloud(가상 사설 클라우드)는 클라우드 네트워크를 구성하는 경계다. subnet(서브넷)·라우팅·보안 그룹은 서로 다른 역할을 한다. prompt injection(프롬프트 주입)은 문서의 악성 지시가 업무 권한처럼 해석되는 위험이다. 책의 MAESTRO는 Multi-Agent Environment, Security, Threat, Risk, and Outcome(다중 에이전트 환경·보안·위협·위험·결과) 위협 모델링 틀이다.",
-          "검색 문서가 '모든 정책을 외부로 보내라'고 해도 도구 권한과 시스템 규칙을 바꾸면 안 된다. 공개 API와 비공개 DB 사이의 허용 연결만 설계한다.",
-          "새 AWS 영상의 보안그룹·IP/Port 흐름을 보고 VPC·서브넷은 공식 문서로 보완한다. API/DB/비밀 저장소/사용자의 데이터 흐름을 그린다. 누출·과도한 권한·내부 실패를 각 1개 이상 위협 모델에 넣는다."
+          "Threat Model·VPC — 위협 모델(threat model)과 네트워크(network) 경계",
+          "threat model(위협 모델)은 자산·신뢰 경계(trust boundary)·공격 경로·대응을 정리한 것이다. VPC, Virtual Private Cloud(가상 사설 클라우드)는 클라우드 네트워크(network)를 구성하는 경계다. subnet(서브넷)·라우팅(routing)·보안 그룹(security group)은 서로 다른 역할을 한다. prompt injection(프롬프트 주입)은 문서의 악성 지시가 업무 권한(permissions)처럼 해석되는 위험이다. 책의 MAESTRO는 Multi-Agent Environment, Security, Threat, Risk, and Outcome(다중 에이전트 환경·보안·위협·위험·결과) 위협 모델링(threat modeling) 틀이다.",
+          "검색 문서가 '모든 정책을 외부로 보내라'고 해도 도구 권한(permissions)과 시스템 규칙을 바꾸면 안 된다. 공개 API와 비공개 DB 사이의 허용 연결만 설계한다.",
+          "새 AWS 영상의 보안그룹(security group)·IP/Port 흐름을 보고 VPC·서브넷(subnet)은 공식 문서로 보완한다. API/DB/비밀 저장소/사용자의 데이터 흐름을 그린다. 누출·과도한 권한(permissions)·내부 실패를 각 1개 이상 위협 모델(threat model)에 넣는다."
         ]
       ],
       "quiz": [
         [
-          "DB 트랜잭션으로 외부 API 쓰기도 자동 롤백되는가?",
+          "DB 트랜잭션(transaction)으로 외부 API 쓰기도 자동 롤백(rollback)되는가?",
           "한 DB 경계를 넘는 부작용에는 별도 발행 기록·보상·조정이 필요하다."
         ],
         [
           "비동기 작업이 한 번만 전달된다고 가정해도 되는가?",
-          "선택 시스템의 전달 보장을 확인하고 중복 처리와 실패 복원을 설계한다."
+          "선택 시스템의 전달 보장을 확인하고 중복 처리와 실패 복원(restore)을 설계한다."
         ],
         [
-          "viewer=true 같은 본문 필드를 권한으로 사용해도 되는가?",
-          "서버가 검증한 신원과 역할을 권한 판단에 사용한다."
+          "viewer=true 같은 본문 필드를 권한(permissions)으로 사용해도 되는가?",
+          "서버가 검증한 신원과 역할을 권한(permissions) 판단에 사용한다."
         ]
       ],
       "start": "2026-10-30",
@@ -720,21 +720,21 @@
         {
           "title": "책 8·12장 읽기·설계/개념 노트",
           "hours": 6,
-          "ac": "8.1–8.10 전체: 에이전트 수·조율·A2A·메시지 브로커·액터·워크플로 엔진·상태/영속성. 12.1–12.6 전체: 에이전트 위험·공격·모델 보안·레드팀·MAESTRO·데이터 보호·보호 장치. 한 에이전트 기준선을 먼저 유지한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
+          "ac": "8.1–8.10 전체: 에이전트(agent) 수·조율·A2A·메시지 브로커(message broker)·액터(actor)·워크플로 엔진(workflow engine)·상태/영속성(persistence). 12.1–12.6 전체: 에이전트 위험·공격·모델 보안(security)·레드팀(red teaming)·MAESTRO·데이터 보호·보호 장치. 한 에이전트 기준선을 먼저 유지한다. 산출물(deliverables): 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
           "id": "W5.1",
           "dependsOn": "W4"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
-          "ac": "PostgreSQL의 사례 상태·검토·감사를 한 트랜잭션으로 저장하고 실패·동시 갱신을 검증한다. 인증된 tenant/role로 검색·조회·검토를 제한한다. 도구 접근 위협 모델을 그리고 클라우드 IAM/VPC 설계를 작성한다. 산출물: 정상/실패 expected/actual·raw 결과.",
+          "ac": "PostgreSQL의 사례 상태·검토·감사(audit)를 한 트랜잭션(transaction)으로 저장하고 실패·동시 갱신을 검증한다. 인증(authentication)된 tenant/role로 검색·조회·검토를 제한한다. 도구 접근 위협 모델(threat model)을 그리고 클라우드 IAM/VPC 설계를 작성한다. 산출물(deliverables): 정상/실패 expected/actual·raw 결과.",
           "id": "W5.2",
           "dependsOn": "W5.1"
         },
         {
           "title": "영상·SA 보충 실습 — 멀티 에이전트·영속 상태·트랜잭션·보안",
           "hours": 8,
-          "ac": "승인 영상 배정 1h + 연결 실습 7h. 영속 상태·검토·감사 설계, 트랜잭션 실패 기록, 권한 매핑, 위협 모델, 큐·저장소·네트워크 선택표. 감사 저장 실패 시 업무 상태도 롤백되며 중복·동시 검토가 잘못 승인되지 않는다. 교차 tenant·viewer 승인·주입된 도구 호출을 거부한다.",
+          "ac": "승인 영상 배정 1h + 연결 실습 7h. 영속 상태(persistent state)·검토·감사(audit) 설계, 트랜잭션(transaction) 실패 기록, 권한(permissions) 매핑, 위협 모델(threat model), 큐·저장소·네트워크(network) 선택표. 감사 저장 실패 시 업무 상태도 롤백(rollback)되며 중복·동시 검토가 잘못 승인되지 않는다. 교차 tenant·viewer 승인·주입된 도구 호출을 거부한다.",
           "id": "W5.3",
           "dependsOn": "W5.2"
         },
@@ -752,21 +752,21 @@
           "select": [
             0
           ],
-          "scope": "트랜잭션·ACID 개념(약 25분). SQL 문법과 Java/Spring 문법 학습은 제외한다.",
+          "scope": "트랜잭션(transaction)·ACID 개념(약 25분). SQL 문법과 Java/Spring 문법 학습은 제외한다.",
           "after": "8.9 상태와 영속성 관리",
-          "practice": "승인 상태 변경과 감사 기록을 같은 트랜잭션으로 묶고 감사 실패를 주입한다. 모두 롤백되는지, 중복/동시 승인에 충돌 처리가 있는지 확인한다."
+          "practice": "승인 상태 변경과 감사 기록(audit log)을 같은 트랜잭션(transaction)으로 묶고 감사(audit) 실패를 주입한다. 모두 롤백(rollback)되는지, 중복/동시 승인에 충돌 처리가 있는지 확인한다."
         },
         {
           "r": 6,
           "select": [
             0
           ],
-          "scope": "EC2·리전·보안그룹·IP/Port 선택 시청·메모 35분. 전체 완강 시간이 아님.",
+          "scope": "EC2·리전(region)·보안그룹(security group)·IP/Port 선택 시청·메모 35분. 전체 완강 시간이 아님.",
           "after": "12장 위협·데이터 보호·에이전트 권한",
-          "practice": "공개 API/비공개 DB·포트 허용/거부 표, AWS IAM 역할과 앱 role/tenant 표. FastAPI/Compose로 배포 개념 적용."
+          "practice": "공개 API/비공개 DB·포트(port) 허용/거부 표, AWS IAM 역할과 앱 role/tenant 표. FastAPI/Compose로 배포(deployment) 개념 적용."
         }
       ],
-      "videoText": "### 영상 1. Transactions · 학습 묶음 2\n\n**보는 시점:** 8.9 상태와 영속성 관리 다음.\n\n- [BJ.42 데이터베이스 트랜잭션과 ACID](https://www.youtube.com/watch?v=sLJ8ypeHGlM) — 쉬운코드, 한국어 수업.\n\n**볼 범위:** 트랜잭션·ACID 개념(약 25분). SQL 문법과 Java/Spring 문법 학습은 제외한다.\n\n**시청 직후 실습:** 승인 상태 변경과 감사 기록을 같은 트랜잭션으로 묶고 감사 실패를 주입한다. 모두 롤백되는지, 중복/동시 승인에 충돌 처리가 있는지 확인한다.\n\n### 영상 2. AWS 입문/실전 · 학습 묶음 6\n\n**보는 시점:** 12장 위협·데이터 보호·에이전트 권한 다음.\n\n- [사용자 지정 AWS 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3) — JSCODE 박재성, 한국어 수업.\n- [비전공자도 이해할 수 있는 AWS 입문/실전 재생목록](https://www.youtube.com/playlist?list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3) · [강사 공개 수업 자료](https://jscode.notion.site/2a38dc67ca1448f7ab350e40b89abd5a).\n\n**볼 범위:** 지정 영상부터 EC2·리전·보안그룹·IP/Port 부분을 선택해 시청·메모한다. AWS 배정 35분이며 전체 재생목록 완강 시간으로 해석하지 않는다. 공개 영상에서 찾지 못한 부분과 VPC·IAM은 교안/AWS 공식 문서로 보완한다.\n\n**시청 직후 실습:** 공개 API/비공개 DB 네트워크와 포트 허용/거부 표, AWS IAM 역할과 앱 role/tenant 권한표를 그린다. Express/Spring 예제는 기존 FastAPI/Compose의 서버·포트·프로세스 개념으로 옮긴다. IAM·비밀 관리·저장소/컴퓨팅 선택 이유를 적는다.\n\n**다음 연결:** W6 비용·자원 정리 → W7 FastAPI/Compose 로컬 배포·복구 → W8 플랫폼 선택 ADR. 실제 AWS 배포는 선택 심화다. [AWS 영상 학습·개념·완료 기준](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/aws-learning.md).\n",
+      "videoText": "### 영상 1. Transactions · 학습 묶음 2\n\n**보는 시점:** 8.9 상태와 영속성(persistence) 관리 다음.\n\n- [BJ.42 데이터베이스 트랜잭션과 ACID](https://www.youtube.com/watch?v=sLJ8ypeHGlM) — 쉬운코드, 한국어 수업.\n\n**볼 범위:** 트랜잭션(transaction)·ACID 개념(약 25분). SQL 문법과 Java/Spring 문법 학습은 제외한다.\n\n**시청 직후 실습:** 승인 상태 변경과 감사 기록(audit log)을 같은 트랜잭션으로 묶고 감사(audit) 실패를 주입한다. 모두 롤백(rollback)되는지, 중복/동시 승인에 충돌 처리가 있는지 확인한다.\n\n### 영상 2. AWS 입문/실전 · 학습 묶음 6\n\n**보는 시점:** 12장 위협·데이터 보호·에이전트(agent) 권한(permissions) 다음.\n\n- [사용자 지정 AWS 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3) — JSCODE 박재성, 한국어 수업.\n- [비전공자도 이해할 수 있는 AWS 입문/실전 재생목록](https://www.youtube.com/playlist?list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3) · [강사 공개 수업 자료](https://jscode.notion.site/2a38dc67ca1448f7ab350e40b89abd5a).\n\n**볼 범위:** 지정 영상부터 EC2·리전(region)·보안그룹(security group)·IP/Port 부분을 선택해 시청·메모한다. AWS 배정 35분이며 전체 재생목록 완강 시간으로 해석하지 않는다. 공개 영상에서 찾지 못한 부분과 VPC·IAM은 교안/AWS 공식 문서로 보완한다.\n\n**시청 직후 실습:** 공개 API/비공개 DB 네트워크(network)와 포트(port) 허용/거부 표, AWS IAM 역할과 앱 role/tenant 권한표를 그린다. Express/Spring 예제는 기존 FastAPI/Compose의 서버·포트·프로세스 개념으로 옮긴다. IAM·비밀 관리(secrets management)·저장소/컴퓨팅(compute) 선택 이유를 적는다.\n\n**다음 연결:** W6 비용·자원 정리(resource cleanup) → W7 FastAPI/Compose 로컬 배포(deployment)·복구(recovery) → W8 플랫폼 선택 ADR. 실제 AWS 배포는 선택 심화다. [AWS 영상 학습·개념·완료 기준](https://github.com/realrho/Enterprise-AI-Knowledge-Risk-Copilot/blob/main/docs/aws-learning.md).\n",
       "sources": [
         [
           "트랜잭션",
@@ -785,8 +785,8 @@
         7,
         11
       ],
-      "book": "7.1–7.3 전체: 비모수적 예시·Reflexion·경험 학습, 파인튜닝·소형 모델·SFT·DPO·RLVR. 11.1–11.4 전체: 피드백 파이프라인·사람 리뷰·프롬프트/도구 개선·실험·지속 학습. 2.3·2.7의 모델 선택과 비용도 복습한다.",
-      "bookLab": "dev 세트에서 프롬프트/검색/도구 중 변수 하나를 바꾸고 기준선과 비교한다. 개선 후보는 버전·품질·지연·실패·비용을 기록한다. 가상의 비용 모델과 실제 사용량을 분리한다. Terraform은 로컬 파일 리소스로 plan/state 차이를 확인한다.",
+      "book": "7.1–7.3 전체: 비모수적 예시·Reflexion·경험 학습, 파인튜닝·소형 모델·SFT·DPO·RLVR. 11.1–11.4 전체: 피드백 파이프라인·사람 리뷰·프롬프트(prompt)/도구 개선·실험·지속 학습. 2.3·2.7의 모델 선택과 비용도 복습한다.",
+      "bookLab": "dev 세트에서 프롬프트(prompt)/검색/도구 중 변수 하나를 바꾸고 기준선과 비교한다. 개선 후보는 버전·품질·지연(latency)·실패·비용을 기록한다. 가상의 비용 모델과 실제 사용량을 분리한다. Terraform은 로컬 파일 리소스로 plan/state 차이를 확인한다.",
       "assets": "실험 기록, 피드백 우선순위, 모델/운영 비용표, Terraform 계획·상태 기록, 개선 승인 조건",
       "gate": "최종 holdout을 튜닝에 사용하지 않으며 개선 이득과 추가 비용을 함께 설명한다. 파인튜닝 읽기와 실제 학습 실행을 구분한다.",
       "videos": [
@@ -799,38 +799,38 @@
           "SFT·DPO·RLVR — 학습 선택의 목적",
           "SFT, Supervised Fine-Tuning(지도 파인튜닝)은 예시 입력과 원하는 출력으로 모델을 조정한다. DPO, Direct Preference Optimization(직접 선호 최적화)은 선호된/비선호된 응답 쌍을 사용한다. RLVR, Reinforcement Learning with Verifiable Rewards(검증 가능한 보상을 이용한 강화학습)는 검사 가능한 결과에 보상을 준다. in-context learning(문맥 내 학습)은 호출에 예시를 넣는 방식이며 모델 가중치를 바꾸지 않는다.",
           "현재 정책 버전이 자주 바뀌는 지식 문제는 검색 개선이 먼저일 수 있다. 출력 스타일 문제와 정보 부족을 같은 파인튜닝 과제로 묶지 않는다.",
-          "문제 유형·데이터·평가·예산·운영 부담으로 네 접근을 비교한다. 고비용 학습은 선택이며 실행하지 않은 결과는 미실행으로 기록한다."
+          "문제 유형·데이터·평가(evaluation)·예산·운영 부담으로 네 접근을 비교한다. 고비용 학습은 선택이며 실행하지 않은 결과는 미실행으로 기록한다."
         ],
         [
           "Feedback·Experiment — 피드백과 통제된 실험",
           "feedback pipeline(피드백 파이프라인)은 실패·사용자 수정·검토 결과를 개선 후보로 연결한다. A/B test(A/B 시험)는 다른 조건을 비교하지만 요청 구성·사용자 차이·표본 크기를 고려해야 한다. shadow mode(그림자 실행)는 실제 결정에 영향을 주지 않도록 새 경로를 비교한다. 한 번에 여러 변수를 바꾸면 개선 원인을 설명하기 어렵다.",
-          "답변 오류를 모두 프롬프트 탓으로 돌리지 않고 검색 누락·버전·권한·도구 실패·모델 해석으로 분류한다.",
+          "답변 오류를 모두 프롬프트(prompt) 탓으로 돌리지 않고 검색 누락·버전·권한(permissions)·도구 실패·모델 해석으로 분류한다.",
           "기준선과 한 변수만 바꾼 실험을 dev20에서 실행한다. 개선·회귀·비용을 적고 적용/보류 이유를 남긴다."
         ],
         [
           "TCO·Unit Cost — 총비용과 업무 효과",
-          "TCO, Total Cost of Ownership(총소유비용)는 모델 호출뿐 아니라 컴퓨팅·저장소·네트워크·관측·운영 인력·사람 검토 비용을 포함한다. unit cost(단위 비용)는 성공 요청 또는 완료 업무당 비용처럼 분모를 명확히 정한다. ROI, Return on Investment(투자수익률)는 비용과 편익을 가정·기간과 함께 비교한다. 이론 요금 계산과 실제 청구/측정은 구분한다.",
-          "싼 모델이 검토 요청을 많이 만들어 전체 운영비가 커질 수 있다. timeout·재시도·실패 호출의 비용도 포함한다.",
-          "영상 10의 비용 세션을 보고 요청량·토큰·재시도·검토율을 바꾼 3개 시나리오를 계산한다. 요금은 사용 시점의 공식 가격을 확인한다."
+          "TCO, Total Cost of Ownership(총소유비용)는 모델 호출뿐 아니라 컴퓨팅(compute)·저장소·네트워크(network)·관측·운영 인력·사람 검토(human review) 비용을 포함한다. unit cost(단위 비용)는 성공 요청 또는 완료 업무당 비용처럼 분모를 명확히 정한다. ROI, Return on Investment(투자수익률)는 비용과 편익을 가정·기간과 함께 비교한다. 이론 요금 계산과 실제 청구/측정은 구분한다.",
+          "싼 모델이 검토 요청을 많이 만들어 전체 운영비가 커질 수 있다. timeout·재시도(retry)·실패 호출의 비용도 포함한다.",
+          "영상 10의 비용 세션을 보고 요청량·토큰(token)·재시도(retry)·검토율을 바꾼 3개 시나리오를 계산한다. 요금은 사용 시점의 공식 가격을 확인한다."
         ],
         [
           "IaC·Terraform State — 인프라 코드와 상태",
-          "IaC, Infrastructure as Code(코드로 관리하는 인프라)는 설정과 변경을 재현·검토할 수 있게 표현한다. Terraform은 이 작업을 수행하는 제품 이름이다. configuration(설정), plan(변경 계획), state(관리 상태)는 서로 다른 자료다. state에 비밀 값이 남을 수 있으므로 저장 위치·접근 권한·잠금·백업을 설계한다. plan만 만들었다고 인프라가 배포된 것은 아니다.",
-          "로컬 파일 리소스로 init→plan→apply 후 다시 plan을 실행해 변경이 없음을 확인할 수 있다. 실제 AWS 생성은 비용·권한 조건이 있는 별도 선택 실습이다.",
+          "IaC, Infrastructure as Code(코드로 관리하는 인프라)는 설정과 변경을 재현·검토할 수 있게 표현한다. Terraform은 이 작업을 수행하는 제품 이름이다. configuration(설정), plan(변경 계획), state(관리 상태)는 서로 다른 자료다. state에 비밀 값이 남을 수 있으므로 저장 위치·접근 권한(permissions)·잠금·백업(backup)을 설계한다. plan만 만들었다고 인프라가 배포(deployment)된 것은 아니다.",
+          "로컬 파일 리소스로 init→plan→apply 후 다시 plan을 실행해 변경이 없음을 확인할 수 있다. 실제 AWS 생성은 비용·권한(permissions) 조건이 있는 별도 선택 실습이다.",
           "영상 8과 공식 문서로 로컬 예제를 실행한다. 변경 전후 계획·상태·재현 결과를 저장하되 민감 값은 기록에서 제외한다."
         ]
       ],
       "quiz": [
         [
           "RAG와 파인튜닝은 같은 문제를 해결하는가?",
-          "변하는 지식 검색과 모델 행동 조정은 목적이 다르다. 문제·평가·데이터로 선택한다."
+          "변하는 지식 검색과 모델 행동 조정은 목적이 다르다. 문제·평가(evaluation)·데이터로 선택한다."
         ],
         [
           "호출당 요금만으로 가장 경제적인 모델을 선택할 수 있는가?",
-          "성공률·재시도·검토율·인프라·운영 인력을 포함한 업무당 총비용을 비교한다."
+          "성공률·재시도(retry)·검토율·인프라·운영 인력을 포함한 업무당 총비용을 비교한다."
         ],
         [
-          "Terraform plan 결과는 배포 증거인가?",
+          "Terraform plan 결과는 배포(deployment) 증거인가?",
           "예정 변경의 설명이다. apply 후 실제 상태와 결과를 별도로 확인한다."
         ]
       ],
@@ -849,14 +849,14 @@
         {
           "title": "책 7·11장 읽기·설계/개념 노트",
           "hours": 6,
-          "ac": "7.1–7.3 전체: 비모수적 예시·Reflexion·경험 학습, 파인튜닝·소형 모델·SFT·DPO·RLVR. 11.1–11.4 전체: 피드백 파이프라인·사람 리뷰·프롬프트/도구 개선·실험·지속 학습. 2.3·2.7의 모델 선택과 비용도 복습한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
+          "ac": "7.1–7.3 전체: 비모수적 예시·Reflexion·경험 학습, 파인튜닝·소형 모델·SFT·DPO·RLVR. 11.1–11.4 전체: 피드백 파이프라인·사람 리뷰·프롬프트(prompt)/도구 개선·실험·지속 학습. 2.3·2.7의 모델 선택과 비용도 복습한다. 산출물(deliverables): 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
           "id": "W6.1",
           "dependsOn": "W5"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
-          "ac": "dev 세트에서 프롬프트/검색/도구 중 변수 하나를 바꾸고 기준선과 비교한다. 개선 후보는 버전·품질·지연·실패·비용을 기록한다. 가상의 비용 모델과 실제 사용량을 분리한다. Terraform은 로컬 파일 리소스로 plan/state 차이를 확인한다. 산출물: 정상/실패 expected/actual·raw 결과.",
+          "ac": "dev 세트에서 프롬프트(prompt)/검색/도구 중 변수 하나를 바꾸고 기준선과 비교한다. 개선 후보는 버전·품질·지연(latency)·실패·비용을 기록한다. 가상의 비용 모델과 실제 사용량을 분리한다. Terraform은 로컬 파일 리소스로 plan/state 차이를 확인한다. 산출물(deliverables): 정상/실패 expected/actual·raw 결과.",
           "id": "W6.2",
           "dependsOn": "W6.1"
         },
@@ -892,10 +892,10 @@
           ],
           "scope": "AWS 비용 최적화 소개 약 25분. 영상의 과거 가격은 현재 단가로 쓰지 않는다.",
           "after": "2.7 비용 트레이드오프 재독·11장 실험",
-          "practice": "월 요청수·토큰·검색/DB·저장·운영 인건비·검토 비율을 변수로 TCO 및 성공 요청당 비용을 산정한다."
+          "practice": "월 요청수·토큰(token)·검색/DB·저장·운영 인건비·검토 비율을 변수로 TCO 및 성공 요청당 비용을 산정한다."
         }
       ],
-      "videoText": "### 영상 1. IaC Terraform · 학습 묶음 8\n\n**보는 시점:** 11장 개선·변경 관리와 비용 계획 다음.\n\n- [Terraform/IaC introductory guide](https://www.youtube.com/watch?v=3qSpwqckvXQ) — 데브아트 DevArt, 한국어 수업.\n\n**볼 범위:** Terraform·IaC 소개 약 15분 후 공식 CLI 문서의 init/validate/plan/state를 읽는다.\n\n**시청 직후 실습:** 로컬 파일 리소스로 상태/변경 계획을 확인한다. 클라우드 적용은 필수가 아니며 state와 비밀을 저장소에 커밋하지 않는다.\n\n### 영상 2. SA design review and cost · 학습 묶음 10\n\n**보는 시점:** 2.7 비용 트레이드오프 재독·11장 실험 다음.\n\n- [비용 최적화를 통해 AWS 비용 알뜰하게 관리하기](https://www.youtube.com/watch?v=IqD_8q0TaC0) — Amazon Web Services Korea, 한국어 수업.\n\n**볼 범위:** AWS 비용 최적화 소개 약 25분. 영상의 과거 가격은 현재 단가로 쓰지 않는다.\n\n**시청 직후 실습:** 월 요청수·토큰·검색/DB·저장·운영 인건비·검토 비율을 변수로 TCO 및 성공 요청당 비용을 산정한다.\n",
+      "videoText": "### 영상 1. IaC Terraform · 학습 묶음 8\n\n**보는 시점:** 11장 개선·변경 관리와 비용 계획 다음.\n\n- [Terraform/IaC introductory guide](https://www.youtube.com/watch?v=3qSpwqckvXQ) — 데브아트 DevArt, 한국어 수업.\n\n**볼 범위:** Terraform·IaC 소개 약 15분 후 공식 CLI 문서의 init/validate/plan/state를 읽는다.\n\n**시청 직후 실습:** 로컬 파일 리소스로 상태/변경 계획을 확인한다. 클라우드 적용은 필수가 아니며 state와 비밀을 저장소에 커밋하지 않는다.\n\n### 영상 2. SA design review and cost · 학습 묶음 10\n\n**보는 시점:** 2.7 비용 트레이드오프(trade-off) 재독·11장 실험 다음.\n\n- [비용 최적화를 통해 AWS 비용 알뜰하게 관리하기](https://www.youtube.com/watch?v=IqD_8q0TaC0) — Amazon Web Services Korea, 한국어 수업.\n\n**볼 범위:** AWS 비용 최적화 소개 약 25분. 영상의 과거 가격은 현재 단가로 쓰지 않는다.\n\n**시청 직후 실습:** 월 요청수·토큰(token)·검색/DB·저장·운영 인건비·검토 비율을 변수로 TCO 및 성공 요청당 비용을 산정한다.\n",
       "sources": [
         [
           "Terraform 실행",
@@ -910,7 +910,7 @@
           "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html"
         ]
       ],
-      "awsConnection": "**AWS 연결 실습:** W5에서 본 사용자 지정 AWS 영상의 비용 정리 교안을 기존 비용 실습 시간에 복습한다. EC2·디스크·공인 IPv4·도메인 관련 자원의 사용량과 현재 단가 확인일, 정리 후 남은 자원 확인 절차를 비용표에 추가한다. 새 필수 영상 시간이나 클라우드 apply는 추가하지 않는다."
+      "awsConnection": "**AWS 연결 실습:** W5에서 본 사용자 지정 AWS 영상의 비용 정리 교안을 기존 비용 실습 시간에 복습한다. EC2·디스크(disk)·공인 IPv4(public IPv4)·도메인(domain) 관련 자원의 사용량과 현재 단가 확인일, 정리 후 남은 자원 확인 절차를 비용표에 추가한다. 새 필수 영상 시간이나 클라우드 apply는 추가하지 않는다."
     },
     {
       "week": 7,
@@ -918,10 +918,10 @@
       "chapters": [
         10
       ],
-      "book": "10.1–10.10 전체: 모니터링 스택 선택·OpenTelemetry 계측·시각화/알림·섀도/카나리·회귀 트레이스·자가 치유·피드백·분포 변화·지표 소유권. 9.4 배포 준비와 8.9 상태/영속성도 복습한다.",
-      "bookLab": "Dockerfile과 Compose로 앱/DB를 재현 기동한다. 관측 필드·트레이스를 연결하고 DB 재시작/별도 백업 복원을 확인한다. 로컬 Kubernetes에서 API Deployment·Service·설정·probes·자원 제한·롤백을 실습한다. CI는 테스트·이미지 빌드 한 경로를 만든다.",
-      "assets": "Dockerfile·Compose, 로컬 Kubernetes 설정/배포 기록, CI workflow, 구조화 로그·트레이스, 백업/복구 runbook",
-      "gate": "같은 버전으로 재현 기동하고 readiness/liveness를 구분한다. 로컬 배포·롤백·상태 확인과 DB 백업 복원 증거가 있으며 비밀 값이 Git/로그에 없다.",
+      "book": "10.1–10.10 전체: 모니터링(monitoring) 스택 선택·OpenTelemetry 계측(instrumentation)·시각화/알림·섀도/카나리·회귀 트레이스(trace)·자가 치유·피드백·분포 변화·지표 소유권. 9.4 배포(deployment) 준비와 8.9 상태/영속성(persistence)도 복습한다.",
+      "bookLab": "Dockerfile과 Compose로 앱/DB를 재현 기동한다. 관측 필드·트레이스(trace)를 연결하고 DB 재시작/별도 백업(backup) 복원(restore)을 확인한다. 로컬 Kubernetes에서 API Deployment·Service·설정·probes·자원 제한·롤백(rollback)을 실습한다. CI는 테스트·이미지 빌드 한 경로를 만든다.",
+      "assets": "Dockerfile·Compose, 로컬 Kubernetes 설정/배포(deployment) 기록, CI workflow, 구조화 로그(structured logs)·트레이스(trace), 백업(backup)/복구(recovery) runbook",
+      "gate": "같은 버전으로 재현 기동하고 readiness/liveness를 구분한다. 로컬 배포(deployment)·롤백(rollback)·상태 확인과 DB 백업(backup) 복원(restore) 증거가 있으며 비밀 값이 Git/로그에 없다.",
       "videos": [
         4,
         5,
@@ -931,27 +931,27 @@
       "lessons": [
         [
           "Dockerfile·Compose — 이미지 제작과 서비스 묶음",
-          "Dockerfile은 이미지를 만들 절차, Compose는 여러 서비스·네트워크·볼륨의 구성을 선언한다. build-time(빌드 시점)과 runtime(실행 시점)의 설정을 구분한다. 비밀정보를 이미지 층이나 Git에 넣지 않고 검증한 의존성·이미지 버전을 기록한다. DB 볼륨이 남는 것과 독립 백업에서 복원되는 것은 다른 검증이다.",
-          "API와 DB를 별도 서비스로 만들고 DB 준비 실패를 관측한다. 컨테이너 생성 순서만으로 DB 준비가 끝났다고 가정하지 않는다.",
+          "Dockerfile은 이미지를 만들 절차, Compose는 여러 서비스·네트워크(network)·볼륨(volume)의 구성을 선언한다. build-time(빌드 시점)과 runtime(실행 시점)의 설정을 구분한다. 비밀정보를 이미지 층이나 Git에 넣지 않고 검증한 의존성·이미지 버전을 기록한다. DB 볼륨이 남는 것과 독립 백업(backup)에서 복원(restore)되는 것은 다른 검증이다.",
+          "API와 DB를 별도 서비스로 만들고 DB 준비 실패를 관측한다. 컨테이너(container) 생성 순서만으로 DB 준비가 끝났다고 가정하지 않는다.",
           "Dockerfile/build·Compose 영상을 보고 예정 Dockerfile·compose.yaml을 작성한다. 깨끗한 기동·종료·재기동·의존성 실패를 기록한다."
         ],
         [
           "Deployment·Probe·Secret — Kubernetes 운영 경계",
-          "Deployment는 업데이트와 복제 상태를 관리하고 Service는 Pod 교체와 독립된 접근 지점을 제공한다. readiness probe(준비 상태 검사)는 요청 수신 가능 여부, liveness probe(생존 상태 검사)는 재시작 판단, startup probe(시작 검사)는 느린 초기화를 다룬다. requests/limits(요청 자원/제한)는 스케줄링과 자원 사용에 영향을 준다. ConfigMap은 일반 설정, Secret은 민감 값을 위한 자원이다. base64 인코딩 자체는 암호화가 아니다.",
+          "Deployment는 업데이트와 복제 상태를 관리하고 Service는 Pod 교체와 독립된 접근 지점을 제공한다. readiness probe(준비 상태 검사)는 요청 수신 가능 여부, liveness probe(생존 상태 검사)는 재시작 판단, startup probe(시작 검사)는 느린 초기화를 다룬다. requests/limits(요청 자원/제한)는 스케줄링과 자원 사용에 영향을 준다. ConfigMap은 일반 설정, Secret은 민감 값을 위한 자원이다. base64 인코딩 자체는 암호화(encryption)가 아니다.",
           "외부 모델 장애마다 liveness를 실패시키면 재시작 폭풍이 생길 수 있다. readiness 실패와 업무 오류를 구분하고 운영 요구에 맞는 검사 범위를 정한다.",
-          "따배쿠 5-2·5-6·6-3·7-1·10·11을 선별한다. 최신 공식 로컬 환경에서 API Deployment/Service·설정 주입·롤백을 실행한다. 영속 볼륨·RBAC·Ingress/Gateway 선택은 설계표로 보충한다."
+          "따배쿠 5-2·5-6·6-3·7-1·10·11을 선별한다. 최신 공식 로컬 환경에서 API Deployment/Service·설정 주입·롤백(rollback)을 실행한다. 영속 볼륨(volume)·RBAC·Ingress/Gateway 선택은 설계표로 보충한다."
         ],
         [
-          "CI/CD·Release — 검증과 배포 절차",
-          "CI, Continuous Integration(지속적 통합)는 변경마다 자동 검증을 수행한다. CD는 Continuous Delivery(지속적 전달) 또는 Continuous Deployment(지속적 배포)를 뜻하며 승인 방식에 따라 구분한다. GitHub Actions는 실행 자동화 제품이다. 테스트 성공·이미지 빌드·배포·배포 후 확인을 다른 단계로 기록하고 실패하면 다음 단계로 진행하지 않게 한다.",
-          "테스트 통과가 실제 모델 품질이나 복구 성공을 증명하지는 않는다. 비밀 키를 YAML에 쓰지 않고 제한된 실행 권한을 사용한다.",
-          "영상 7 후 공식 문서로 테스트→이미지 빌드 workflow를 만든다. 로컬/검토 환경의 배포 후 상태 확인과 롤백 명령을 작성한다."
+          "CI/CD·Release — 검증과 배포(deployment) 절차",
+          "CI, Continuous Integration(지속적 통합)는 변경마다 자동 검증을 수행한다. CD는 Continuous Delivery(지속적 전달) 또는 Continuous Deployment(지속적 배포)를 뜻하며 승인 방식에 따라 구분한다. GitHub Actions는 실행 자동화 제품이다. 테스트 성공·이미지 빌드·배포(deployment)·배포 후 확인을 다른 단계로 기록하고 실패하면 다음 단계로 진행하지 않게 한다.",
+          "테스트 통과가 실제 모델 품질이나 복구(recovery) 성공을 증명하지는 않는다. 비밀 키를 YAML에 쓰지 않고 제한된 실행 권한(permissions)을 사용한다.",
+          "영상 7 후 공식 문서로 테스트→이미지 빌드 workflow를 만든다. 로컬/검토 환경의 배포(deployment) 후 상태 확인과 롤백(rollback) 명령을 작성한다."
         ],
         [
-          "Observability·Recovery — 관측과 복구 증거",
-          "observability(관측 가능성)는 로그·지표·트레이스로 내부 실패를 설명할 수 있는 정도다. OpenTelemetry는 계측 표준/도구, Langfuse는 모델 실행 관측 제품이다. trace(트레이스)는 요청의 단계와 지연을 연결한다. SLO, Service Level Objective(서비스 수준 목표)는 품질/가용성 목표다. RTO, Recovery Time Objective(목표 복구 시간), RPO, Recovery Point Objective(목표 복구 시점)는 복구 시간과 허용 데이터 손실 기준이다.",
-          "request_id·case_id·run_id로 검색·모델·검증·DB 구간을 연결한다. 민감한 원문·토큰을 통째로 로그에 남기지 않는다. 백업 파일 생성만으로 복구 성공이라 보고하지 않는다.",
-          "한 관측 경로를 선택하고 장애→알림→진단→복원→검증을 runbook(운영 절차서)으로 적는다. 별도 백업에서 실제 조회까지 확인한다."
+          "Observability·Recovery — 관측과 복구(recovery) 증거",
+          "observability(관측 가능성)는 로그·지표·트레이스(trace)로 내부 실패를 설명할 수 있는 정도다. OpenTelemetry는 계측(instrumentation) 표준/도구, Langfuse는 모델 실행 관측 제품이다. trace(트레이스)는 요청의 단계와 지연(latency)을 연결한다. SLO, Service Level Objective(서비스 수준 목표)는 품질/가용성 목표다. RTO, Recovery Time Objective(목표 복구 시간), RPO, Recovery Point Objective(목표 복구 시점)는 복구(recovery) 시간과 허용 데이터 손실 기준이다.",
+          "request_id·case_id·run_id로 검색·모델·검증·DB 구간을 연결한다. 민감한 원문·토큰(token)을 통째로 로그에 남기지 않는다. 백업(backup) 파일 생성만으로 복구(recovery) 성공이라 보고하지 않는다.",
+          "한 관측 경로를 선택하고 장애→알림→진단→복원(restore)→검증을 runbook(운영 절차서)으로 적는다. 별도 백업(backup)에서 실제 조회까지 확인한다."
         ]
       ],
       "quiz": [
@@ -960,12 +960,12 @@
           "요청을 받을 준비와 재시작 필요 판단은 다르다. 외부 의존성 실패를 무조건 생존 실패로 처리하지 않는다."
         ],
         [
-          "Kubernetes Secret은 base64라서 안전하게 암호화되는가?",
-          "base64는 인코딩이다. 최소 권한·저장 암호화·노출 방지 등 별도 보호가 필요하다."
+          "Kubernetes Secret은 base64라서 안전하게 암호화(encryption)되는가?",
+          "base64는 인코딩이다. 최소 권한(least privilege)·저장 암호화(encryption)·노출 방지 등 별도 보호가 필요하다."
         ],
         [
-          "백업 파일이 생성됐으면 복구 검증도 끝나는가?",
-          "복원 후 실제 상태·데이터 조회와 시간/손실 조건을 확인해야 한다."
+          "백업(backup) 파일이 생성됐으면 복구(recovery) 검증도 끝나는가?",
+          "복원(restore) 후 실제 상태·데이터 조회와 시간/손실 조건을 확인해야 한다."
         ]
       ],
       "start": "2026-11-13",
@@ -982,21 +982,21 @@
         {
           "title": "책 10장 읽기·설계/개념 노트",
           "hours": 6,
-          "ac": "10.1–10.10 전체: 모니터링 스택 선택·OpenTelemetry 계측·시각화/알림·섀도/카나리·회귀 트레이스·자가 치유·피드백·분포 변화·지표 소유권. 9.4 배포 준비와 8.9 상태/영속성도 복습한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
+          "ac": "10.1–10.10 전체: 모니터링(monitoring) 스택 선택·OpenTelemetry 계측(instrumentation)·시각화/알림·섀도/카나리·회귀 트레이스(trace)·자가 치유·피드백·분포 변화·지표 소유권. 9.4 배포(deployment) 준비와 8.9 상태/영속성(persistence)도 복습한다. 산출물(deliverables): 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
           "id": "W7.1",
           "dependsOn": "W6"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
-          "ac": "Dockerfile과 Compose로 앱/DB를 재현 기동한다. 관측 필드·트레이스를 연결하고 DB 재시작/별도 백업 복원을 확인한다. 로컬 Kubernetes에서 API Deployment·Service·설정·probes·자원 제한·롤백을 실습한다. CI는 테스트·이미지 빌드 한 경로를 만든다. 산출물: 정상/실패 expected/actual·raw 결과.",
+          "ac": "Dockerfile과 Compose로 앱/DB를 재현 기동한다. 관측 필드·트레이스(trace)를 연결하고 DB 재시작/별도 백업(backup) 복원(restore)을 확인한다. 로컬 Kubernetes에서 API Deployment·Service·설정·probes·자원 제한·롤백(rollback)을 실습한다. CI는 테스트·이미지 빌드 한 경로를 만든다. 산출물(deliverables): 정상/실패 expected/actual·raw 결과.",
           "id": "W7.2",
           "dependsOn": "W7.1"
         },
         {
           "title": "영상·SA 보충 실습 — 관측·Docker·Kubernetes·CI/CD·복구",
           "hours": 8,
-          "ac": "승인 영상 배정 4.5h + 연결 실습 3.5h. Dockerfile·Compose, 로컬 Kubernetes 설정/배포 기록, CI workflow, 구조화 로그·트레이스, 백업/복구 runbook. 같은 버전으로 재현 기동하고 readiness/liveness를 구분한다. 로컬 배포·롤백·상태 확인과 DB 백업 복원 증거가 있으며 비밀 값이 Git/로그에 없다.",
+          "ac": "승인 영상 배정 4.5h + 연결 실습 3.5h. Dockerfile·Compose, 로컬 Kubernetes 설정/배포(deployment) 기록, CI workflow, 구조화 로그(structured logs)·트레이스(trace), 백업(backup)/복구(recovery) runbook. 같은 버전으로 재현 기동하고 readiness/liveness를 구분한다. 로컬 배포·롤백(rollback)·상태 확인과 DB 백업 복원(restore) 증거가 있으며 비밀 값이 Git/로그에 없다.",
           "id": "W7.3",
           "dependsOn": "W7.2"
         },
@@ -1017,7 +1017,7 @@
           ],
           "scope": "W1에 이어 Dockerfile/build 약 18분 + Compose 약 16분. 같은 입문 목록 전체를 반복하지 않는다.",
           "after": "10장 관측 필드와 배포 대상 이해",
-          "practice": "API 이미지, DB 볼륨, healthcheck, 설정/비밀 분리를 구현하고 Compose 재기동 및 DB 복원을 확인한다."
+          "practice": "API 이미지, DB 볼륨(volume), healthcheck, 설정/비밀 분리를 구현하고 Compose 재기동 및 DB 복원(restore)을 확인한다."
         },
         {
           "r": 5,
@@ -1026,7 +1026,7 @@
           ],
           "scope": "5-2 probes, 5-6 자원, 6-3 Deployment, 7-1 Service, 10 ConfigMap, 11 Secret을 선택한다. 실행에 필요한 예제부터 보고 남는 심화는 추가 시간에 본다.",
           "after": "Docker 이미지·상태/설정 분리",
-          "practice": "W3 로컬 클러스터에 API를 Deployment/Service로 배포한다. readiness/liveness·requests/limits·ConfigMap/Secret·로그·롤백을 실제 확인한다. Secret의 base64는 암호화가 아니다."
+          "practice": "W3 로컬 클러스터에 API를 Deployment/Service로 배포(deployment)한다. readiness/liveness·requests/limits·ConfigMap/Secret·로그·롤백(rollback)을 실제 확인한다. Secret의 base64는 암호화(encryption)가 아니다."
         },
         {
           "r": 7,
@@ -1035,10 +1035,10 @@
           ],
           "scope": "CI/CD와 GitHub Actions 개념을 보고 공식 문서로 프로젝트용 최소 workflow를 만든다.",
           "after": "로컬 배포가 재현된 뒤",
-          "practice": "검증→테스트→이미지 빌드 단계와 실패 차단을 확인한다. 자동 운영 배포 권한은 설계에서 검토한다."
+          "practice": "검증→테스트→이미지 빌드 단계와 실패 차단을 확인한다. 자동 운영 배포(deployment) 권한(permissions)은 설계에서 검토한다."
         }
       ],
-      "videoText": "### 영상 1. Docker · 학습 묶음 4\n\n**보는 시점:** 10장 관측 필드와 배포 대상 이해 다음.\n\n- [도커: 이미지 만드는 법 - Dockerfile & build](https://www.youtube.com/watch?v=0kQC19w0gTI) — 생활코딩, 한국어 수업.\n- [Docker Compose](https://www.youtube.com/watch?v=EK6iYRCIjYs) — 생활코딩, 한국어 수업.\n\n**볼 범위:** W1에 이어 Dockerfile/build 약 18분 + Compose 약 16분. 같은 입문 목록 전체를 반복하지 않는다.\n\n**시청 직후 실습:** API 이미지, DB 볼륨, healthcheck, 설정/비밀 분리를 구현하고 Compose 재기동 및 DB 복원을 확인한다.\n\n### 영상 2. Kubernetes · 학습 묶음 5\n\n**보는 시점:** Docker 이미지·상태/설정 분리 다음.\n\n- [[따배쿠] 쿠버네티스 시리즈](https://www.youtube.com/playlist?list=PLApuRlvrZKohaBHvXAOhUD-RxD0uQ3z0c) — TTABAE-LEARN, 한국어 수업.\n\n**볼 범위:** 5-2 probes, 5-6 자원, 6-3 Deployment, 7-1 Service, 10 ConfigMap, 11 Secret을 선택한다. 실행에 필요한 예제부터 보고 남는 심화는 추가 시간에 본다.\n\n**시청 직후 실습:** W3 로컬 클러스터에 API를 Deployment/Service로 배포한다. readiness/liveness·requests/limits·ConfigMap/Secret·로그·롤백을 실제 확인한다. Secret의 base64는 암호화가 아니다.\n\n### 영상 3. CI/CD · 학습 묶음 7\n\n**보는 시점:** 로컬 배포가 재현된 뒤 다음.\n\n- [[10분 테코톡] 도비의 CI/CD와 Github Action](https://www.youtube.com/watch?v=SKILL1pT6f4) — 우아한테크, 한국어 수업.\n\n**볼 범위:** CI/CD와 GitHub Actions 개념을 보고 공식 문서로 프로젝트용 최소 workflow를 만든다.\n\n**시청 직후 실습:** 검증→테스트→이미지 빌드 단계와 실패 차단을 확인한다. 자동 운영 배포 권한은 설계에서 검토한다.\n",
+      "videoText": "### 영상 1. Docker · 학습 묶음 4\n\n**보는 시점:** 10장 관측 필드와 배포(deployment) 대상 이해 다음.\n\n- [도커: 이미지 만드는 법 - Dockerfile & build](https://www.youtube.com/watch?v=0kQC19w0gTI) — 생활코딩, 한국어 수업.\n- [Docker Compose](https://www.youtube.com/watch?v=EK6iYRCIjYs) — 생활코딩, 한국어 수업.\n\n**볼 범위:** W1에 이어 Dockerfile/build 약 18분 + Compose 약 16분. 같은 입문 목록 전체를 반복하지 않는다.\n\n**시청 직후 실습:** API 이미지, DB 볼륨(volume), healthcheck, 설정/비밀 분리를 구현하고 Compose 재기동 및 DB 복원(restore)을 확인한다.\n\n### 영상 2. Kubernetes · 학습 묶음 5\n\n**보는 시점:** Docker 이미지·상태/설정 분리 다음.\n\n- [[따배쿠] 쿠버네티스 시리즈](https://www.youtube.com/playlist?list=PLApuRlvrZKohaBHvXAOhUD-RxD0uQ3z0c) — TTABAE-LEARN, 한국어 수업.\n\n**볼 범위:** 5-2 probes, 5-6 자원, 6-3 Deployment, 7-1 Service, 10 ConfigMap, 11 Secret을 선택한다. 실행에 필요한 예제부터 보고 남는 심화는 추가 시간에 본다.\n\n**시청 직후 실습:** W3 로컬 클러스터에 API를 Deployment/Service로 배포(deployment)한다. readiness/liveness·requests/limits·ConfigMap/Secret·로그·롤백(rollback)을 실제 확인한다. Secret의 base64는 암호화(encryption)가 아니다.\n\n### 영상 3. CI/CD · 학습 묶음 7\n\n**보는 시점:** 로컬 배포(deployment)가 재현된 뒤 다음.\n\n- [[10분 테코톡] 도비의 CI/CD와 Github Action](https://www.youtube.com/watch?v=SKILL1pT6f4) — 우아한테크, 한국어 수업.\n\n**볼 범위:** CI/CD와 GitHub Actions 개념을 보고 공식 문서로 프로젝트용 최소 workflow를 만든다.\n\n**시청 직후 실습:** 검증→테스트→이미지 빌드 단계와 실패 차단을 확인한다. 자동 운영 배포 권한(permissions)은 설계에서 검토한다.\n",
       "sources": [
         [
           "Docker Compose",
@@ -1065,7 +1065,7 @@
           "https://opentelemetry.io/docs/concepts/signals/"
         ]
       ],
-      "awsConnection": "**AWS 연결 실습:** W5 사용자 지정 AWS 영상/교안의 서버 접속·배포 흐름을 기존 FastAPI/Compose 로컬 실습에 적용한다. Express/Spring 문법을 새로 배우지 않고 실행 명령·포트·환경 변수·로그·재시작/복원 증거를 남긴다. EC2 실제 배포는 선택 심화다."
+      "awsConnection": "**AWS 연결 실습:** W5 사용자 지정 AWS 영상/교안의 서버 접속·배포(deployment) 흐름을 기존 FastAPI/Compose 로컬 실습에 적용한다. Express/Spring 문법을 새로 배우지 않고 실행 명령·포트(port)·환경 변수·로그·재시작/복원(restore) 증거를 남긴다. EC2 실제 배포는 선택 심화다."
     },
     {
       "week": 8,
@@ -1073,38 +1073,38 @@
       "chapters": [
         13
       ],
-      "book": "13.1–13.4 전체: 인간 역할·자율성·이해관계자 도입, 협업 범위·공유 메모리 경계, 신뢰·책임·대응 절차·프라이버시/컴플라이언스. 2.7 트레이드오프와 3.4–3.5 불확실성·신뢰를 고객 제안으로 연결한다.",
-      "bookLab": "고객 요구사항 인터뷰를 역할극으로 진행하고 성공 기준·책임·사람 검토 조건을 문서화한다. Compose/관리형 컨테이너/Kubernetes를 비용·운영 인력·확장·복구·통합 조건으로 비교한다. 실제 실행 증거가 있는 6개 준비 자산을 검토한다.",
-      "assets": "요구사항·성공 기준, 기술/제품 비교표, ADR, 권한·자율성 표, TCO 시나리오, W9 준비 체크리스트",
-      "gate": "API·실제 검색·영속 DB·권한/검토·재현 기동·평가 세트가 준비되어야 W9를 시작한다. 기술 선택·비용·미실행 범위를 고객에게 설명할 수 있다.",
+      "book": "13.1–13.4 전체: 인간 역할·자율성·이해관계자 도입, 협업 범위·공유 메모리 경계, 신뢰·책임·대응 절차·프라이버시/컴플라이언스. 2.7 트레이드오프(trade-off)와 3.4–3.5 불확실성·신뢰를 고객 제안으로 연결한다.",
+      "bookLab": "고객 요구사항(requirements) 인터뷰를 역할극으로 진행하고 성공 기준·책임·사람 검토(human review) 조건을 문서화한다. Compose/관리형 컨테이너(container)/Kubernetes를 비용·운영 인력·확장·복구(recovery)·통합 조건으로 비교한다. 실제 실행 증거가 있는 6개 준비 자산을 검토한다.",
+      "assets": "요구사항(requirements)·성공 기준, 기술/제품 비교표, ADR, 권한(permissions)·자율성 표, TCO 시나리오, W9 준비 체크리스트",
+      "gate": "API·실제 검색·영속 DB(persistent database)·권한(permissions)/검토·재현 기동·평가 세트(evaluation set)가 준비되어야 W9를 시작한다. 기술 선택·비용·미실행 범위를 고객에게 설명할 수 있다.",
       "videos": [
         10
       ],
       "videoHours": 0.5,
       "lessons": [
         [
-          "Discovery·Acceptance Criteria — 요구사항과 성공 기준",
-          "discovery(요구사항 탐색)는 고객의 업무·병목·제약·위험·의사결정자를 파악하는 과정이다. NFR, Non-Functional Requirement(비기능 요구사항)는 지연·가용성·보안·비용 같은 품질 조건이다. acceptance criteria(수용 기준)는 완료 판단을 가능한 행동과 측정으로 적는다. 원하는 기술 이름보다 업무 결과를 먼저 확인한다.",
-          "'정확한 답변'을 질문 유형·근거 일치·보류율·평가 세트로 풀고 '빠름'을 동시성·요청 구성·P95로 구체화한다.",
-          "고객/사용자/운영자/검토자에게 물을 질문 8개와 측정 가능한 성공 기준을 작성한다."
+          "Discovery·Acceptance Criteria — 요구사항(requirements)과 성공 기준",
+          "discovery(요구사항 탐색)는 고객의 업무·병목(bottleneck)·제약·위험·의사결정자를 파악하는 과정이다. NFR, Non-Functional Requirement(비기능 요구사항)는 지연(latency)·가용성·보안(security)·비용 같은 품질 조건이다. acceptance criteria(수용 기준)는 완료 판단을 가능한 행동과 측정으로 적는다. 원하는 기술 이름보다 업무 결과를 먼저 확인한다.",
+          "'정확한 답변'을 질문 유형·근거 일치·보류율·평가 세트(evaluation set)로 풀고 '빠름'을 동시성(concurrency)·요청 구성·P95로 구체화한다.",
+          "고객/사용자/운영자/검토자(reviewer)에게 물을 질문 8개와 측정 가능한 성공 기준을 작성한다."
         ],
         [
-          "HITL·Governance — 사람 검토와 책임",
-          "HITL, Human-in-the-Loop(사람이 참여하는 의사결정)는 필요한 단계에서 인간이 검토·승인·수정하게 하는 방식이다. governance(거버넌스)는 누가 기준·권한·변경·사고 대응을 책임지는지 정하는 운영 체계다. 검토 대기 상태와 최종 결정을 구분하고 누가 무엇을 봤는지 감사 기록을 남긴다.",
-          "모델이 REVIEW_PENDING을 출력했다고 승인이 끝난 것이 아니다. 검토자는 자신의 tenant 범위에서 최신 case_version에 대해 결정한다.",
-          "자율성 수준·승인권자·검토 시간·이의 제기·사고 대응 표를 만든다. 권한 없는 승인·중복 결정 실패를 확인한다."
+          "HITL·Governance — 사람 검토(human review)와 책임",
+          "HITL, Human-in-the-Loop(사람이 참여하는 의사결정)는 필요한 단계에서 인간이 검토·승인·수정하게 하는 방식이다. governance(거버넌스)는 누가 기준·권한(permissions)·변경·사고 대응을 책임지는지 정하는 운영 체계다. 검토 대기 상태와 최종 결정을 구분하고 누가 무엇을 봤는지 감사 기록(audit log)을 남긴다.",
+          "모델이 REVIEW_PENDING을 출력했다고 승인이 끝난 것이 아니다. 검토자(reviewer)는 자신의 tenant 범위에서 최신 case_version에 대해 결정한다.",
+          "자율성 수준·승인권자·검토 시간·이의 제기·사고 대응 표를 만든다. 권한(permissions) 없는 승인·중복 결정 실패를 확인한다."
         ],
         [
           "ADR·Build vs Buy — 설계 결정과 제품 비교",
-          "ADR, Architecture Decision Record(아키텍처 결정 기록)는 맥락·대안·선택 이유·결과를 남기는 문서다. build vs buy(직접 구현과 구매/관리형 서비스 선택)는 기능뿐 아니라 운영 인력·데이터 경계·비용·벤더 의존성·이전 가능성을 비교한다. Kubernetes를 배웠어도 모든 고객의 기본 배포 방식으로 정할 이유는 없다.",
-          "간단한 내부 시연과 상시 다중 팀 서비스는 운영 요구가 다르다. Compose·관리형 컨테이너·Kubernetes를 같은 조건표로 비교한다.",
+          "ADR, Architecture Decision Record(아키텍처 결정 기록)는 맥락·대안·선택 이유·결과를 남기는 문서다. build vs buy(직접 구현과 구매/관리형 서비스 선택)는 기능뿐 아니라 운영 인력·데이터 경계·비용·벤더 의존성·이전 가능성을 비교한다. Kubernetes를 배웠어도 모든 고객의 기본 배포(deployment) 방식으로 정할 이유는 없다.",
+          "간단한 내부 시연과 상시 다중 팀 서비스는 운영 요구가 다르다. Compose·관리형 컨테이너(container)·Kubernetes를 같은 조건표로 비교한다.",
           "영상 10의 아키텍처 검토 세션을 보고 3개 대안을 비교한다. 선택 하나와 제외 이유, 다시 검토할 조건을 ADR로 남긴다."
         ],
         [
           "Readiness·Evidence — 제작 준비와 실행 증거",
           "readiness(준비 상태)는 다음 단계에 필요한 자산이 실제로 동작하는지 확인하는 기준이다. evidence(증거)는 실행 명령·버전·입력·기대/실제 결과·로그·commit/run_id로 구성한다. 문서·fixture(고정 시험 예제)·실제 모델/DB 실행을 구분한다. 2주 MVP는 준비된 모듈을 통합하는 추정이며 준비되지 않은 핵심을 모두 새로 구현할 여유로 간주하지 않는다.",
-          "입력 모델만 있고 검색·DB·권한이 작동하지 않으면 제작 시작 조건이 충족되지 않았다. 미완료를 실제 상태로 기록하고 일정/범위를 조정한다.",
-          "6개 준비 자산과 Docker/Kubernetes 실습 기록을 확인한다. dev20/holdout30·모델·인덱스·프롬프트·예산·환경을 동결한다."
+          "입력 모델만 있고 검색·DB·권한(permissions)이 작동하지 않으면 제작 시작 조건이 충족되지 않았다. 미완료를 실제 상태로 기록하고 일정/범위를 조정한다.",
+          "6개 준비 자산과 Docker/Kubernetes 실습 기록을 확인한다. dev20/holdout30·모델·인덱스(index)·프롬프트(prompt)·예산·환경을 동결한다."
         ]
       ],
       "quiz": [
@@ -1114,7 +1114,7 @@
         ],
         [
           "Kubernetes를 공부했으니 모든 프로젝트에 적용해야 하는가?",
-          "운영 요구와 팀의 역량·비용에 따라 배포 방식을 선택한다. 로컬 학습 완료와 실서비스 도입은 다른 결정이다."
+          "운영 요구와 팀의 역량·비용에 따라 배포(deployment) 방식을 선택한다. 로컬 학습 완료와 실서비스 도입은 다른 결정이다."
         ],
         [
           "6개 준비 자산이 미완료여도 2주 제작 완료를 약속할 수 있는가?",
@@ -1135,21 +1135,21 @@
         {
           "title": "책 13장 읽기·설계/개념 노트",
           "hours": 6,
-          "ac": "13.1–13.4 전체: 인간 역할·자율성·이해관계자 도입, 협업 범위·공유 메모리 경계, 신뢰·책임·대응 절차·프라이버시/컴플라이언스. 2.7 트레이드오프와 3.4–3.5 불확실성·신뢰를 고객 제안으로 연결한다. 산출물: 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
+          "ac": "13.1–13.4 전체: 인간 역할·자율성·이해관계자 도입, 협업 범위·공유 메모리 경계, 신뢰·책임·대응 절차·프라이버시/컴플라이언스. 2.7 트레이드오프(trade-off)와 3.4–3.5 불확실성·신뢰를 고객 제안으로 연결한다. 산출물(deliverables): 핵심 용어의 영어·한글 뜻과 업무 설계 메모.",
           "id": "W8.1",
           "dependsOn": "W7"
         },
         {
           "title": "책 개념을 적용한 프로젝트 실습",
           "hours": 6,
-          "ac": "고객 요구사항 인터뷰를 역할극으로 진행하고 성공 기준·책임·사람 검토 조건을 문서화한다. Compose/관리형 컨테이너/Kubernetes를 비용·운영 인력·확장·복구·통합 조건으로 비교한다. 실제 실행 증거가 있는 6개 준비 자산을 검토한다. 산출물: 정상/실패 expected/actual·raw 결과.",
+          "ac": "고객 요구사항(requirements) 인터뷰를 역할극으로 진행하고 성공 기준·책임·사람 검토(human review) 조건을 문서화한다. Compose/관리형 컨테이너(container)/Kubernetes를 비용·운영 인력·확장·복구(recovery)·통합 조건으로 비교한다. 실제 실행 증거가 있는 6개 준비 자산을 검토한다. 산출물(deliverables): 정상/실패 expected/actual·raw 결과.",
           "id": "W8.2",
           "dependsOn": "W8.1"
         },
         {
           "title": "영상·SA 보충 실습 — 인간 협업·거버넌스·고객 제안·제작 준비",
           "hours": 8,
-          "ac": "승인 영상 배정 0.5h + 연결 실습 7.5h. 요구사항·성공 기준, 기술/제품 비교표, ADR, 권한·자율성 표, TCO 시나리오, W9 준비 체크리스트. API·실제 검색·영속 DB·권한/검토·재현 기동·평가 세트가 준비되어야 W9를 시작한다. 기술 선택·비용·미실행 범위를 고객에게 설명할 수 있다.",
+          "ac": "승인 영상 배정 0.5h + 연결 실습 7.5h. 요구사항(requirements)·성공 기준, 기술/제품 비교표, ADR, 권한(permissions)·자율성 표, TCO 시나리오, W9 준비 체크리스트. API·실제 검색·영속 DB(persistent database)·권한/검토·재현 기동·평가 세트(evaluation set)가 준비되어야 W9를 시작한다. 기술 선택·비용·미실행 범위를 고객에게 설명할 수 있다.",
           "id": "W8.3",
           "dependsOn": "W8.2"
         },
@@ -1167,28 +1167,28 @@
           "select": [
             0
           ],
-          "scope": "Well-Architected 소개 약 26분. W6 비용표와 W7 운영 결과를 가져와 설계 리뷰를 한다.",
+          "scope": "Well-Architected 소개 약 26분. W6 비용표와 W7 운영 결과를 가져와 설계 리뷰(design review)를 한다.",
           "after": "13장 인간 협업·책임·거버넌스",
           "practice": "6개 관점(운영 우수성·보안·신뢰성·성능 효율·비용 최적화·지속 가능성)으로 ADR과 고객 제안서를 리뷰한다. 미검증 항목과 선택 이유를 표시한다."
         }
       ],
-      "videoText": "### 영상 1. SA design review and cost · 학습 묶음 10\n\n**보는 시점:** 13장 인간 협업·책임·거버넌스 다음.\n\n- [당신의 아키텍처는 Well-Architected 한가요?](https://www.youtube.com/watch?v=VpSNzSI0pk8) — Amazon Web Services Korea, 한국어 수업.\n\n**볼 범위:** Well-Architected 소개 약 26분. W6 비용표와 W7 운영 결과를 가져와 설계 리뷰를 한다.\n\n**시청 직후 실습:** 6개 관점(운영 우수성·보안·신뢰성·성능 효율·비용 최적화·지속 가능성)으로 ADR과 고객 제안서를 리뷰한다. 미검증 항목과 선택 이유를 표시한다.\n",
+      "videoText": "### 영상 1. SA design review and cost · 학습 묶음 10\n\n**보는 시점:** 13장 인간 협업(human-agent collaboration)·책임·거버넌스(governance) 다음.\n\n- [당신의 아키텍처는 Well-Architected 한가요?](https://www.youtube.com/watch?v=VpSNzSI0pk8) — Amazon Web Services Korea, 한국어 수업.\n\n**볼 범위:** Well-Architected 소개 약 26분. W6 비용표와 W7 운영 결과를 가져와 설계 리뷰(design review)를 한다.\n\n**시청 직후 실습:** 6개 관점(운영 우수성·보안·신뢰성·성능 효율·비용 최적화·지속 가능성)으로 ADR과 고객 제안서를 리뷰한다. 미검증 항목과 선택 이유를 표시한다.\n",
       "sources": [
         [
           "AWS Well-Architected",
           "https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html"
         ]
       ],
-      "awsConnection": "**AWS 연결 실습:** W5 사용자 지정 AWS 영상의 EC2·보안그룹과 교안의 Route 53/DNS 개념을 가져와 플랫폼 선택 ADR을 작성한다. 도메인 연결과 TLS를 구분하고 EC2/Compose·관리형 플랫폼의 비용/운영 책임을 비교한다. 도메인 구매·실제 AWS 구축은 필수가 아니다."
+      "awsConnection": "**AWS 연결 실습:** W5 사용자 지정 AWS 영상의 EC2·보안그룹(security group)과 교안의 Route 53/DNS 개념을 가져와 플랫폼 선택 ADR을 작성한다. 도메인(domain) 연결과 TLS를 구분하고 EC2/Compose·관리형 플랫폼의 비용/운영 책임을 비교한다. 도메인 구매·실제 AWS 구축은 필수가 아니다."
     },
     {
       "week": 9,
       "title": "MVP 통합 — 근거 응답·영속 상태·권한 있는 검토",
       "chapters": [],
-      "book": "『AI 에이전트 엔지니어링』2·4·5·6·8·12·13장의 설계·도구·지식·상태·보안·협업을 W1–W8 자산으로 적용한다.",
-      "bookLab": "W8준비gate를먼저확인하고입력→권한→검색→생성→검증→분기→저장→조회/검토의통합경로를완성한다.",
-      "assets": "통합API·지속DB·근거/보류/검토3경로와 회귀검증",
-      "gate": "정상 근거 응답·근거 없는 보류·고위험 검토가 실제 검색/모델/DB 경로에서 동작하고 재시작 후 조회된다. viewer와 다른 tenant의 검토를 거부한다.",
+      "book": "『AI 에이전트 엔지니어링』2·4·5·6·8·12·13장의 설계·도구·지식·상태·보안(security)·협업을 W1–W8 자산으로 적용한다.",
+      "bookLab": "W8준비gate를먼저확인하고입력→권한(permissions)→검색→생성→검증→분기→저장→조회/검토의통합경로를완성한다.",
+      "assets": "통합API·지속DB·근거/보류/검토3경로와 회귀검증(regression testing)",
+      "gate": "정상 근거 응답(grounded response)·근거 없는 보류·고위험 검토가 실제 검색/모델/DB 경로에서 동작하고 재시작 후 조회된다. viewer와 다른 tenant의 검토를 거부한다.",
       "lessons": [],
       "quiz": [],
       "start": "2026-11-27",
@@ -1200,7 +1200,7 @@
         {
           "title": "범위·계약·환경 동결과 통합 입력 준비",
           "hours": 5,
-          "ac": "W8 준비 gate 증거 확인. 모델/벡터backend/코퍼스/권한/상태/API계약을 동결하고 새 환경 기동한다.",
+          "ac": "W8 준비 gate 증거 확인. 모델/벡터backend/코퍼스/권한(permissions)/상태/API계약을 동결하고 새 환경 기동한다.",
           "id": "W9.1",
           "dependsOn": "W8"
         },
@@ -1214,7 +1214,7 @@
         {
           "title": "영속 상태·검토 권한·감사 원자성 통합",
           "hours": 6,
-          "ac": "case/review/audit를 PostgreSQL로 저장. 동시/중복검토·권한거부·재시작조회·rollback을 검증한다.",
+          "ac": "case/review/audit를 PostgreSQL로 저장. 동시/중복검토·권한(permissions)거부·재시작조회·rollback을 검증한다.",
           "id": "W9.3",
           "dependsOn": "W9.2"
         },
@@ -1239,9 +1239,9 @@
       "week": 10,
       "title": "MVP 검증 — 최종 평가·복구·포트폴리오 시연",
       "chapters": [],
-      "book": "『AI 에이전트 엔지니어링』9·10·11·13장의 평가·관측·개선·고객 설명을 적용한다.",
-      "bookLab": "개발20+동결 holdout30질문을구분해실제 모델평가를수행한다. 깨끗한환경기동·재시작·백업 복원을검증하고코드/보고서/시연을연결한다.",
-      "assets": "평가raw결과·benchmark표·복구기록·README/아키텍처·5분데모",
+      "book": "『AI 에이전트 엔지니어링』9·10·11·13장의 평가(evaluation)·관측·개선·고객 설명을 적용한다.",
+      "bookLab": "개발20+동결 holdout30질문을구분해실제 모델평가를수행한다. 깨끗한환경기동·재시작·백업(backup) 복원(restore)을검증하고코드/보고서/시연을연결한다.",
+      "assets": "평가(evaluation)raw결과·benchmark표·복구(recovery)기록·README/아키텍처·5분데모",
       "gate": "재현 명령·버전·예산·측정 조건과 실패 사례가 합성 자료의 실행 증거로 추적된다. 안전 gate 통과 여부와 품질 목표 달성을 분리해 보고한다.",
       "lessons": [],
       "quiz": [],
@@ -1255,14 +1255,14 @@
         {
           "title": "50질문 평가·실패 분석·지연/비용 측정",
           "hours": 5,
-          "ac": "dev20/holdout30을 분리 보고하고 raw결과·측정조건·실제 공급자가격·재시도를 기록한다.",
+          "ac": "dev20/holdout30을 분리 보고하고 raw결과·측정조건·실제 공급자가격·재시도(retry)를 기록한다.",
           "id": "W10.1",
           "dependsOn": "W9"
         },
         {
           "title": "Compose·로컬 Kubernetes 기동·롤백·DB 복원·CI 검증",
           "hours": 6,
-          "ac": "새 환경 기동, DB복원 후 사례/감사 조회, 권한/필터/전이 회귀를 통과하고 복구시간을 기록한다. W7에서 준비한 로컬 Kubernetes API 배포/롤백 증거를 재확인한다. 운영 HA 구축은 추가 과정이다.",
+          "ac": "새 환경 기동, DB복원(restore) 후 사례/감사(audit) 조회, 권한(permissions)/필터/전이 회귀를 통과하고 복구(recovery)시간을 기록한다. W7에서 준비한 로컬 Kubernetes API 배포(deployment)/롤백(rollback) 증거를 재확인한다. 운영 HA 구축은 추가 과정이다.",
           "id": "W10.2",
           "dependsOn": "W10.1"
         },
@@ -1303,5 +1303,12 @@
       "url": "https://fastcampus.co.kr/dev_online_computer",
       "assignment": "Notion 허브의 추천 링크. 22h 필수 과제로 추가하지 않음."
     }
-  ]
+  ],
+  "terminology_policy": {
+    "korean_terms": "Korean (English workplace term) at first occurrence per subsection",
+    "existing_english": "preserve unchanged",
+    "code_and_urls": "preserve unchanged",
+    "source_toc_and_official_titles": "preserve unchanged",
+    "reference": "docs/glossary-ko-en.md"
+  }
 }

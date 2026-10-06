@@ -1,40 +1,40 @@
 # 책과 SA 보완 영역 · 기술 스택·실습 범위
 
-주교재: **『AI 에이전트 엔지니어링』**. 목차 기준으로 에이전트 설계·UX·도구·메모리/RAG·오케스트레이션·영속성·평가·운영·보안·거버넌스는 SA의 AI 시스템 설계 공부에 잘 맞는다. 클라우드/플랫폼을 포함한 SA 전체 역할을 한 권으로 충족한다고 보지는 않는다. 아래 “별도 보완”은 목차에 독립 학습 단위가 보이지 않는다는 뜻이며 본문에 전혀 없다는 판정은 아니다.
+주교재: **『AI 에이전트 엔지니어링』**. 목차 기준으로 에이전트(agent) 설계·UX·도구·메모리/RAG·오케스트레이션(orchestration)·영속성(persistence)·평가(evaluation)·운영·보안(security)·거버넌스(governance)는 SA의 AI 시스템 설계 공부에 잘 맞는다. 클라우드/플랫폼을 포함한 SA 전체 역할을 한 권으로 충족한다고 보지는 않는다. 아래 “별도 보완”은 목차에 독립 학습 단위가 보이지 않는다는 뜻이며 본문에 전혀 없다는 판정은 아니다.
 
 ## 보완할 영역
 
 | 보완 영역 | 공부·검증할 내용 | 책 연결 / 보완 방식 | 주차 |
 |---|---|---|---|
-| 백엔드 계약·처리 | **API, 입력 검증, 트랜잭션, 비동기 처리** | 2·4·5·8장의 도구·상태를 실제 계약/실패로 적용. Python·HTTP·SQL 기초 과정은 제외 | W1·4·5 |
-| 클라우드 인프라 | VPC/서브넷·라우팅·DNS/TLS·IAM·비밀 관리·컴퓨팅/스토리지 선택 | 2장 트레이드오프와 12장 보안을 클라우드 경계로 보완 | W5·8 |
-| 컨테이너 | **Docker 이미지·Dockerfile·Compose·네트워크·볼륨·로그·이미지 버전** | 별도 영상 + 실제 API/DB 기동·복원 | W1·7 |
-| Kubernetes | **로컬 클러스터·kubectl·Pod·Deployment·Service·probes·requests/limits·ConfigMap/Secret·배포/롤백** | 별도 영상 + 로컬 배포 필수. 운영 HA·관리형 클러스터는 심화 | W3·7·10 |
-| 장애와 복구 | timeout·cancel·retry·idempotency·backpressure·백업/복원·부하 시험 | 2·5·8·10장의 신뢰성/상태/관측을 실행 증거로 적용 | W3·4·5·7·10 |
-| RAG 세부 구현 | 분할·검색 품질·정책 버전/권한 필터·근거 ID/의미 검증·메모리 오염 | **책 6장에 이미 포함된 주제**를 프로젝트 데이터·보안 경계에서 깊게 실습 | W2·3·9 |
-| 고객 제안과 경제성 | 요구사항 인터뷰·NFR·성공 기준·제품 비교·TCO·ROI·도입 효과·설계 리뷰 | 2·13장의 비용/협업을 고객 제안·의사결정 산출물로 확장 | W1·6·8·10 |
+| 백엔드 계약·처리 | **API, 입력 검증(input validation), 트랜잭션(transaction), 비동기 처리(async processing)** | 2·4·5·8장의 도구·상태를 실제 계약/실패로 적용. Python·HTTP·SQL 기초 과정은 제외 | W1·4·5 |
+| 클라우드 인프라 | VPC/서브넷(subnet)·라우팅(routing)·DNS/TLS·IAM·비밀 관리(secrets management)·컴퓨팅(compute)/스토리지(storage) 선택 | 2장 트레이드오프(trade-off)와 12장 보안(security)을 클라우드 경계로 보완 | W5·8 |
+| 컨테이너(container) | **Docker 이미지·Dockerfile·Compose·네트워크(network)·볼륨(volume)·로그·이미지 버전** | 별도 영상 + 실제 API/DB 기동·복원(restore) | W1·7 |
+| Kubernetes | **로컬 클러스터·kubectl·Pod·Deployment·Service·probes·requests/limits·ConfigMap/Secret·배포(deployment)/롤백(rollback)** | 별도 영상 + 로컬 배포 필수. 운영 HA·관리형 클러스터는 심화 | W3·7·10 |
+| 장애와 복구(recovery) | timeout·cancel·retry·idempotency·backpressure·백업(backup)/복원·부하 시험(load testing) | 2·5·8·10장의 신뢰성/상태/관측을 실행 증거로 적용 | W3·4·5·7·10 |
+| RAG 세부 구현 | 분할·검색 품질·정책 버전/권한(permissions) 필터·근거 ID/의미 검증·메모리 오염 | **책 6장에 이미 포함된 주제**를 프로젝트 데이터·보안 경계에서 깊게 실습 | W2·3·9 |
+| 고객 제안과 경제성 | 요구사항(requirements) 인터뷰·NFR·성공 기준·제품 비교·TCO·ROI·도입 효과·설계 리뷰(design review) | 2·13장의 비용/협업을 고객 제안·의사결정 산출물(deliverables)로 확장 | W1·6·8·10 |
 
 ## 추가로 알아야 할 SA 기술 스택
 
 | 영역 / 후보 기술 | SA가 설명·검증해야 할 선택 | 필수 깊이 / 추가 범위 |
 |---|---|---|
-| API / FastAPI·Pydantic·OpenAPI | 계약·엄격한 타입/변환·입력/출력 검증·오류 의미·버전 | W1 계약/실패 실습. 다른 언어 문법 기초는 제외 |
-| 상태 저장 / PostgreSQL | 원자적 승인/감사·동시성·마이그레이션·백업/복원 | W5 실제 영속 실습. 데이터 모델을 결정하되 SQL 입문 과정은 제외 |
-| 캐시·큐 / Redis·메시지 브로커·작업 worker | 캐시 무효화/tenant 격리, 내구성·재전달·중복/순서·outbox | **책 8.6·8.9 개념이 있음.** W5 설계/실패 검증. Redis와 여러 브로커를 모두 설치하는 과제는 아님 |
-| 신원 / IAM·RBAC·SSO·OAuth 2.0·OIDC | 서비스 계정/사람 역할·최소 권한·토큰 검증·tenant 경계·비밀 회전 | W5 권한 표/거부 실습. 인터넷 배포 시 실제 IdP 연결 추가 |
-| 네트워크 / AWS VPC·DNS·TLS·NAT·보안 그룹 | 공개 진입점·비공개 DB·egress·인증서·접근 경로 | W5 설계 필수. 현재 비용과 리소스 제약을 확인한 클라우드 실행은 선택 |
-| 실행 플랫폼 / VM·관리형 컨테이너·서버리스·Kubernetes | 운영 복잡도·배포 속도·확장·고정/사용량 비용·팀 역량 | W7 Compose/로컬 K8s 실습 필수. W8 플랫폼 비교 ADR |
-| 저장 / 객체 스토리지·관계형 DB·벡터 스토어 | 수명주기·암호화·거주 지역·백업·일관성·검색 필터 | 한 검색 backend와 PostgreSQL 검증, 제품 여러 개 동시 필수화하지 않음 |
-| 배포 / GitHub Actions·CI/CD | 자동 검증·이미지 태그/digest·릴리스·롤백·배포 권한 | W7 최소 workflow 실제 실행 |
+| API / FastAPI·Pydantic·OpenAPI | 계약·엄격한 타입/변환·입력/출력 검증(output validation)·오류 의미·버전 | W1 계약/실패 실습. 다른 언어 문법 기초는 제외 |
+| 상태 저장 / PostgreSQL | 원자적 승인/감사(audit)·동시성(concurrency)·마이그레이션·백업(backup)/복원(restore) | W5 실제 영속 실습. 데이터 모델을 결정하되 SQL 입문 과정은 제외 |
+| 캐시(cache)·큐 / Redis·메시지 브로커(message broker)·작업 worker | 캐시 무효화/tenant 격리, 내구성·재전달·중복/순서·outbox | **책 8.6·8.9 개념이 있음.** W5 설계/실패 검증. Redis와 여러 브로커를 모두 설치하는 과제는 아님 |
+| 신원 / IAM·RBAC·SSO·OAuth 2.0·OIDC | 서비스 계정/사람 역할·최소 권한(least privilege)·토큰(token) 검증·tenant 경계·비밀 회전 | W5 권한(permissions) 표/거부 실습. 인터넷 배포(deployment) 시 실제 IdP 연결 추가 |
+| 네트워크(network) / AWS VPC·DNS·TLS·NAT·보안 그룹(security group) | 공개 진입점·비공개 DB·egress·인증서·접근 경로 | W5 설계 필수. 현재 비용과 리소스 제약을 확인한 클라우드 실행은 선택 |
+| 실행 플랫폼 / VM·관리형 컨테이너(container)·서버리스·Kubernetes | 운영 복잡도·배포 속도·확장·고정/사용량 비용·팀 역량 | W7 Compose/로컬 K8s 실습 필수. W8 플랫폼 비교 ADR |
+| 저장 / 객체 스토리지(storage)·관계형 DB·벡터 스토어 | 수명주기·암호화(encryption)·거주 지역·백업·일관성(consistency)·검색 필터 | 한 검색 backend와 PostgreSQL 검증, 제품 여러 개 동시 필수화하지 않음 |
+| 배포 / GitHub Actions·CI/CD | 자동 검증·이미지 태그/digest·릴리스·롤백(rollback)·배포 권한 | W7 최소 workflow 실제 실행 |
 | 인프라 코드 / Terraform·IaC | plan/apply·provider 고정·state/잠금·변경 승인·drift | W6 로컬 안전 실습 필수. 전체 AWS Terraform 스택은 추가 |
 | 관측 / OpenTelemetry·Langfuse/Phoenix·Grafana/ELK | trace/metric/log·비밀 제거·품질/비용 지표·알림 소유권 | **책 10장에 명시됨.** 한 스택을 선택해 W7 실행, 전부 설치하지 않음 |
-| 신뢰성 / k6·SLO·RTO·RPO | P95/오류율·용량·장애 주입·복구 시간/데이터 손실 | W3 부하 baseline, W7·10 복구 실행 |
+| 신뢰성 / k6·SLO·RTO·RPO | P95/오류율(error rate)·용량·장애 주입·복구(recovery) 시간/데이터 손실 | W3 부하 baseline, W7·10 복구 실행 |
 | 설계 전달 / ADR·C4·TCO/ROI | 요구→선택→대안→측정→운영 책임 연결 | W8 고객 제안, W10 5분 시연·90초 영어 설명 |
 
-**AWS 학습 자료:** 기존 AWS 네트워크·권한 영상 2개는 사용자 지정 [AWS 입문/실전 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3)으로 교체했다. EC2/보안그룹/포트/배포는 영상·교안으로, VPC/IAM은 공식 문서로 보완하고 W5–W8 기존 실습에 연결한다.
+**AWS 학습 자료:** 기존 AWS 네트워크·권한 영상 2개는 사용자 지정 [AWS 입문/실전 시작 영상](https://www.youtube.com/watch?v=cBbHXCmoUTc&list=PLtUgHNmvcs6qr33RT-UiguSsCr_2Gq0S3&index=3)으로 교체했다. EC2/보안그룹(security group)/포트(port)/배포는 영상·교안으로, VPC/IAM은 공식 문서로 보완하고 W5–W8 기존 실습에 연결한다.
 
 ## 필수와 선택
 
-학습에서 13장 전체를 읽는다. 프로젝트 필수는 텍스트 정책, 한 모델, 한 검색 backend, PostgreSQL, 제한된 workflow, 역할/tenant 경계, 검토/감사, Compose, **로컬 Kubernetes API 배포·롤백**, 평가/관측/CI다. 실제 클라우드 운영·HA·GPU 파인튜닝·멀티모달·복잡한 멀티 에이전트·두 번째 DB/모델은 선택 심화다. 교재에 있는 멀티 에이전트와 학습 기법은 이해/선택 기준을 공부하되 MVP에 자동으로 추가하지 않는다.
+학습에서 13장 전체를 읽는다. 프로젝트 필수는 텍스트 정책, 한 모델, 한 검색 backend, PostgreSQL, 제한된 workflow, 역할/tenant 경계, 검토/감사(audit), Compose, **로컬 Kubernetes API 배포(deployment)·롤백(rollback)**, 평가(evaluation)/관측/CI다. 실제 클라우드 운영·HA·GPU 파인튜닝·멀티모달(multimodal)·복잡한 멀티 에이전트(multi-agent)·두 번째 DB/모델은 선택 심화다. 교재에 있는 멀티 에이전트와 학습 기법은 이해/선택 기준을 공부하되 MVP에 자동으로 추가하지 않는다.
 
 [주차별 연결 교재](curriculum/README.md) · [승인 영상](video-resources.md) · [책 목차](book-toc.md) · [MVP 설계](project-blueprint.md)
